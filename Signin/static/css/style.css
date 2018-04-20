@@ -91,7 +91,7 @@ Project:	Jetson
 @import url(owl.carousel.min.css);
 @import url(owl.theme.default.min.css);
 @import url(lightgallery.css);
-@import url(../../vendors/bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css);
+@import url(awesome-bootstrap-checkbox.css);
 /****************************/
 /** Reset **/
 /****************************/
