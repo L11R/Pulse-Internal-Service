@@ -57,19 +57,20 @@
 									<div class="col-sm-12 col-xs-12">
 										<div class="mb-30">
 											<h3 class="text-center txt-dark mb-10">Войти в личный кабинет</h3>
-											<h6 class="text-center nonecase-font txt-grey">Введите ваши данные ниже</h6>
+											<h6 class="text-center nonecase-font txt-grey" style="color: {{ color }};">{{ msg }}</h6>
 										</div>
 										<div class="form-wrap">
-											<form action="#">
+											<form action="" method="post">
+												{% csrf_token %}
 												<div class="form-group">
-													<label class="control-label mb-10" for="exampleInputEmail_2">Email адрес</label>
-													<input type="email" class="form-control" required="" id="exampleInputEmail_2" placeholder="Введите email">
+													<label class="control-label mb-10" for="InputEmail">Email адрес</label>
+													<input type="email" class="form-control" required="" id="InputEmail" name="InputEmail" placeholder="Введите email">
 												</div>
 												<div class="form-group">
-													<label class="pull-left control-label mb-10" for="exampleInputpwd_2">Пароль</label>
+													<label class="pull-left control-label mb-10" for="Inputpwd">Пароль</label>
 													<a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="#">Забыль пароль ?</a>
 													<div class="clearfix"></div>
-													<input type="password" class="form-control" required="" id="exampleInputpwd_2" placeholder="Введите пароль">
+													<input type="password" class="form-control" required="" id="Inputpwd" name="Inputpwd" placeholder="Введите пароль">
 												</div>
 
 												<div class="form-group">
