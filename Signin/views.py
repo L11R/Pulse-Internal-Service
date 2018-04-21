@@ -33,7 +33,7 @@ def login(request):
 
 @login_required
 def main_page(request):
-    template = loader.get_template('Signin/index.html')
+    template = loader.get_template('Signin/main.html')
     context = {}
     response = HttpResponse(template.render(context, request))
     return response
