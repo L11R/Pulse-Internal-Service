@@ -12,86 +12,142 @@
 
  "use strict";
 
-/***** Connected *****/
-var Connected = function () {
-	var connect = document.getElementById("connect");
-  	connect.classList.add('disabled');
-  	var disconnect = document.getElementById("disconnect");
-  	disconnect.classList.remove('disabled');
-  	var status = document.getElementById("status");
-  	status.innerText = "Принтер подключен";
-};
-/***** End Connected *****/
-/***** Disconnected *****/
-var Disconnected = function () {
-	var connect = document.getElementById("connect");
-  	connect.classList.remove('disabled');
-  	var disconnect = document.getElementById("disconnect");
-  	disconnect.classList.add('disabled');
-  	var status = document.getElementById("status");
-  	status.innerText = "Принтер отключен";
-};
-/***** End Disconnected *****/
+/*function SendDoc(token) {
+	var form = new FormData();
+	var selectedFile = document.getElementById('input-file-now').files[0];
+	form.append("sender", "5da73c00-846a-4c9d-ac7e-c86621ea4d47");
+	form.append("file", selectedFile);
 
-/*****Connect Octoprint Serve ******/
-var ConnectServ = function () {
 var settings = {
   "async": true,
   "crossDomain": true,
-  "url": "http://127.0.0.1:5000/api/connection",
+  "url": "https://dev.internal.pulse.itcanfly.org/api/requests/from_xls/",
   "method": "POST",
   "headers": {
-  	"x-api-key": "E39CDD5E459A4493A6AC51204115204D",
-	  "content-type": "application/json",
-	  "cache-control": "no-cache",
-    "postman-token": "13968f54-1b34-ae87-2761-1fe1477a334b"
+    "authorization": "Token 61409ac947f8e341f27091f2427e004780b6c0dc",
+    "cache-control": "no-cache"
   },
   "processData": false,
-  "data": '{"command": "connect"}',
-  "success": function() {
-  	//alert("Success");
-	  Connected();
-	  },
-  "error": function() {
-  	//alert("Error");
-  	var status = document.getElementById("status");
-  	status.innerText = "Не удалось подключиться";
-                }
+  "contentType": false,
+  "mimeType": "multipart/form-data",
+  "data": form
 };
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-};
-/***** Disconnect Octoprint Serve ******/
-var DisconnectServ = function () {
-var settings = {
+//$.ajax({
+//	type: "POST",
+//	success: function () {
+//		$('#exampleModal').modal('show');
+//$.ajax(settings).done(function (response) {
+//  console.log(response);
+//});
+//    }
+//});*/
+	//if ($("#send").onclick){alert("CLICK")}
+	//if ($("#form").onsubmit){
+
+
+
+
+$("#form").bind('submit', function (e) {
+		var progressBar = $('#progressbar');
+		var form = new FormData();
+	var selectedFile = document.getElementById('input-file-now').files[0];
+	form.append("sender", "5da73c00-846a-4c9d-ac7e-c86621ea4d47");
+	form.append("file", selectedFile);
+		var settings = {
   "async": true,
   "crossDomain": true,
-  "url": "http://127.0.0.1:5000/api/connection",
+  "url": "",
   "method": "POST",
   "headers": {
-    "x-api-key": "E39CDD5E459A4493A6AC51204115204D",
-    "content-type": "application/json",
-	  "cache-control": "no-cache",
-    "postman-token": "13968f54-1b34-ae87-2761-1fe1477a334b"
+    "authorization": "",
+    "cache-control": "no-cache"
   },
   "processData": false,
-  "data": '{"command": "disconnect"}',
-  "success": function() {
-  	//alert("Success");
-	  Disconnected();
-	  },
-  "error": function() {
-  	//alert("Error");
-  	var status = document.getElementById("status");
-  	status.innerText = "Нет соединения";
-                }
-};
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+  "contentType": false,
+  "mimeType": "multipart/form-data",
+  "data": form,
+			xhr: function(){
+
+        var xhr = $.ajaxSettings.xhr();
+        //alert(xhr);
+        // обработчик подгрузки
+        xhr.addEventListener('progress', function(evt){
+          if (evt.lengthComputable) {
+            var percentComplete = Math.ceil(evt.loaded / evt.total * 100);
+            progressBar.css("width", percentComplete + '%');
+            progressBar.html(percentComplete+'%');
+          }
+        }, false);
+        return xhr;
+      },
+	error: function (response) {
+  		//$('#exampleModalLabel1').text("Ошибка загрузики");
+  		var resptxt = JSON.parse(response.responseText);
+  		console.log(response);
+  		//$('#TextResponse').text(resptxt.error);
+
+  		if (resptxt.error){
+  			$('#exampleModalLabel1').text(resptxt.error);
+  		var tables = "<div class=\"table-responsive\"><table class=\"table table-hover table-bordered mb-0\">";
+  		if (resptxt.table){
+  			for (var i in resptxt.table)
+			{
+				tables = tables + "<tbody><tr>";
+				for (var j in resptxt.table[i])
+				{
+					var cells = "";
+					if (resptxt.table[i][j].error != null){cells = "<span class=\"label label-danger\">"+ resptxt.table[i][j].value +"</span>"} else { cells = resptxt.table[i][j].value }
+					if (resptxt.table[i][j].value == null){tables = tables + "<td></td>";}
+					else {tables = tables + "<td>" + cells + "</td>";};
+
+				};
+				tables = tables + "</tr>"
+			};
+  			tables = tables + "</div></div>";
+  			$('#addtable').html(tables);}}
+  		//for (i in responset['table']){for (j in responset['table'][i]) { console.log(responset['table'][i][j])}};
+  		//console.log(resptxt.error);
+		$('#exampleModal').modal('show');
+
+    },
+			success: function () {
+				$('#exampleModalLabel1').text("Файл успешно загружен !");
+				$('#exampleModal').modal('show');
+            }
 };
 
+		e.preventDefault();
+		//alert(token);
+		//alert('Jnghfdrf');
+		/*$.ajax({
+	type: "POST",
+			data:settings,
+	success: function () {
+		$('#exampleModal').modal('show');
+
+    },
+    error: function () {
+		alert('error');
+		$('#exampleModal').modal('show');
+    }
+});*/
+$.ajax(settings)
+	.done(function (response) {
+  console.log(response);
+})
+//.error(function (response) {
+		//	console.log(response)
+        //})
+    });
+
+	//$("#form").submit(function(e){
+
+    //})
+	//};
+//if (selectedFile != undefined) {
+//alert('select file')
+//}
+//};
 //$('#disconnect').bind('click', DisconnectServ());
 //$('#connect').bind('click', ConnectServ());
 
@@ -128,6 +184,7 @@ $.ajax(settings).done(function (response) {
 /*****Ready function start*****/
 $(document).ready(function(){
 	jetson();
+
 	//ConnectServ();
 	//$('#disconnect').onClick(DisconnectServ());
 	//StartOcto();

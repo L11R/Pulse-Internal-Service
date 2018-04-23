@@ -96,6 +96,13 @@ Project:	Jetson
 /** Reset **/
 /****************************/
 @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+.wizard > .steps > ul > li{
+  width: 50%;
+}
+.modal-dialog {
+  width: auto;
+  margin: auto;
+}
 .menu-main {
   list-style: none;
   margin: 0px 0 5px;
@@ -3220,7 +3227,7 @@ footer {
   border-radius: 0;
   box-shadow: none;
   color: #fff;
-  height: 42px; }
+  /*height: 42px; */}
   .form-control:focus, .select2-container--default .select2-selection--single .select2-selection__rendered:focus,
   .select2-container--default .select2-selection--single:focus, .select2-selection.select2-selection--multiple:focus, .wizard .content > .body input:focus, .mce-floatpanel .mce-textbox:focus, .mce-floatpanel .mce-btn:focus, .dataTables_wrapper .dataTables_filter input:focus, .dataTables_wrapper .dataTables_length select:focus, .jsgrid-cell input:focus, .jsgrid-cell select:focus, .tablesaw-bar .btn-select select:focus, .dd-handle:focus, .dd3-content:focus, .app-search .form-control:focus, .app-search .jsgrid-cell input:focus, .jsgrid-cell .app-search input:focus, .app-search .jsgrid-cell select:focus, .jsgrid-cell .app-search select:focus, .app-search .dd-handle:focus, .app-search .dd3-content:focus {
     border-color: rgba(255, 255, 255, 0.3);
