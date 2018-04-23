@@ -14,12 +14,14 @@ def login(request):
     color, msg = "grey", "Введите ваши данные ниже"
     if request.method == 'POST':
         email, password = request.POST['InputEmail'], request.POST['Inputpwd']
-        if email != 'Leroy@merlin.ru' and password != "@WSX2wsx123":
-            color, msg = "red", 'Неверный логин/пароль'
-        else:
+        if email == 'Leroy@merlin.ru' and password == '@WSX2wsx123':
+            print(email, password)
             response = redirect('/')
             response.set_cookie('token', password)
             return response
+        else:
+            color, msg = "red", 'Неверный логин/пароль'
+            print(email, password)
     template = loader.get_template('Signin/login.html')
     color += "!important"
     context = {'msg': msg, "color": color}
