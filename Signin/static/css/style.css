@@ -76,7 +76,7 @@ Project:	Jetson
 /****************************/
 /** Imports **/
 /****************************/
-@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Poppins:400|500);
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Poppins:400|500');
 @import url(bootstrap.min.css);
 @import url(font-awesome.min.css);
 @import url(themify-icons.css);
@@ -221,7 +221,7 @@ h4 {
 h5 {
   font-size: 18px;
   line-height: 26px;
-  text-transform: capitalize; }
+  /*text-transform: capitalize;*/ }
 
 h6, .panel-title {
   font-size: 16px;
@@ -3283,7 +3283,7 @@ footer {
   padding-left: 3px; }
 
 .control-label {
-  text-transform: capitalize; }
+  /*text-transform: capitalize;*/ }
 
 .checkbox, .radio {
   padding-top: 5px;
@@ -6509,14 +6509,14 @@ button.fc-agendaWeek-button {
   padding-right: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
   .todo-box-wrap .add-todo span {
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     font-size: 16px;
-    width: 33.33%;
+    /*width: 33.33%;*/
     float: left;
     text-align: center;
     vertical-align: middle; }
   .todo-box-wrap .add-todo a {
-    width: 33.33%;
+    width: 26.33%;
     float: left;
     font-size: 18px; }
 .todo-box-wrap .new-todo .input-group {

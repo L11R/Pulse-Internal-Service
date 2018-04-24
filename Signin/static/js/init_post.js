@@ -12,54 +12,23 @@
 
  "use strict";
 
-/*function SendDoc(token) {
-	var form = new FormData();
-	var selectedFile = document.getElementById('input-file-now').files[0];
-	form.append("sender", "5da73c00-846a-4c9d-ac7e-c86621ea4d47");
-	form.append("file", selectedFile);
-
-var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "https://dev.internal.pulse.itcanfly.org/api/requests/from_xls/",
-  "method": "POST",
-  "headers": {
-    "authorization": "Token 61409ac947f8e341f27091f2427e004780b6c0dc",
-    "cache-control": "no-cache"
-  },
-  "processData": false,
-  "contentType": false,
-  "mimeType": "multipart/form-data",
-  "data": form
-};
-//$.ajax({
-//	type: "POST",
-//	success: function () {
-//		$('#exampleModal').modal('show');
-//$.ajax(settings).done(function (response) {
-//  console.log(response);
-//});
-//    }
-//});*/
-	//if ($("#send").onclick){alert("CLICK")}
-	//if ($("#form").onsubmit){
-
-
-
 
 $("#form").bind('submit', function (e) {
+	var percentprogres = 0;
 		var progressBar = $('#progressbar');
+		progressBar.css("width", 0 + "%");
+		progressBar.html("");
 		var form = new FormData();
 	var selectedFile = document.getElementById('input-file-now').files[0];
-	form.append("sender", "5da73c00-846a-4c9d-ac7e-c86621ea4d47");
+	form.append("sender", SenderLeroy);
 	form.append("file", selectedFile);
 		var settings = {
   "async": true,
   "crossDomain": true,
-  "url": "",
+  "url": test_url,
   "method": "POST",
   "headers": {
-    "authorization": "",
+    "authorization": AuthLeroy,
     "cache-control": "no-cache"
   },
   "processData": false,
@@ -69,11 +38,10 @@ $("#form").bind('submit', function (e) {
 			xhr: function(){
 
         var xhr = $.ajaxSettings.xhr();
-        //alert(xhr);
-        // обработчик подгрузки
         xhr.addEventListener('progress', function(evt){
           if (evt.lengthComputable) {
             var percentComplete = Math.ceil(evt.loaded / evt.total * 100);
+            percentprogres = percentComplete;
             progressBar.css("width", percentComplete + '%');
             progressBar.html(percentComplete+'%');
           }
@@ -107,12 +75,19 @@ $("#form").bind('submit', function (e) {
   			$('#addtable').html(tables);}}
   		//for (i in responset['table']){for (j in responset['table'][i]) { console.log(responset['table'][i][j])}};
   		//console.log(resptxt.error);
-		$('#exampleModal').modal('show');
-
+		if (percentprogres == 100) {
+            $('#exampleModal').modal('show');
+        }
     },
 			success: function () {
-				$('#exampleModalLabel1').text("Файл успешно загружен !");
-				$('#exampleModal').modal('show');
+  	swal({
+			title: "Хорошая работа",
+             type: "success",
+			text: "Файл успешно загружен !",
+			confirmButtonColor: "#4aa23c",
+        });
+				//$('#exampleModalLabel1').text("");
+				//$('#exampleModal').modal('show');
             }
 };
 
@@ -139,55 +114,10 @@ $.ajax(settings)
 		//	console.log(response)
         //})
     });
-
-	//$("#form").submit(function(e){
-
-    //})
-	//};
-//if (selectedFile != undefined) {
-//alert('select file')
-//}
-//};
-//$('#disconnect').bind('click', DisconnectServ());
-//$('#connect').bind('click', ConnectServ());
-
-var StartOcto = function(){
-var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "http://127.0.0.1:5000/api/connection",
-  "method": "POST",
-  "headers": {
-    "x-api-key": "E39CDD5E459A4493A6AC51204115204D",
-    "content-type": "application/json",
-    "cache-control": "no-cache",
-    "postman-token": "dd9554ae-95b3-f30c-854c-bc31afcc71a4"
-  },
-  "processData": false,
-  "data": '{"command": "connect"}'
-};
-
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  //var current = JQuery.parseJSON(response);
-  //alert(response['current']['state']);
-  //var msg = document.getElementById("baudrates");
-  //for (var key in response['options']['baudrates']) {
-    //  var newOption = new Option(response['options']['baudrates'][key], "Классика");
-      //msg.appendChild(newOption);
-  //}
-  //msg.innerText = response['current']['state'];
-  //return response;
-});
-};
 /********END FUNC ******/
 /*****Ready function start*****/
 $(document).ready(function(){
 	jetson();
-
-	//ConnectServ();
-	//$('#disconnect').onClick(DisconnectServ());
-	//StartOcto();
 	$('.preloader-it > .la-anim-1').addClass('la-animate');
 });
 /*****Ready function end*****/

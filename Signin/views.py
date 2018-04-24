@@ -15,13 +15,16 @@ def login(request):
     if request.method == 'POST':
         email, password = request.POST['InputEmail'], request.POST['Inputpwd']
         if email == 'Leroy@merlin.ru' and password == '@WSX2wsx123':
-            print(email, password)
-            response = redirect('/')
+            response = redirect('/leroy/')
             response.set_cookie('token', password)
             return response
         else:
-            color, msg = "red", 'Неверный логин/пароль'
-            print(email, password)
+            if email == 'Pulse@express.ru' and password == 'XSW@xsw2321':
+                response = redirect('/technical/')
+                response.set_cookie('token', password)
+                return response
+            else:
+                color, msg = "red", 'Неверный логин/пароль'
     template = loader.get_template('Signin/login.html')
     color += "!important"
     context = {'msg': msg, "color": color}
@@ -29,14 +32,34 @@ def login(request):
     return response
 
 @login_required
-def main_page(request):
-    template = loader.get_template('Signin/main.html')
+def leroy_page(request):
+    template = loader.get_template('Signin/leroy.html')
     context = {}
     response = HttpResponse(template.render(context, request))
     return response
 
 @login_required
+def techn_page(request):
+    template = loader.get_template('Signin/technical.html')
+    context = {}
+    response = HttpResponse(template.render(context, request))
+    return response
+
+
 def logout(request):
-    response = redirect('/')
+    response = redirect('/login/')
     response.set_cookie('token', '', expires=datetime(1970,1,1))
     return response
+
+@login_required
+def checked(request):
+    token = request.COOKIES.get('token')
+    if token == '@WSX2wsx123':
+        print(type(token), token)
+        response = redirect('/leroy/')
+        #response.set_cookie('token', password)
+        return response
+    if token == 'XSW@xsw2321':
+        response = redirect('/technical/')
+        #response.set_cookie('token', password)
+        return response

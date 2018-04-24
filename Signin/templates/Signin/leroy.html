@@ -10,8 +10,8 @@
 	<meta name="author" content="VLADDOS"/>
 
 	<!-- Favicon Pulse -->
-	<link rel="icon" type="image/png" href="http://pulse.express/static/images/favicons/favicon-32x32.png" sizes="32x32">
-	<link rel="icon" type="image/png" href="http://pulse.express/static/images/favicons/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" sizes="32x32">
+	<link rel="icon" type="image/png" href="{% static 'images/favicon-16x16.png' %}" sizes="16x16">
 	<!-- Bootstrap Dropify CSS -->
 	<link href="{% static 'css/dropify.min.css' %}" rel="stylesheet" type="text/css"/>
 	<!-- Fancy-Buttons CSS -->
@@ -24,6 +24,8 @@
 	<link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css"/>
 	<!-- bootstrap-touchspin CSS -->
 	<link href="{% static 'css/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!--alerts CSS -->
+	<link href="{% static 'css/sweetalert.css' %}" rel="stylesheet" type="text/css">
 	<!-- Custom CSS -->
 	<link href="{% static 'css/style.css' %}"  rel="stylesheet" type="text/css">
 </head>
@@ -41,8 +43,8 @@
 			<div class="mobile-only-brand pull-left">
 				<div class="nav-header pull-left">
 					<div class="logo-wrap">
-						<a href="index.html">
-							<img class="brand-img" src="http://pulse.express/static/images/logo.svg" width="90" alt="Pulse Express"/>
+						<a href="">
+							<img class="brand-img" src="{% static 'images/logo.svg' %}" width="90" alt="Pulse Express"/>
 						</a>
 					</div>
 				</div>
@@ -51,10 +53,13 @@
 			<div id="mobile_only_nav" class="mobile-only-nav pull-right">
 				<ul class="nav navbar-right top-nav pull-right">
 					<li>
+						<a id="open_right_sidebars" href="">Leroy</a>
+					</li>
+					<li>
 						<a id="open_right_sidebar" href="#"><i class="zmdi zmdi-settings top-nav-icon"></i></a>
 					</li>
 					<li class="dropdown auth-drp">
-						<a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="https://leroymerlin.ru/bitrix/templates/lm2016/build/img/svg/logo.svg" alt="user_auth" class="user-auth-img img-circle"/><span class="user-online-status"></span></a>
+						<a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="{% static 'images/logo_leroy.svg' %}" alt="user_auth" class="user-auth-img img-circle"/><span class="user-online-status"></span></a>
 						<ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
 							<li>
 								<a href=""><i class="zmdi zmdi-account"></i><span>Профиль</span></a>
@@ -76,7 +81,7 @@
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="logout/"><i class="zmdi zmdi-power"></i><span>Выход</span></a>
+								<a href="../logout/"><i class="zmdi zmdi-power"></i><span>Выход</span></a>
 							</li>
 						</ul>
 					</li>
@@ -215,7 +220,7 @@
 			<footer class="footer container-fluid pl-30 pr-30">
 					<div class="row">
 						<div class="col-sm-12">
-							<p>2018 &copy; Pulse-Express. Pampered by VLADDOS</p>
+							<p>2018 &copy; Pulse-Express. Pamper VLADDOS</p>
 						</div>
 					</div>
 				</footer>
@@ -264,6 +269,9 @@
 
 	<!-- Switchery JavaScript -->
 	<script src="{% static 'js/switchery.min.js' %}"></script>
+	<!-- Sweet-Alert  -->
+	<script src="{% static 'js/sweetalert.min.js' %}"></script>
+	<script src="{% static 'js/sweetalert-data.js' %}"></script>
 
 
 	<!-- Init JavaScript -->
