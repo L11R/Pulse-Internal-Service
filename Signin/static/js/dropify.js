@@ -42,17 +42,17 @@ function Dropify(element, options) {
         errorTimeout: 3000,
         errorsPosition: 'overlay',
         imgFileExtensions: ['png', 'jpg', 'jpeg', 'gif', 'bmp'],
-        maxFileSizePreview: "5M",
+        maxFileSizePreview: "50M",
         allowedFormats: ['portrait', 'square', 'landscape'],
         allowedFileExtensions: ['*'],
         messages: {
-            'default': 'Переместите файл сюда или нажмите',
-            'replace': 'Переместите новый файл сюда или нажмите для замены',
+            'default': 'Выберите файл для загрузки',
+            'replace': 'Переместите новый файл или нажмите для замены',
             'remove':  'Удалить',
-            'error':   'Ooops, something wrong appended.'
+            'error':   'Упс, что-то не так...'
         },
         error: {
-            'fileSize': 'The file size is too big ({{ value }} max).',
+            'fileSize': 'Размер файла слишком большой ({{ value }} max).',
             'minWidth': 'The image width is too small ({{ value }}}px min).',
             'maxWidth': 'The image width is too big ({{ value }}}px max).',
             'minHeight': 'The image height is too small ({{ value }}}px min).',

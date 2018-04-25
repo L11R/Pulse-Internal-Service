@@ -13,6 +13,18 @@
  "use strict";
 
 
+$("#scsb").on('click', function () {
+	var progressBar = $('#progressbar');
+		progressBar.css("width", 0 + "%");
+		progressBar.html("");
+});
+
+$("#input-file-now").on('click', function () {
+	var progressBar = $('#progressbar');
+		progressBar.css("width", 0 + "%");
+		progressBar.html("");
+});
+
 $("#form").bind('submit', function (e) {
 	var percentprogres = 0;
 		var progressBar = $('#progressbar');
@@ -20,15 +32,15 @@ $("#form").bind('submit', function (e) {
 		progressBar.html("");
 		var form = new FormData();
 	var selectedFile = document.getElementById('input-file-now').files[0];
-	form.append("sender", SenderLeroy);
+	form.append("sender", ProdSenderLeroy);
 	form.append("file", selectedFile);
 		var settings = {
   "async": true,
   "crossDomain": true,
-  "url": test_url,
+  "url": prod_url,
   "method": "POST",
   "headers": {
-    "authorization": AuthLeroy,
+    "authorization": ProdAuthLeroy,
     "cache-control": "no-cache"
   },
   "processData": false,
@@ -50,8 +62,9 @@ $("#form").bind('submit', function (e) {
       },
 	error: function (response) {
   		//$('#exampleModalLabel1').text("Ошибка загрузики");
-  		var resptxt = JSON.parse(response.responseText);
   		console.log(response);
+  		if (response.responseText){
+		var resptxt = JSON.parse(response.responseText);
   		//$('#TextResponse').text(resptxt.error);
 
   		if (resptxt.error){
@@ -78,6 +91,15 @@ $("#form").bind('submit', function (e) {
 		if (percentprogres == 100) {
             $('#exampleModal').modal('show');
         }
+  		} else {swal({
+			title: "Ошибка",
+            text: "К сожалению, произошла ошибка при загрузке файла",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonColor: "#f8b32d",
+            confirmButtonText: "Ок",
+            closeOnConfirm: false
+        });}
     },
 			success: function () {
   	swal({
