@@ -1,6 +1,7 @@
 .idea
 __pycache__
 .pyc
-
+devconf.json
+conf.json
 venv
 venvv

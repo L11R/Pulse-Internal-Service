@@ -12,8 +12,6 @@
 
  "use strict";
 
-
-
 $("#scsb").on('click', function () {
 	var progressBar = $('#progressbar');
 		progressBar.css("width", 0 + "%");

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import json
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,8 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
+config_path = os.path.join(BASE_DIR, 'conf.json')
+with open(config_path, 'r') as f:
+    data = json.load(f)
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')dx##dj#qn1y$*+nre3#t@4e$ub1g9$$d^dzkb5iaz(hlg5o$h'
+SECRET_KEY = data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,6 +59,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table',
+    }
+}
+
 ROOT_URLCONF = 'PersOffice.urls'
 
 TEMPLATES = [
@@ -77,13 +90,16 @@ WSGI_APPLICATION = 'PersOffice.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': data['DB_NAME'],
+        'USER': data['DB_USER'],
+        'PASSWORD': data['DB_PASSWORD'],
+        'HOST': data['HOST'],
+        'PORT': data['PORT'],
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
