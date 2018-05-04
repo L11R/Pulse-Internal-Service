@@ -10,14 +10,136 @@
 	6.Resize function
  ** ***************************************/
 
+ "use strict";
+
+
+$("#scsb").on('click', function () {
+	var progressBar = $('#progressbar');
+		progressBar.css("width", 0 + "%");
+		progressBar.html("");
+});
+
+$("#input-file-now").on('click', function () {
+	var progressBar = $('#progressbar');
+		progressBar.css("width", 0 + "%");
+		progressBar.html("");
+});
+
+$("#form").bind('submit', function (e) {
+	var percentprogres = 0;
+		var progressBar = $('#progressbar');
+		progressBar.css("width", 0 + "%");
+		progressBar.html("");
+		var form = new FormData();
+	var selectedFile = document.getElementById('input-file-now').files[0];
+	form.append("sender", $.cookie('uid'));
+	form.append("file", selectedFile);
+		var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": $.cookie('URL'),
+  "method": "POST",
+  "headers": {
+    "authorization": $.cookie('token'),
+    "cache-control": "no-cache"
+  },
+  "processData": false,
+  "contentType": false,
+  "mimeType": "multipart/form-data",
+  "data": form,
+			xhr: function(){
+
+        var xhr = $.ajaxSettings.xhr();
+        xhr.addEventListener('progress', function(evt){
+          if (evt.lengthComputable) {
+            var percentComplete = Math.ceil(evt.loaded / evt.total * 100);
+            percentprogres = percentComplete;
+            progressBar.css("width", percentComplete + '%');
+            progressBar.html(percentComplete+'%');
+          }
+        }, false);
+        return xhr;
+      },
+	error: function (response) {
+  		//$('#exampleModalLabel1').text("Ошибка загрузики");
+  		console.log(response);
+  		if (response.responseText){
+		var resptxt = JSON.parse(response.responseText);
+  		//$('#TextResponse').text(resptxt.error);
+
+  		if (resptxt.error){
+  			$('#exampleModalLabel1').text(resptxt.error);
+  		var tables = "<div class=\"table-responsive\"><table class=\"table table-hover table-bordered mb-0\">";
+  		if (resptxt.table){
+  			for (var i in resptxt.table)
+			{
+				tables = tables + "<tbody><tr>";
+				for (var j in resptxt.table[i])
+				{
+					var cells = "";
+					if (resptxt.table[i][j].error != null){cells = "<span class=\"label label-danger\">"+ resptxt.table[i][j].value +"</span>"} else { cells = resptxt.table[i][j].value }
+					if (resptxt.table[i][j].value == null){tables = tables + "<td></td>";}
+					else {tables = tables + "<td>" + cells + "</td>";};
+
+				};
+				tables = tables + "</tr>"
+			};
+  			tables = tables + "</div></div>";
+  			$('#addtable').html(tables);}}
+  		//for (i in responset['table']){for (j in responset['table'][i]) { console.log(responset['table'][i][j])}};
+  		//console.log(resptxt.error);
+		if (percentprogres == 100) {
+            $('#exampleModal').modal('show');
+        }
+  		} else {swal({
+			title: "Ошибка",
+            text: "К сожалению, произошла ошибка при загрузке файла",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonColor: "#f8b32d",
+            confirmButtonText: "Ок",
+            closeOnConfirm: false
+        });}
+    },
+			success: function () {
+  	swal({
+			title: "Хорошая работа",
+             type: "success",
+			text: "Файл успешно загружен !",
+			confirmButtonColor: "#4aa23c",
+        });
+				//$('#exampleModalLabel1').text("");
+				//$('#exampleModal').modal('show');
+            }
+};
+
+		e.preventDefault();
+		//alert(token);
+		//alert('Jnghfdrf');
+		/*$.ajax({
+	type: "POST",
+			data:settings,
+	success: function () {
+		$('#exampleModal').modal('show');
+
+    },
+    error: function () {
+		alert('error');
+		$('#exampleModal').modal('show');
+    }
+});*/
+$.ajax(settings)
+	.done(function (response) {
+  console.log(response);
+})
+//.error(function (response) {
+		//	console.log(response)
+        //})
+    });
 /********END FUNC ******/
 /*****Ready function start*****/
 $(document).ready(function(){
 	jetson();
-
-	//ConnectServ();
-	//$('#disconnect').onClick(DisconnectServ());
-	//StartOcto();
 	$('.preloader-it > .la-anim-1').addClass('la-animate');
 });
 /*****Ready function end*****/
