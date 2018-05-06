@@ -28,3 +28,12 @@ class Users(models.Model):
     
     def api_type(self):
         return self.get_stype_display()
+    
+class Cameras(models.Model):
+    url = models.CharField(max_length=128, verbose_name="URL камеры")
+    number = models.IntegerField(verbose_name="Номер камеры")
+    name = models.CharField(max_length=128, verbose_name="Наименование камеры")
+    
+    class Meta:
+        verbose_name = "Камера"
+        verbose_name_plural = "Камеры"

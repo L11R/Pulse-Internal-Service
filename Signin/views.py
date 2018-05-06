@@ -86,6 +86,6 @@ def checked(request):
         response = redirect('/leroy/')
         return response
     elif api_type == 0:
-        response = redirect('/technical/')
+        response = redirect('/menu/')
         return response
     else: redirect('/login/')

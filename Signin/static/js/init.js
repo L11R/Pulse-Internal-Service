@@ -164,6 +164,8 @@ $(window).on("load", function() {
 			});
 		}
 	}
+	var pictures = $('.cameras');
+	pictures.css('visibility', 'visible');
 });
 /*****Load function* end*****/
 
