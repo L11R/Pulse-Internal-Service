@@ -186,6 +186,21 @@ $(window).on("load", function() {
 
 
 	});
+	$("#range_4").ionRangeSlider({
+	  //type: "double",
+	  min: 50,
+	  max: 500,
+	  //from: 70,
+	  from: 155,
+	  to_fixed: true,
+		grid: true,
+		onChange: function (obj) {      // callback, вызывается при каждом изменении состояния
+        console.log(obj.from);
+        $('.cameras').width(obj.from);
+        $('.cameras').height(obj.from);
+    }
+		//step: 10
+	});
 
 });
 /*****Load function* end*****/

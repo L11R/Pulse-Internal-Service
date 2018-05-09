@@ -18,6 +18,10 @@
 
 		<!-- vector map CSS -->
 		<link href="{% static 'css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+		<!-- Ion.RangeSlider -->
+		<link href="{% static 'css/ion.rangeSlider.css' %}" rel="stylesheet" type="text/css">
+		<link href="{% static 'css/ion.rangeSlider.skinModern.css' %}" rel="stylesheet" type="text/css">
+
 
 
 		<!-- Custom CSS -->
@@ -138,16 +142,26 @@
 
 					<!-- Title -->
 					<div class="row heading-bg">
-						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						  <button type="button" id="refresh" class="btn btn-success btn-outline fancy-button btn-0" data-dismiss="modal">Refresh</button>
+						<div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						  <button type="button" id="refresh" onclick="location.reload()" class="btn btn-success btn-outline fancy-button btn-0" data-dismiss="modal">Refresh</button>
 							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 								<button type="button" id="add_camera" class="btn btn-success btn-outline fancy-button btn-0" data-dismiss="modal">Добавить</button>
 							</div>
+
+							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								<!--<div class="panel-body">-->
+												<p style="font-size: 10px; line-height: unset" class="muted">Измените размер изображений передвигая ползунок</p>
+												<!--<div class="mt-40" style="margin-top: auto">-->
+													<input type="text" id="range_4" value="" name="range" />
+												<!--</div>
+											<!--</div>-->
+							</div>
+
 						</div>
 						<!-- Breadcrumb -->
-						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						<div class="col-lg-5 col-sm-6 col-md-6 col-xs-12">
 						  <ol class="breadcrumb">
 							<li><a href="../menu/"><span>Меню</span></a></li>
 							<li class="active"><span>Камеры</span></li>
@@ -201,6 +215,9 @@
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/modal-data.js' %}"></script>
+			<!-- Ion.RangeSlider -->
+		<script src="{% static 'js/moment.min.js' %}"></script>
+		<script src="{% static 'js/ion.rangeSlider.min.js' %}"></script>
 		<!-- Slimscroll JavaScript -->
 		<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
 			<!-- Fancy Dropdown JS -->
