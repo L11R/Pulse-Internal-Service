@@ -172,7 +172,7 @@
 
 				{% for camera in cameras %}
 				<a href="#modal" data-backdrop="true" data-toggle="modal" data-target="#modal_{{camera.number}}">
-<img class="cameras" style="visibility: hidden" src="#{{ camera.url }}  width="155" height="155" alt={{ camera.name }}>
+<img class="cameras" style="visibility: hidden" src="#{{ camera.url }}"  width="155" height="155" alt={{ camera.name }}>
 	<span style="display: none;"><b><strong>Камера {{ camera.number }} -> </strong></b> {{ camera.name }} </span>
 </a>
 				{% endfor %}
