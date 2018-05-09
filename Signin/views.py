@@ -70,7 +70,8 @@ def menu_page(request):
 
 def cameras_page(request):
     template = loader.get_template('Signin/cameras.html')
-    context = {}
+    cameras = models.Cameras.objects.filter(stype=1)
+    context = {'cameras': cameras}
     response = HttpResponse(template.render(context, request))
     return response
 

@@ -20,10 +20,12 @@
 		<link href="{% static 'css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
 
 
-
 		<!-- Custom CSS -->
 		<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-
+		<!-- Fancy-Buttons CSS -->
+	<link href="{% static 'css/fancy-buttons.css' %}" rel="stylesheet" type="text/css">
+		<!--<link href="{% static 'css/tether.min.css' %}" rel="stylesheet" type="text/css">
+		<link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">-->
 
 	</head>
 	<body>
@@ -137,102 +139,58 @@
 					<!-- Title -->
 					<div class="row heading-bg">
 						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						  <h5 class="txt-dark">Камеры почтоматов</h5>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						  <button type="button" id="refresh" class="btn btn-success btn-outline fancy-button btn-0" data-dismiss="modal">Refresh</button>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<button type="button" id="add_camera" class="btn btn-success btn-outline fancy-button btn-0" data-dismiss="modal">Добавить</button>
+							</div>
 						</div>
 						<!-- Breadcrumb -->
 						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 						  <ol class="breadcrumb">
 							<li><a href="../menu/"><span>Меню</span></a></li>
-							<li class="active"><span>Форма загрузки</span></li>
+							<li class="active"><span>Камеры</span></li>
 						  </ol>
 						</div>
 						<!-- /Breadcrumb -->
-					</div>
+					</div><div class="row" style="margin-top: 40px">
 					<!-- /Title -->
-			<a href="http://197.1.102.1/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.1/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 1" />
-<span><b>LightBox</b> Text to accompany first lightbox image</span>
-</a>
 
-<a href="http://197.1.102.2/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.2/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 2" />
-<span><b>LightBox Image 2</b><br />Text to accompany 2nd lightbox image</span>
-</a>
+				<!--<div id="modal_9" class="modal fade" tabindex="-1">
+ <div class="modal-dialog modal-lg modal-dialog-centered"role="document">
+  <div class="modal-content">
+   <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+    <h4 class="modal-title">UN0244</h4>
+   </div>
+   <img src="{% static 'images/x-demo-images/1.gif' %}" alt="UN0244">
+<!--<div class="modal-body">Текст уведомления</div>-->
+<!--<div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button></div>
+  </div>
+ </div>
+</div>-->
 
-<a href="http://197.1.102.3/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.3/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 3" />
-<span><b>LightBox Three</b> Text to accompany the third lightbox image</span>
+				{% for camera in cameras %}
+				<a href="#modal" data-backdrop="true" data-toggle="modal" data-target="#modal_{{camera.number}}">
+<img class="cameras" style="visibility: hidden" src="#{{ camera.url }}  width="155" height="155" alt={{ camera.name }}>
+	<span style="display: none;"><b><strong>Камера {{ camera.number }} -> </strong></b> {{ camera.name }} </span>
 </a>
+				{% endfor %}
+		<!--
+<a href="{% static 'images/x-demo-images/1.gif' %}" class="flipLightBox">
+<img class="cameras" style="visibility: hidden" src="#http://172.28.2.2/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110"  width="155" height="155" alt=>
+	<span style="display: none;"><b><strong>Камера -> </strong></b></span>
+</a>-->
 
-<a href="http://197.1.102.4/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.4/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 4" />
-<span><b>The Final LightBox</b> Text to accompany the last of the lighboxes</span>
-</a><a href="http://197.1.102.5/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.5/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 1" />
-<span><b>LightBox</b> Text to accompany first lightbox image</span>
-</a>
-
-<a href="http://197.1.102.6/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.6/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 2" />
-<span><b>LightBox Image 2</b><br />Text to accompany 2nd lightbox image</span>
-</a>
-
-<a href="http://197.1.102.7/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.7/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 3" />
-<span><b>LightBox Three</b> Text to accompany the third lightbox image</span>
-</a>
-
-<a href="http://197.1.102.8/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.8/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 4" />
-<span><b>The Final LightBox</b> Text to accompany the last of the lighboxes</span>
-</a>
-				<a href="http://197.1.102.9/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.9/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 1" />
-<span><b>LightBox</b> Text to accompany first lightbox image</span>
-</a>
-
-<a href="http://197.1.102.10/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.10/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 2" />
-<span><b>LightBox Image 2</b><br />Text to accompany 2nd lightbox image</span>
-</a>
-
-<a href="http://197.1.102.11/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.11/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 3" />
-<span><b>LightBox Three</b> Text to accompany the third lightbox image</span>
-</a>
-
-<a href="http://197.1.102.12/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.12/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 4" />
-<span><b>The Final LightBox</b> Text to accompany the last of the lighboxes</span>
-</a><a href="http://197.1.102.13/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.13/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 1" />
-<span><b>LightBox</b> Text to accompany first lightbox image</span>
-</a>
-
-<a href="http://197.1.102.14/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.14/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 2" />
-<span><b>LightBox Image 2</b><br />Text to accompany 2nd lightbox image</span>
-</a>
-
-<a href="http://197.1.102.15/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.15/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 3" />
-<span><b>LightBox Three</b> Text to accompany the third lightbox image</span>
-</a>
-
-<a href="http://197.1.102.16/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" class="flipLightBox">
-<img class="cameras" style="visibility: hidden" src="http://197.1.102.16/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=15&buffer=1000&monitor=1&connkey=106924&rand=1518705110" width="155" height="155" alt="flipLightBox Image 4" />
-<span><b>The Final LightBox</b> Text to accompany the last of the lighboxes</span>
-</a>
 			<!-- /Main Content -->
-
 			</div>
-		</div>
+			</div>
+		</div></div>
 		<!-- /#wrapper -->
-
-
 
 		<!-- jQuery -->
 		<script src="{% static 'js/jquery.min.js' %}"></script>
+			<!--<script src="{% static 'js/bootstrap.js' %}"></script>
 		<!-- JavaScript -->
 		<script type="text/javascript" src="{% static 'js/fliplightbox.min.js' %}"></script>
 		<script type="text/javascript">$('body').flipLightBox()</script>
@@ -242,11 +200,64 @@
 		<!-- Bootstrap Core JavaScript -->
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
-
+		<script src="{% static 'js/modal-data.js' %}"></script>
 		<!-- Slimscroll JavaScript -->
 		<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
-
+			<!-- Fancy Dropdown JS -->
+	<script src="{% static 'js/dropdown-bootstrap-extended.js' %}"></script>
 		<!-- Init JavaScript -->
 		<script src="{% static 'js/init.js' %}"></script>
 	</body>
+	{% for camera in cameras %}
+	<div class="modal fade" id="modal_{{ camera.number}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="top: 10%">
+		<div class="modal-dialog" style="width: fit-content" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+					</button>
+					<h5 class="modal-title">{{ camera.name }}</h5>
+				</div>
+				<div class="modal-body">
+					<img class="cameras" src="#{{ camera.url }}" alt={{ camera.name }}>
+				</div>
+			</div>
+		</div>
+		<div id="flb-lightbox-text2" style="position: fixed; bottom: 0px; width: 90%; padding: 15px 6% 15px 5%; margin-right: auto; margin-left: auto; background-color: rgb(255, 255, 255); opacity: 0.8; font-size: 14px; line-height: 1.4; color: rgb(0, 0, 0); text-align: center; box-sizing: content-box; display: block; visibility: visible;">
+			<b><strong>Камера {{ camera.number}} -&gt; </strong></b> {{camera.name}}
+		</div>
+	</div>
+	{% endfor %}
+
+				<!-- Modal fade windows -->
+			<div class="modal fade" id="ModalAddCamera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="top: 10%">
+				<div class="modal-dialog" style="width: 23%" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<h5 class="modal-title" id="exampleModalLabel1">Добавить камеру</h5>
+													</div>
+													<div class="modal-body">
+														<!--<h5 id="TextResponse"></h5>-->
+
+														<div id="addtable"></div><!--
+														<form>
+															<div class="form-group">
+																<label  class="control-label mb-10">Загрузка файла: </label>
+
+																<div class="progress progress-lg">
+																	<div class="progress-bar active progress-bar-success progress-bar-striped" style="width: 50%;" id="progressbar" role="progressbar">35%</div></div>
+															</div>
+															<div class="form-group">
+																<label for="message-text" class="control-label mb-10">Message:</label>
+																<textarea class="form-control" id="message-text1"></textarea>
+															</div>
+														</form>-->
+													</div>
+													<div class="modal-footer">
+														<button type="button" id="scsb" class="btn btn-success btn-outline fancy-button btn-0" data-dismiss="modal">Закрыть</button>
+													</div>
+												</div>
+											</div>
+			</div>
+			<!--  End Modal fade windows -->
 </html>

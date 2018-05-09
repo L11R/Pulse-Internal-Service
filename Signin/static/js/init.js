@@ -1,3 +1,4 @@
+
 /** *************Init JS*********************
 
     TABLE OF CONTENTS
@@ -11,7 +12,9 @@
  ** ***************************************/
 
  "use strict";
-
+$("#add_camera").on('click', function () {
+	$('#ModalAddCamera').modal('show');
+});
 
 $("#scsb").on('click', function () {
 	var progressBar = $('#progressbar');
@@ -139,13 +142,17 @@ $.ajax(settings)
 /********END FUNC ******/
 /*****Ready function start*****/
 $(document).ready(function(){
+
 	jetson();
 	$('.preloader-it > .la-anim-1').addClass('la-animate');
+
+
 });
 /*****Ready function end*****/
 
 /*****Load function start*****/
 $(window).on("load", function() {
+
 	$(".preloader-it").delay(500).fadeOut("slow");
 	/*Progress Bar Animation*/
 	var progressAnim = $('.progress-anim');
@@ -166,9 +173,25 @@ $(window).on("load", function() {
 	}
 	var pictures = $('.cameras');
 	pictures.css('visibility', 'visible');
+	var cameras = $('.cameras');
+	//$(cameras).on('load', function () {
+	//	$(this).attr('src', '../../static/images/loading.gif')
+    //});
+	$(cameras).each(function(i, elem){
+
+		$(this).attr('src', $(this).attr('src').substring(1,$(this).attr('src').length));
+		$(this).error(function () {
+			$(this).attr('src', '../../static/images/tenor.gif')
+            });
+
+
+	});
+
 });
 /*****Load function* end*****/
+$(window).on("ready", function () {
 
+});
 /***** Full height function start *****/
 var setHeightWidth = function () {
 	var height = $(window).height();
