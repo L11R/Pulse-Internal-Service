@@ -29,6 +29,10 @@ $("#input-file-now").on('click', function () {
 });
 
 $("#form").bind('submit', function (e) {
+	$.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
 	var percentprogres = 0;
 		var progressBar = $('#progressbar');
 		progressBar.css("width", 0 + "%");
