@@ -3,6 +3,7 @@ from django.template import loader
 from django.http import HttpResponse
 from datetime import datetime
 from Signin import models
+from django.views.decorators.csrf import csrf_exempt
 
 PROD_URL = "https://internal.pulse.express/api/requests/from_xls/"
 DEV_URL = "https://dev.internal.pulse.itcanfly.org/api/requests/from_xls/"
@@ -14,6 +15,7 @@ def login_required(func):
         return func(request)
     return login_required_handler
 
+@csrf_exempt
 def login(request):
     color, msg = "grey", "Введите ваши данные ниже"
     if request.method == 'POST':

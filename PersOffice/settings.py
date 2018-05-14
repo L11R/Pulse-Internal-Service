@@ -28,8 +28,10 @@ with open(config_path, 'r') as f:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = data['SECRET_KEY']
 
+CSRF_COOKIE_SECURE = False
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'http://office.pulseexpress.ru', 'office.pulseexpress.ru']
 
