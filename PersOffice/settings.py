@@ -113,11 +113,10 @@ DATABASES = {
         'OPTIONS': {
             'host_is_server': True,
             'unicode_results': False,
-            'driver': 'SQL Server Native Client 11.0',
         }
     }
 }
-DATABASE_CONNECTION_POOLING = False
+
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
