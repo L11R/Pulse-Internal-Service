@@ -18,7 +18,7 @@ class Sender(models.Model):
         self.save()
         
     def __str__(self):
-        return self.name
+        return 'Отправитель {}'.format(self.name)
     
 class Users(models.Model):
     username = models.CharField(max_length=64, verbose_name="Логин")
@@ -29,7 +29,14 @@ class Users(models.Model):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
+    def __str__(self):
+        return self.get_name()
+
+    def get_name(self):
+        return 'Пользователь {}'.format(self.username)
     
+    @property
     def api_type(self):
         return self.get_stype_display()
     

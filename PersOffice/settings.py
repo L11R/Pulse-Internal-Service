@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'Signin',
+    'report',
 ]
 
 MIDDLEWARE = [
@@ -95,11 +97,23 @@ WSGI_APPLICATION = 'PersOffice.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': data['DB_NAME'],
-        'USER': data['DB_USER'],
-        'PASSWORD': data['DB_PASSWORD'],
-        'HOST': data['HOST'],
-        'PORT': data['PORT'],
+        'NAME': data['DB_NAME_DEFAULT'],
+        'USER': data['DB_USER_DEFAULT'],
+        'PASSWORD': data['DB_PASSWORD_DEFAULT'],
+        'HOST': data['HOST_DEFAULT'],
+        'PORT': data['PORT_DEFAULT'],
+    },
+    'report': {
+        'NAME': data['DB_NAME_REPORT'],
+        'ENGINE': 'sqlserver_ado',
+        'HOST': data['HOST_REPORT'],
+        'PORT': data['PORT_REPORT'],
+        'USER': data['DB_USER_REPORT'],
+        'PASSWORD': data['DB_PASSWORD_REPORT'],
+        'OPTIONS': {
+            'host_is_server': True,
+            'unicode_results': False,
+        }
     }
 }
 
