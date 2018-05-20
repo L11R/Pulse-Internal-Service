@@ -105,15 +105,11 @@ DATABASES = {
     },
     'report': {
         'NAME': data['DB_NAME_REPORT'],
-        'ENGINE': 'sql_server.pyodbc',
+        'ENGINE': 'sqlserver_ado',
         'HOST': data['HOST_REPORT'],
         'PORT': data['PORT_REPORT'],
         'USER': data['DB_USER_REPORT'],
         'PASSWORD': data['DB_PASSWORD_REPORT'],
-        'OPTIONS': {
-            'host_is_server': True,
-            'unicode_results': False,
-        }
     }
 }
 
