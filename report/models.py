@@ -41,4 +41,5 @@ class Report(models.Model):
     sender = models.CharField(max_length=128, verbose_name="Контрагент")
 
     class Meta:
-        db_table = "Отчёт"
+        verbose_name = 'Отчёт'
+        verbose_name_plural = 'Отчёты'
