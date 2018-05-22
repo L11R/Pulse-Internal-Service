@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^logout/', views.logout),
     url(r'^technical/', views.techn_page),
     url(r'^leroy/', views.leroy_page),
+    url(r'^terminals/', views.terminal_page),
 ]

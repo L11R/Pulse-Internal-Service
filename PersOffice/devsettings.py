@@ -7,6 +7,7 @@ with open(config_path, 'r') as f:
     data = json.load(f)
     
 SECRET_KEY = data['SECRET_KEY']
+DATABASES.pop('report')
 
 DEBUG = True
 

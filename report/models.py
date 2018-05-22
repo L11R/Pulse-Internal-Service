@@ -22,6 +22,7 @@ class Report(models.Model):
     """
     Отчётность
     """
+    idd = models.CharField(max_length=255, unique=True, primary_key=True)
     order_id = models.CharField(max_length=64, editable=True, verbose_name="Клиентский номер")
     barcodes = models.CharField(max_length=256, verbose_name="Баркод")
     terminal = models.CharField(max_length=8, unique=True, verbose_name="Номер")

@@ -64,12 +64,20 @@ def techn_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+def terminal_page(request):
+    template = loader.get_template('Signin/terminal.html')
+    context = {}
+    response = HttpResponse(template.render(context, request))
+    return response
+
+@login_required
 def menu_page(request):
     template = loader.get_template('Signin/menu.html')
     context = {}
     response = HttpResponse(template.render(context, request))
     return response
 
+@login_required
 def cameras_page(request):
     template = loader.get_template('Signin/cameras.html')
     cameras = models.Cameras.objects.filter(stype=0)
@@ -77,6 +85,7 @@ def cameras_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+@login_required
 def cameras_more(request):
     template = loader.get_template('Signin/cameras.html')
     cameras = models.Cameras.objects.filter(stype=1)
