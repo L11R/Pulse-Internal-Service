@@ -47,6 +47,7 @@ $.ajax(settings)
 });
 });
 */
+
 $('#termin').submit(function(e){
 	$.ajaxSetup({
             headers:
@@ -57,6 +58,13 @@ $('#termin').submit(function(e){
   "crossDomain": true,};
     $.post('/terminals/', settings, function(data){
        ///$('.tweets').html(data);
+		console.log(data);
+		var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+saveAs(blob, "config.json");
+console.log('Succes');
+		//var blob = new Blob([data], { type: 'text/plain' });
+  //downloadElement.href = URL.createObjectURL(blob);
+		//location.href(data);
     });
     e.preventDefault();
 });

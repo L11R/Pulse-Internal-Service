@@ -5,6 +5,10 @@ from datetime import datetime
 from Signin import models
 from django.views.decorators.csrf import csrf_exempt
 from django import forms
+import os
+import mimetypes
+from django.http import StreamingHttpResponse
+from wsgiref.util import FileWrapper
 
 PROD_URL = "https://internal.pulse.express/api/requests/from_xls/"
 DEV_URL = "https://dev.internal.pulse.itcanfly.org/api/requests/from_xls/"
@@ -12,7 +16,18 @@ DEV_URL = "https://dev.internal.pulse.itcanfly.org/api/requests/from_xls/"
 class SearchForm(forms.Form):
     query = forms.CharField(label='Enter a keyword to search for',
                             widget=forms.TextInput(attrs={'size': 32, 'class':'form-control search-query'}))
-    
+class FixedFileWrapper(FileWrapper):
+    def __iter__(self):
+        self.filelike.seek(0)
+        return self
+
+def downolad_file(request):
+    the_file = '/some/file/conf.json'
+    response = HttpResponse(FixedFileWrapper(open(the_file, 'rb')), content_type=mimetypes.guess_type(the_file[0]))
+    response['Content-Length'] = os.path.getsize(the_file)
+    response['Content-Disposition']="attachment; filename=%s" % os.path.basename(the_file)
+    return response
+
 def login_required(func):
     def login_required_handler(request):
         if not request.COOKIES.get('token'):
@@ -69,12 +84,18 @@ def techn_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+@csrf_exempt
 def terminal_page(request):
     if request.POST:
         #form = SearchForm(request.POST)
         #params = dict()
         #params["search"] = form
         print(" !!!! - " ,request.body)
+        the_file = 'conf.json'
+        response = HttpResponse(FixedFileWrapper(open(the_file, 'rb')), content_type=mimetypes.guess_type(the_file[0]))
+        response['Content-Length'] = os.path.getsize(the_file)
+        response['Content-Disposition'] = "attachment; filename=%s" % os.path.basename(the_file)
+        return response
     if request.GET:
         print(request.body)
     #for ee in request.GET:
