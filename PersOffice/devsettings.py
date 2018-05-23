@@ -5,7 +5,7 @@ import json
 config_path = os.path.join(BASE_DIR, 'devconf.json')
 with open(config_path, 'r') as f:
     data = json.load(f)
-    
+CSRF_COOKIE_SECURE = False
 SECRET_KEY = data['SECRET_KEY']
 DATABASES.pop('report')
 

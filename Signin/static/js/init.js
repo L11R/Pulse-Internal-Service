@@ -28,6 +28,39 @@ $("#input-file-now").on('click', function () {
 		progressBar.html("");
 });
 
+/*$("#termin").bind('submit', function (e) {
+
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://127.0.0.1:8197/terminals/",
+  "method": "GET",
+
+  "processData": false,
+  "contentType": false,
+  "mimeType": "multipart/form-data",
+  "data": $('#termin').serialize(),
+}; e.preventDefault();
+$.ajax(settings)
+	.done(function (response) {
+  console.log(response);
+});
+});
+*/
+$('#termin').submit(function(e){
+	$.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
+	var settings = {
+  "async": true,
+  "crossDomain": true,};
+    $.post('/terminals/', settings, function(data){
+       ///$('.tweets').html(data);
+    });
+    e.preventDefault();
+});
+
 $("#form").bind('submit', function (e) {
 	$.ajaxSetup({
             headers:

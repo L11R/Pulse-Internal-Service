@@ -4,10 +4,15 @@ from django.http import HttpResponse
 from datetime import datetime
 from Signin import models
 from django.views.decorators.csrf import csrf_exempt
+from django import forms
 
 PROD_URL = "https://internal.pulse.express/api/requests/from_xls/"
 DEV_URL = "https://dev.internal.pulse.itcanfly.org/api/requests/from_xls/"
 
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Enter a keyword to search for',
+                            widget=forms.TextInput(attrs={'size': 32, 'class':'form-control search-query'}))
+    
 def login_required(func):
     def login_required_handler(request):
         if not request.COOKIES.get('token'):
@@ -65,6 +70,15 @@ def techn_page(request):
     return response
 
 def terminal_page(request):
+    if request.POST:
+        #form = SearchForm(request.POST)
+        #params = dict()
+        #params["search"] = form
+        print(" !!!! - " ,request.body)
+    if request.GET:
+        print(request.body)
+    #for ee in request.GET:
+    #   print("sad---" + ee + "---")
     template = loader.get_template('Signin/terminal.html')
     context = {}
     response = HttpResponse(template.render(context, request))

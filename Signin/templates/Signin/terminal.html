@@ -18,6 +18,7 @@
 
 		<!-- vector map CSS -->
 		<link href="{% static 'css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+		<link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet" type="text/css">
 
 
 
@@ -28,15 +29,34 @@
 		padding: 0px;}
 		.table .table {
 			background-color: transparent;
+			/*box-sizing: unset;*/
 		}
-			.table-bordered {
-				border: none !important;
-			}
+
 
 
 .table > tbody > tr > td {
 	padding: 8px;
+	text-align: center;
 }
+			.xl {
+				height: 60px;
+			}
+			.xs {
+				height: 25px;
+			}
+			.x {
+				height: 40px;
+			}
+			.l {
+				height: 50px;
+			}
+			.fl {
+				font-size: 30px;
+			}
+			.fxs {
+				font-size: 15px;
+			}
+
 </style>
 	</head>
 	<body>
@@ -145,18 +165,20 @@
 			<!-- Main Content -->
  <div class="tabs__content">
 <!-- Main Content -->
-		<div class="page-wrapper">
+		<div class="page-wrapper" style="min-height: 600px;">
 			<div class="container-fluid pt-25">
-				<div class="col-lg-6 col-sm-12">
+				<div class="col-lg-12 col-sm-12">
 					<div class="panel panel-default card-view">
 						<div class="panel-heading">
 							<div class="pull-left">
-								<h6 class="panel-title txt-dark">Тип почтомата</h6>
+								<h6 class="panel-title txt-dark">Конфигуратор</h6>
 							</div>
 							<div class="clearfix"></div>
 						</div>
-						<div class="panel-wrapper collapse in">
-
+						<form class="panel-wrapper collapse in" id="termin" method="post">{% csrf_token %}
+<div class="panel-body">
+	<div class="form-wrap">
+		<div>
 								<table class="table  tablesaw-swipe ">
 									<tbody>
 									<tr>
@@ -169,25 +191,43 @@
 															<thead></thead>
 															<tbody>
 															<tr>
-																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+																<td><a href="#" tabindex="-1" class="btn l" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fl">L</span></a></td>
 															</tr>
 															<tr>
-																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
 															</tr>
 															<tr>
-																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
 															</tr>
 															<tr>
-																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
 															</tr>
 															<tr>
-																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
 															</tr>
 															<tr>
-																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs"> XS</span></a></td>
 															</tr>
 															<tr>
-																<td align="centre"><h6><code>PFA2</code></h6></td>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" class="btn xs" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span class="fxs">XS</span></a></td>
+															</tr>
+															<tr><td>
+																<div class="checkbox checkbox-primary">
+														<input id="checkbox1" type="checkbox">
+														<label for="checkbox1">
+															<code>PFA2</code>
+														</label>
+													</div>
+																 </td>
 															</tr></tbody>
 														</table>
 
@@ -223,7 +263,14 @@
 																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
 															</tr>
 															<tr>
-																<td align="centre"><h6><code>PFA1</code></h6></td>
+																<td>
+																<div class="checkbox checkbox-primary">
+														<input id="checkbox2" type="checkbox">
+														<label for="checkbox2">
+															<code>PFA13</code>
+														</label>
+													</div>
+																 </td>
 															</tr></tbody>
 														</table>
 
@@ -257,7 +304,14 @@
 																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
 															</tr>
 															<tr>
-																<td align="centre"><h6><code>PFA1</code></h6></td>
+																<td>
+																<div class="checkbox checkbox-primary">
+														<input id="checkbox3" type="checkbox">
+														<label for="checkbox3">
+															<code>PFA14</code>
+														</label>
+													</div>
+																 </td>
 															</tr></tbody>
 														</table>
 
@@ -290,7 +344,14 @@
 																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
 															</tr>
 															<tr>
-																<td align="centre"><h6><code>PFA1</code></h6></td>
+																<td>
+																<div class="checkbox checkbox-primary">
+														<input id="checkbox4" type="checkbox">
+														<label for="checkbox4">
+															<code>PFA15</code>
+														</label>
+													</div>
+																 </td>
 															</tr></tbody>
 														</table>
 
@@ -323,14 +384,21 @@
 																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
 															</tr>
 															<tr>
-																<td align="centre"><h6><code>PFA1</code></h6></td>
+																<td>
+																<div class="checkbox checkbox-primary">
+														<input id="checkbox5" type="checkbox">
+														<label for="checkbox5">
+															<code>PFA16</code>
+														</label>
+													</div>
+																 </td>
 															</tr></tbody>
 														</table>
 
 													</div>
 												</div>
 										</td>
-										<td >
+										<td>
 											<div class="timepicker">
 													<div class="table-responsive">
 
@@ -356,17 +424,93 @@
 																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
 															</tr>
 															<tr>
-																<td align="centre"><h6><code>PFA1</code></h6></td>
+																<td>
+																<div class="checkbox checkbox-primary">
+														<input id="checkbox6" type="checkbox">
+														<label for="checkbox6">
+															<code>UN1</code>
+														</label>
+													</div>
+																 </td>
 															</tr></tbody>
 														</table>
 
 													</div>
 												</div>
 										</td>
+										<td>
+											<div class="timepicker">
+													<div class="table-responsive">
+
+														<table class="table-bordered table-hover table  tablesaw-swipe ">
+															<thead></thead>
+															<tbody>
+															<tr>
+																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+															</tr>
+															<tr>
+																<td><a href="#" tabindex="-1" title="Вверх" class="btn" data-action="incrementHours" style="width:  100%;border-color: #0b97c4;background-color: #00a5d1;padding:5px;border-radius: 10px;"><span>XS</span></a></td>
+															</tr>
+															<tr>
+																<td>
+																<div class="checkbox checkbox-primary">
+														<input id="checkbox7" type="checkbox">
+														<label for="checkbox7">
+															<code>UN2</code>
+														</label>
+													</div>
+																 </td>
+															</tr></tbody>
+														</table>
+
+													</div>
+												</div>
+										</td>
+
 									</tr>
 									</tbody>
 								</table>
+			<div class="row">
+			<div class="col-md-6">
+														<div class="form-group">
+															<label class="control-label mb-10">Выбирите тип</label>
 
+															<select id="qqqq" class="selectpicker" data-style="form-control btn-default btn-outline">
+																<optgroup label="Engy">
+																	<option>1 секция</option>
+																	<option>2 секции</option>
+																	<option>3 секции</option>
+																	<option>4 секции</option>
+																</optgroup>
+																<optgroup label="Unicum">
+																	<option>1 секция</option>
+																	<option>2 секции</option>
+																</optgroup>
+															</select>
+
+														</div>
+													</div>
+																<!--/span-->
+																<div class="col-md-6">
+
+																</div>
+																<!--/span-->
+															</div>
+<button type="submit" id="term" class="btn btn-success btn-outline fancy-button btn-0" data-toggle="modal"  data-whatever="@mdo"  >Отправить</button>
+
+						</form>
 
 
 
@@ -376,13 +520,10 @@
 					</div>
 				</div>
 			</div>
- </div>
 
-			</div>
-		</div>
 		<!-- /#wrapper -->
 
-
+</div>
 
 		<!-- jQuery -->
 		<script src="{% static 'js/jquery.min.js' %}"></script>
@@ -393,7 +534,8 @@
 		<!-- Bootstrap Core JavaScript -->
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
-
+			<script src="{% static 'js/form-advance-data.js' %}"></script>
+			<script src="{% static 'js/bootstrap-select.js' %}"></script>
 		<!-- Slimscroll JavaScript -->
 		<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
 
