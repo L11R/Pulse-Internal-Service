@@ -130,7 +130,7 @@ def techn_page(request):
 @login_required
 def parcels_page(request):
     template = loader.get_template('Signin/table.html')
-    parcels = md2.Report.objects.using('report').all()
+    parcels = md2.Report.objects.using('report').filter(date_added__gte = datetime(2018,5,20))
     context = {'parcels': parcels}
     response = HttpResponse(template.render(context, request))
     return response
