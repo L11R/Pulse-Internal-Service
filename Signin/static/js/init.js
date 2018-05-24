@@ -192,6 +192,8 @@ $(document).ready(function(){
 	$('.preloader-it > .la-anim-1').addClass('la-animate');
 
 
+
+
 });
 /*****Ready function end*****/
 
@@ -215,7 +217,8 @@ $(window).on("load", function() {
 			  offset: 'bottom-in-view'
 			});
 		}
-	}
+	};
+
 	var pictures = $('.cameras');
 	pictures.css('visibility', 'visible');
 	var cameras = $('.cameras');

@@ -19,7 +19,10 @@
 		<!-- vector map CSS -->
 		<link href="{% static 'css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
 		<!-- Footable CSS -->
-		<link href="{% static 'css/footable.bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+		<link href="{% static 'css/jsgrid.min.css' %}" rel="stylesheet" type="text/css"/>
+		<link href="{% static 'css/jsgrid-theme.min.css' %}" rel="stylesheet" type="text/css"/>
+		<!-- Footable CSS -->
+		<!--<link href="{% static 'css/footable.bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>-->
 
 		<!-- Custom CSS -->
 		<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
@@ -131,70 +134,46 @@
 		<!-- Main Content -->
 		<div class="page-wrapper">
 			<div class="container-fluid">
-                <!-- Title -->
-                <div class="row heading-bg">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h5 class="txt-dark">Меню</h5>
-                    </div>
-                </div>
+					<!-- Title -->
+					<div class="row heading-bg">
+						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						  <h5 class="txt-dark">jsgrid table</h5>
+						</div>
+						<!-- Breadcrumb -->
+						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						  <ol class="breadcrumb">
+							<li><a href="index.html">Dashboard</a></li>
+							<li><a href="#"><span>table</span></a></li>
+							<li class="active"><span>jsgrid table</span></li>
+						  </ol>
+						</div>
+						<!-- /Breadcrumb -->
+					</div>
+					<!-- /Title -->
 
-			<!-- Main Content -->
-
-				<div class="row">
+					<!-- Row -->
+					<div class="row">
 						<div class="col-sm-12">
 							<div class="panel panel-default card-view">
 								<div class="panel-heading">
 									<div class="pull-left">
-										<h6 class="panel-title txt-dark">Row toggle</h6>
+										<h6 class="panel-title txt-dark">jsgrid Table</h6>
 									</div>
 									<div class="clearfix"></div>
 								</div>
 								<div class="panel-wrapper collapse in">
 									<div class="panel-body">
 										<div class="table-wrap">
-											<table id="footable_3" class="table" data-filtering="true"  data-show-toggle="false">
-												<thead>
-													<tr>
-														<th data-breakpoints="xs">Номер заявки</th>
-														<th>Баркод</th>
-														<th>Телефон</th>
-														<th data-breakpoints="xs">Терминал</th>
-														<th data-breakpoints="xs sm">Город</th>
-														<th data-breakpoints="all" data-title="DOB">Отправитель</th>
-													</tr>
-												</thead>
-												<tbody>
-
-													<tr data-expanded="true">
-														<td>1</td>
-														<td>Dennise</td>
-														<td>Fuhrman</td>
-														<td>High School History Teacher</td>
-														<td>November 8th 2011</td>
-														<td>July 25th 1960</td>
-													</tr>
-													{% for parcel in parcels %}
-													<tr data-expanded="true">
-														<td>{{parcel.order_id}}</td>
-														<td>{{parcel.barcodes}}</td>
-														<td>{{parcel.phone}}</td>
-														<td>{{parcel.terminal}}</td>
-														<td>{{parcel.point_settlement}}</td>
-														<td>{{parcel.sender}}</td>
-													</tr>
-													{% endfor %}
-												</tbody>
-											</table>
+											<div id="jsgrid_1"></div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- /Row -->
 
-			<!-- /Main Content -->
-
-			</div>
+				</div>
 		</div>
 		<!-- /#wrapper -->
 
@@ -209,6 +188,11 @@
 		<!-- Bootstrap Core JavaScript -->
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
+
+		<!-- JSgrid table JavaScript -->
+		<script src="{% static 'js/db.js' %}"></script>
+		<script src="{% static 'js/jsgrid.min.js' %}"></script>
+		<script src="{% static 'js/jsgrid-data.js' %}"></script>
 
 		<!-- Data table JavaScript -->
 		<script src="{% static 'js/moment.min.js' %}"></script>

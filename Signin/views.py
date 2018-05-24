@@ -1,15 +1,17 @@
 from django.shortcuts import redirect
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 from Signin import models
 from report import models as md2
 from django.views.decorators.csrf import csrf_exempt
 from django import forms
+from django.core import serializers
 import os
 import mimetypes
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
+import json
 
 PFA13 = [
     {"size_class": 2, "title": "A1", "id": "0"}, {"size_class": 1, "title": "A2", "id": "1"},
@@ -127,11 +129,21 @@ def techn_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+@csrf_exempt
 @login_required
 def parcels_page(request):
+    if request.method == 'POST':
+        print(" !!!! - ", request.body)
+        response_data = {}
+        
+        response_data['result'] = serializers.serialize("json", md2.Report.objects.using('report').filter(date_added__gte = datetime(2018,5,20)))
+        #response_data['message'] = 'Some error message'
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+        #return JsonResponse({'foo': 'bar'})
     template = loader.get_template('Signin/table.html')
-    parcels = md2.Report.objects.using('report').filter(date_added__gte = datetime(2018,5,20))
-    context = {'parcels': parcels}
+    #parcels = md2.Report.objects.using('report').filter(date_added__gte = datetime(2018,5,20))
+    #context = {'parcels': parcels}
+    context = {}
     response = HttpResponse(template.render(context, request))
     return response
 
