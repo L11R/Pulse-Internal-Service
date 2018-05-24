@@ -51,7 +51,7 @@
 	.done(function (response) {
   console.log(response);
   var arr = [];
-  var qq = JSON.parse(JSON.parse(response.responseText).result);
+  var qq = JSON.parse(JSON.parse(response).result);
       //[0].fields
   for (var i=0; i<qq.length; i++){
       db.clients.push(qq[i].fields)
