@@ -50,7 +50,13 @@
     $.ajax(settings)
 	.done(function (response) {
   console.log(response);
-  db.clients = [response.result];
+  var arr = [];
+  var qq = JSON.parse(JSON.parse(response.responseText).result);
+      //[0].fields
+  for (var i=0; i<qq.length; i++){
+      arr.push(qq[i].fields)
+  }
+  db.clients = arr;
 });
 
 
