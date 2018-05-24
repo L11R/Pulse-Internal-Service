@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^technical/', views.techn_page),
     url(r'^leroy/', views.leroy_page),
     url(r'^terminals/', views.terminal_page),
+    url(r'^parcels/', views.parcels_page),
 ]
