@@ -20,11 +20,8 @@ $(function() {
         controller: db,
 
         fields: [
-            { name: "order_id", title: "Номер заявки", type: "text", width: 150 },
-            { name: "Age", type: "number", width: 50 },
-            { name: "Address", type: "text", width: 200 },
-            { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
-            { name: "Married", type: "checkbox", title: "Is Married", sorting: false}
+            { name: "order_id", title: "Номер заявки", type: "text", width: 150 }
+
 
         ]
     });
