@@ -20,7 +20,7 @@ $(function() {
         controller: db,
 
         fields: [
-            { name: "order_id", title: "Номер заявки", type: "text", width: 150 }
+            { name: "order_id", type: "text", width: 150 }
 
 
         ]
