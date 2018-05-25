@@ -129,8 +129,9 @@ def techn_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
-@csrf_exempt
+
 @login_required
+@csrf_exempt
 def parcels_page(request):
     if request.method == 'POST':
         print(" !!!! - ", request.body)
