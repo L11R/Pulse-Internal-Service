@@ -137,9 +137,9 @@ def parcels_page(request):
         response_data = {}
         
         response_data['result'] = serializers.serialize("json", md2.Report.objects.using('report').all())
-        #response_data['message'] = 'Some error message'
-        return HttpResponse(json.dumps(response_data), content_type="application/json")
-        #return JsonResponse({'foo': 'bar'})
+        response_data['message'] = 'Some error message'
+        #return HttpResponse(json.dumps(response_data), content_type="application/json")
+        return JsonResponse({'foo': 'bar'})
     template = loader.get_template('Signin/table.html')
     #parcels = md2.Report.objects.using('report').filter(date_added__gte = datetime(2018,5,20))
     #context = {'parcels': parcels}
