@@ -5,10 +5,16 @@
         loadData: function(filter) {
             return $.grep(this.clients, function(client) {
                 return (!filter.order_id || client.order_id.indexOf(filter.order_id) > -1)
-                    && (!filter.Age || client.Age === filter.Age)
-                    && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
-                    && (!filter.Country || client.Country === filter.Country)
-                    && (filter.Married === undefined || client.Married === filter.Married);
+                    && (!filter.barcodes || client.barcodes.indexOf(filter.barcodes) > -1)
+                && (!filter.terminal || client.terminal.indexOf(filter.terminal) > -1)
+                && (!filter.point_settlement || client.point_settlement.indexOf(filter.point_settlement) > -1)
+                && (!filter.point_address || client.point_address.indexOf(filter.point_address) > -1)
+                && (!filter.sender || client.sender.indexOf(filter.sender) > -1)
+                && (!filter.consignor || client.consignor.indexOf(filter.consignor) > -1)
+                //&& (!filter.Age || client.Age === filter.Age)
+                    //&& (!filter.Address || client.Address.indexOf(filter.Address) > -1)
+                    //&& (!filter.Country || client.Country === filter.Country)
+                    //&& (filter.Married === undefined || client.Married === filter.Married);
             });
         },
 
