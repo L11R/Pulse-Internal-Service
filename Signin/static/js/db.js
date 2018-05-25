@@ -5,11 +5,23 @@
         loadData: function(filter) {
             return $.grep(this.clients, function(client) {
                 return (!filter.order_id || client.order_id.indexOf(filter.order_id) > -1)
-;
+                    && (!filter.Age || client.Age === filter.Age)
+                    && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
+                    && (!filter.Country || client.Country === filter.Country)
+                    && (filter.Married === undefined || client.Married === filter.Married);
             });
         },
 
+        insertItem: function(insertingClient) {
+            this.clients.push(insertingClient);
+        },
 
+        updateItem: function(updatingClient) { },
+
+        deleteItem: function(deletingClient) {
+            var clientIndex = $.inArray(deletingClient, this.clients);
+            this.clients.splice(clientIndex, 1);
+        }
 
     };
 
@@ -45,7 +57,34 @@
       arr.push(qq[i].fields)
   }
   db.clients = arr;
-});
+
+  $("#jsgrid_1").jsGrid({
+        height: "450px",
+        width: "100%",
+
+        filtering: true,
+        editing: true,
+        sorting: true,
+        paging: true,
+        autoload: true,
+
+        pageSize: 15,
+        pageButtonCount: 5,
+
+        deleteConfirm: "Do you really want to delete the client?",
+
+        controller: db,
+
+        fields: [
+            { name: "order_id", title: "Номер заявки", type: "text", width: 150 },
+            { name: "Age", type: "number", width: 50 },
+            { name: "Address", type: "text", width: 200 },
+            { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
+            { name: "Married", type: "checkbox", title: "Is Married", sorting: false}
+
+        ]
+    });
+	});
 
 
       db.clie2 = [{
