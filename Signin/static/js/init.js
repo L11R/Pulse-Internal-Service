@@ -59,7 +59,7 @@ $('#termin').submit(function(e){
     $.post('/terminals/', settings, function(data){
        ///$('.tweets').html(data);
 		console.log(data);
-		var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+		var blob = new Blob([data], {type: "text/html;charset=utf-8"});
 saveAs(blob, "config.json");
 console.log('Succes');
 		//var blob = new Blob([data], { type: 'text/plain' });

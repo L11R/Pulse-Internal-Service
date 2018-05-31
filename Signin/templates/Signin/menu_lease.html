@@ -1,0 +1,329 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Личный кабинет Pulse-Express</title>
+		<meta name="description" content="Personal cabinet for the sender" />
+		<meta name="keywords" content="Pulse-Express," />
+		<meta name="author" content="VLADDOS"/>
+
+		<!-- Favicon Pulse -->
+		<link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" sizes="32x32">
+		<link rel="icon" type="image/png" href="{% static 'images/favicon-16x16.png' %}" sizes="16x16">
+		<!-- Favicon
+		<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+		<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">-->
+
+		<!-- vector map CSS -->
+		<link href="{% static 'css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+
+
+
+		<!-- Custom CSS -->
+		<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+<style type="text/css">
+
+
+	@-moz-keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
+
+	@-webkit-keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
+
+	@-o-keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
+
+	@keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
+
+	.round {
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		padding-top: 30px;
+		text-decoration: none;
+		text-align: center;
+		font-size: 42px;
+		text-shadow: 0 1px 0 rgba(255,255,255,.7);
+		letter-spacing: -.065em;
+		font-family: "Hammersmith One", sans-serif;
+		-webkit-transition: all .25s ease-in-out;
+		-o-transition: all .25s ease-in-out;
+		-moz-transition: all .25s ease-in-out;
+		transition: all .25s ease-in-out;
+		box-shadow: 2px 2px 7px rgba(0,0,0,.2);
+		border-radius: 300px;
+		z-index: 1;
+		border-width: 4px;
+		border-style: solid;
+	}
+
+	.round:hover {
+		width: 130%;
+		height: 130%;
+		left: -15%;
+		top: -15%;
+		font-size: 33px;
+		padding-top: 38px;
+		-webkit-box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		-o-box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		-moz-box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		z-index: 2;
+		border-size: 10px;
+		-webkit-transform: rotate(-360deg);
+		-moz-transform: rotate(-360deg);
+		-o-transform: rotate(-360deg);
+		transform: rotate(-360deg);
+	}
+
+	a.red {
+		background-color: rgba(239,57,50,1);
+		color: rgba(133,32,28,1);
+		border-color: rgba(133,32,28,.2);
+	}
+
+	a.red:hover {
+		color: rgba(239,57,50,1);
+	}
+
+	a.green {
+		background-color: rgba(1,151,171,1);
+		color: rgba(0,63,71,1);
+		border-color: rgba(0,63,71,.2);
+	}
+
+	a.green:hover {
+		color: rgba(1,151,171,1);
+	}
+	a.black {
+		background-color: rgba(0,0,0,1);
+		color: rgba(255,255,255,1);
+		border-color: rgba(255,255,255,.6);
+	}
+
+	a.black:hover {
+		color: rgba(0,0,0,1);
+	}
+
+	a.yellow {
+		background-color: rgba(252,227,1,1);
+		color: rgba(153,38,0,1);
+		border-color: rgba(153,38,0,.2);
+	}
+
+	a.yellow:hover {
+		color: rgba(252,227,1,1);
+	}
+
+	.round span.round {
+		display: block;
+		opacity: 0;
+		-webkit-transition: all .5s ease-in-out;
+		-moz-transition: all .5s ease-in-out;
+		-o-transition: all .5s ease-in-out;
+		transition: all .5s ease-in-out;
+		font-size: 1px;
+		border: none;
+		padding: 40% 20% 0 20%;
+		color: #fff;
+	}
+
+	.round span:hover {
+		opacity: .85;
+		font-size: 16px;
+		-webkit-text-shadow: 0 1px 1px rgba(0,0,0,.5);
+		-moz-text-shadow: 0 1px 1px rgba(0,0,0,.5);
+		-o-text-shadow: 0 1px 1px rgba(0,0,0,.5);
+		text-shadow: 0 1px 1px rgba(0,0,0,.5);
+	}
+
+	.green span {
+		background: rgba(0,63,71,.7);
+	}
+
+	.red span {
+		background: rgba(133,32,28,.7);
+	}
+
+	.yellow span {
+		background: rgba(161,145,0,.7);
+
+	}</style>
+
+	</head>
+	<body>
+			<!--Preloader-->
+	<div class="preloader-it">
+		<div class="la-anim-1"></div>
+	</div>
+	<!--/Preloader-->
+    <div class="wrapper theme-1-active pimary-color-green">
+
+        <!-- Top Menu Items -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="mobile-only-brand pull-left">
+				<div class="nav-header pull-left">
+					<div class="logo-wrap">
+						<a href="">
+							<img class="brand-img" src="{% static 'images/logo.svg' %}" width="90" alt="Pulse Express"/>
+						</a>
+					</div>
+				</div>
+				<a id="toggle_mobile_nav" class="mobile-only-view" href="javascript:void(0);"><i class="zmdi zmdi-more"></i></a>
+			</div>
+			<div id="mobile_only_nav" class="mobile-only-nav pull-right">
+				<ul class="nav navbar-right top-nav pull-right">
+					<li>
+						<a id="open_right_sidebars" href="">Technical</a>
+					</li>
+					<li>
+						<a id="open_right_sidebar" href="#"><i class="zmdi zmdi-settings top-nav-icon"></i></a>
+					</li>
+					<li class="dropdown auth-drp">
+						<a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="{% static 'images/avatar.svg' %}" alt="user_auth" class="user-auth-img img-circle"/><span class="user-online-status"></span></a>
+						<ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
+							<li>
+								<a href=""><i class="zmdi zmdi-account"></i><span>Профиль</span></a>
+							</li>
+							<li class="divider"></li>
+							<li class="sub-menu show-on-hover">
+								<a href="#" class="dropdown-toggle pr-0 level-2-drp"><i class="zmdi zmdi-check text-success"></i> available</a>
+								<ul class="dropdown-menu open-left-side">
+									<li>
+										<a href="#"><i class="zmdi zmdi-check text-success"></i><span>Доступен</span></a>
+									</li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-circle-o text-warning"></i><span>Занят</span></a>
+									</li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-minus-circle-outline text-danger"></i><span>Не доступен</span></a>
+									</li>
+								</ul>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="../logout/"><i class="zmdi zmdi-power"></i><span>Выход</span></a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- /Top Menu Items -->
+
+		<!-- Right Sidebar Menu -->
+		<div class="fixed-sidebar-right">
+			<ul class="right-sidebar">
+				<li>
+					<div  class="tab-struct custom-tab-1">
+						<ul role="tablist" class="nav nav-tabs" id="right_sidebar_tab">
+							<li role="presentation" class="active"><a  data-toggle="tab" id="todo_tab_btn" role="tab" href="#todo_tab" aria-expanded="false">загрузки</a></li>
+						</ul>
+						<div class="tab-content" id="right_sidebar_content">
+							<div  id="todo_tab" class="tab-pane fade active in" role="tabpanel">
+								<div class="todo-box-wrap">
+									<div class="add-todo">
+										<a href="javascript:void(0)" class="inline-block txt-grey">
+											<i class="zmdi zmdi-more"></i>
+										</a>
+										<span class="inline-block txt-dark">Список загрузок</span>
+										<a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="zmdi zmdi-plus"></i></a>
+										<div class="clearfix"></div>
+									</div>
+									<div class="set-height-wrap">
+										<!-- Todo-List -->
+										<ul class="todo-list nicescroll-bar">
+											<li class="todo-item">
+												<div class="checkbox checkbox-default">
+													<input type="checkbox" id="checkbox01"/>
+													<label for="checkbox01">Excel файл - 23.04.2018</label>
+												</div>
+											</li>
+											<li>
+												<hr class="light-grey-hr"/>
+											</li>
+										</ul>
+										<!-- /Todo-List -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- /Right Sidebar Menu -->
+
+			<!-- Main Content -->
+		<!-- Main Content -->
+		<div class="page-wrapper">
+			<div class="container-fluid">
+                <!-- Title -->
+                <div class="row heading-bg">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h5 class="txt-dark">Меню</h5>
+                    </div>
+					<div class="col-lg-9 col-sm-6 col-md-6 col-xs-12">
+						  <ol class="breadcrumb">
+							<li><a href="../menu/"><span>Главное меню</span></a></li>
+							<li class="active"><span>Аренда</span></li>
+						  </ol>
+						</div>
+                </div>
+                <!-- /Title -->
+                <div class="row">
+                    <ul style="margin: 30px auto; text-align: center;">
+                        <li style="list-style: none;position: relative;display: inline-block;width: 200px;height: 200px;">
+                            <a href="../rental/" class="round green" style="line-height: 3">Создать<span class="round">Нажмите, чтобы создать аренду</span>
+                            </a>
+                        </li>
+                        <li style="list-style: none;position: relative;display: inline-block;width: 200px;height: 200px;">
+                            <a href="#" class="round red" style="line-height: 3">Изменить<span class="round">Нажмите, чтобы редактировать условия аренды</span>
+                            </a>
+                        </li>
+						<li style="list-style: none;position: relative;display: inline-block;width: 200px;height: 200px;">
+                            <a href="#" class="round black" style="line-height: 3">Удалить<span class="round">Нажмите, чтобы прекратить аренду</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+			<!-- /Main Content -->
+
+			</div>
+		</div>
+		<!-- /#wrapper -->
+
+
+
+		<!-- jQuery -->
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<!-- JavaScript -->
+
+		<script src="{% static 'js/jquery.cookie.js' %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
+
+		<!-- Slimscroll JavaScript -->
+		<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+
+		<!-- Init JavaScript -->
+		<script src="{% static 'js/init.js' %}"></script>
+	</body>
+</html>

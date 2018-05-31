@@ -34,7 +34,8 @@ $(function() {
             { name: "cod", title: "Наложка", type: "text", width: 150 },
             { name: "partner_service_fee", title: "Цена партнёра", type: "text", width: 150 },
             { name: "declared_price", title: "Объявленная ценность", type: "text", width: 150 },
-            { name: "status", title: "Статус", type: "text", width: 150 }
+            { name: "status", title: "Статус", type: "text", width: 150 },
+            { type: "control" }
             //{ name: "Age", type: "number", width: 50 },
             //{ name: "Address", type: "text", width: 200 },
             //{ name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },

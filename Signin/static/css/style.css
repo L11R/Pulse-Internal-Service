@@ -3183,7 +3183,7 @@ a#toggle_mobile_nav {
   padding: 9px 0 0 0;
   font-size: 13px; }
   .breadcrumb a, .breadcrumb span {
-    text-transform: capitalize; }
+    /*text-transform: capitalize;*/ }
   .breadcrumb a {
     color: #fff;
     opacity: .5;

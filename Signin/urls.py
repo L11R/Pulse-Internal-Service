@@ -12,4 +12,7 @@ urlpatterns = [
     url(r'^leroy/', views.leroy_page),
     url(r'^terminals/', views.terminal_page),
     url(r'^parcels/', views.parcels_page),
+    url(r'^rental', views.lease_page),
+    url(r'^menu_rental', views.menu_lease),
+    
 ]

@@ -1,0 +1,521 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Личный кабинет Pulse-Express</title>
+		<meta name="description" content="Personal cabinet for the sender" />
+		<meta name="keywords" content="Pulse-Express," />
+		<meta name="author" content="VLADDOS"/>
+
+		<!-- Favicon Pulse -->
+		<link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" sizes="32x32">
+		<link rel="icon" type="image/png" href="{% static 'images/favicon-16x16.png' %}" sizes="16x16">
+		<!-- Favicon
+		<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+		<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">-->
+
+		<!-- vector map CSS -->
+		<link href="{% static 'css/wizard.css' %}" rel="stylesheet" type="text/css"/>
+
+		<!-- jquery-steps css -->
+		<link rel="stylesheet" href="{% static 'css/jquery.steps.css' %}">
+
+
+
+		<!-- Data table CSS -->
+		<link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css"/>
+
+		<!-- bootstrap-touchspin CSS -->
+		<link href="{% static 'css/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet" type="text/css"/>
+
+
+		<!-- Custom CSS -->
+		<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+		<style>
+			.wizard > .steps > ul > li {
+    width: 25%;
+}
+			.line {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                position: relative;
+            }
+            .line span {
+                background-color: #06151f;
+                position: relative;
+                z-index: 1;
+                padding: 0px 25px;
+            }
+            .line:after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 2px;
+                background-color: #262626;
+                position: absolute;
+                top: 50%;
+                margin-top: -1px;
+                z-index: 0;
+            }
+		</style>
+	</head>
+	<body>
+			<!--Preloader-->
+	<div class="preloader-it">
+		<div class="la-anim-1"></div>
+	</div>
+	<!--/Preloader-->
+    <div class="wrapper theme-1-active pimary-color-green">
+
+        <!-- Top Menu Items -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="mobile-only-brand pull-left">
+				<div class="nav-header pull-left">
+					<div class="logo-wrap">
+						<a href="">
+							<img class="brand-img" src="{% static 'images/logo.svg' %}" width="90" alt="Pulse Express"/>
+						</a>
+					</div>
+				</div>
+				<a id="toggle_mobile_nav" class="mobile-only-view" href="javascript:void(0);"><i class="zmdi zmdi-more"></i></a>
+			</div>
+			<div id="mobile_only_nav" class="mobile-only-nav pull-right">
+				<ul class="nav navbar-right top-nav pull-right">
+					<li>
+						<a id="open_right_sidebars" href="">Technical</a>
+					</li>
+					<li>
+						<a id="open_right_sidebar" href="#"><i class="zmdi zmdi-settings top-nav-icon"></i></a>
+					</li>
+					<li class="dropdown auth-drp">
+						<a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="{% static 'images/avatar.svg' %}" alt="user_auth" class="user-auth-img img-circle"/><span class="user-online-status"></span></a>
+						<ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
+							<li>
+								<a href=""><i class="zmdi zmdi-account"></i><span>Профиль</span></a>
+							</li>
+							<li class="divider"></li>
+							<li class="sub-menu show-on-hover">
+								<a href="#" class="dropdown-toggle pr-0 level-2-drp"><i class="zmdi zmdi-check text-success"></i> available</a>
+								<ul class="dropdown-menu open-left-side">
+									<li>
+										<a href="#"><i class="zmdi zmdi-check text-success"></i><span>Доступен</span></a>
+									</li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-circle-o text-warning"></i><span>Занят</span></a>
+									</li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-minus-circle-outline text-danger"></i><span>Не доступен</span></a>
+									</li>
+								</ul>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="../logout/"><i class="zmdi zmdi-power"></i><span>Выход</span></a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- /Top Menu Items -->
+
+		<!-- Right Sidebar Menu -->
+		<div class="fixed-sidebar-right">
+			<ul class="right-sidebar">
+				<li>
+					<div  class="tab-struct custom-tab-1">
+						<ul role="tablist" class="nav nav-tabs" id="right_sidebar_tab">
+							<li role="presentation" class="active"><a  data-toggle="tab" id="todo_tab_btn" role="tab" href="#todo_tab" aria-expanded="false">загрузки</a></li>
+						</ul>
+						<div class="tab-content" id="right_sidebar_content">
+							<div  id="todo_tab" class="tab-pane fade active in" role="tabpanel">
+								<div class="todo-box-wrap">
+									<div class="add-todo">
+										<a href="javascript:void(0)" class="inline-block txt-grey">
+											<i class="zmdi zmdi-more"></i>
+										</a>
+										<span class="inline-block txt-dark">Список загрузок</span>
+										<a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="zmdi zmdi-plus"></i></a>
+										<div class="clearfix"></div>
+									</div>
+									<div class="set-height-wrap">
+										<!-- Todo-List -->
+										<ul class="todo-list nicescroll-bar">
+											<li class="todo-item">
+												<div class="checkbox checkbox-default">
+													<input type="checkbox" id="checkbox01"/>
+													<label for="checkbox01">Excel файл - 23.04.2018</label>
+												</div>
+											</li>
+											<li>
+												<hr class="light-grey-hr"/>
+											</li>
+										</ul>
+										<!-- /Todo-List -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- /Right Sidebar Menu -->
+
+		<!-- Main Content -->
+		<div class="page-wrapper">
+				<div class="container-fluid">
+
+					<!-- Title -->
+					<div class="row heading-bg">
+						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						  <h5 class="txt-dark">Услуга аренды</h5>
+						</div>
+						<!-- Breadcrumb -->
+						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						  <ol class="breadcrumb">
+							  <li><a href="../menu/"><span>Главное меню</span></a></li>
+							  <li><a href="../menu_rental/"><span>Аренда</span></a></li>
+							  <li class="active"><span>Создать</span></li>
+						  </ol>
+						</div>
+						<!-- /Breadcrumb -->
+					</div>
+					<!-- /Title -->
+					<!-- /Row -->
+
+					<!-- Row -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-default card-view">
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">Новая аренда</h6>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+										<form id="example-advanced-form" action="#">
+											<h3><span class="number"><i class="icon-user-following txt-black"></i></span><span class="head-font capitalize-font">Регистрация</span></h3>
+											<fieldset>
+												<div class="row">
+													<div class="col-sm-6">
+														<div class="form-wrap">
+															<!--<div class="form-group">
+																<div class="input-group">
+																	<div class="input-group-addon"><i class="icon-user"></i></div>
+																	<input type="text" class="form-control required"  name="Username" id="exampleInputuname" placeholder="Введите логин">
+																</div>
+															</div>
+															<div class="form-group">
+																<div class="input-group">
+																	<div class="input-group-addon"><i class="icon-envelope-open"></i></div>
+																	<input type="email" class="form-control required" id="exampleInputEmail" name="email" placeholder="Введите e-mail">
+																</div>
+															</div>
+															<div class="form-group">
+																<div class="input-group">
+																	<div class="input-group-addon"><i class="icon-lock"></i></div>
+																	<input id="password-2" type="password" class="form-control required" name="password" placeholder="Введите пароль">
+																</div>
+															</div>
+															<div class="form-group mb-0">
+																<div class="input-group">
+																	<div class="input-group-addon"><i class="icon-lock"></i></div>
+																	<input type="password" class="form-control required"  id="confirm-2" name="confirm"  placeholder="Подтвердите паролъ">
+																</div>
+															</div>-->
+															<p> <h5>Поздравляем, только что была создана новая аренда с номером - <code> {{ r }} </code></h5></p>
+														</div>
+													</div>
+												</div>
+											</fieldset>
+
+											<h3><span class="number"><i class="icon-bag txt-black"></i></span><span class="head-font capitalize-font">информация</span></h3>
+											<fieldset>
+												<div class="row">
+													<div class="col-sm-12">
+														<div class="form-wrap">
+															<!--<div class="form-group">
+																<label class="control-label mb-10" for="exampleCountry">страна:</label>
+																<select id="exampleCountry" class="form-control required" name="country">
+																	<option value="1">Индия</option>
+																	<option value="2">Австралия</option>
+																	<option value="3">Штаты</option>
+																	<option value="4">Япошка</option>
+																</select>
+															</div>-->
+															<div class="form-group">
+																<div class="row">
+																	<div class="col-md-4 col-xs-12">
+																		<label class="control-label mb-10" for="firstName">Фамилия: </label>
+																		<input id="firstName" type="text" name="first_name" class="form-control required" value="" />
+																	</div>
+																	<div class="span1"></div>
+																	<div class="col-md-4 col-xs-12">
+																		<label class="control-label mb-10" for="lastName">Имя: </label>
+																		<input id="lastName" type="text" name="last_name" class="form-control required" value="" />
+																	</div>
+																	<div class="span1"></div>
+																	<div class="col-md-4 col-xs-12">
+																		<label class="control-label mb-10" for="lastlastName">Отчество:  </label>
+																		<input id="lastlastName" type="text" name="lastlast_name" class="form-control required" value="" />
+																	</div>
+																</div>
+															</div>
+<div class="form-group">
+															<!--<hr align="center" width="100%" style="margin-top: 35px" size="4" color="#ff0000" />
+															<label class="center">Passport</label>-->
+	<p class="line"><span>Паспорт</span></p>
+</div>
+															<div class="form-group">
+																<label class="control-label mb-10" for="posportcode">Cерия-номер: </label>
+																<input id="posportcode" type="text" name="zip_code"  data-mask="9999 №999999" class="form-control required" value="" />
+															</div>
+															<div class="form-group">
+																<label class="control-label mb-10" for="addressDetail">Кем выдан: </label>
+																<input id="addressDetail"  type="text" name="address" class="form-control required" value="" />
+															</div>
+															<div class="form-group">
+																<label class="control-label mb-10" for="datepush">Когда выдан (число-месяц-год) </label>
+																<input id="datepush" type="text" name="date_push"  data-mask="99-99-9999" class="form-control required" value="" />
+															</div>
+															<!--<div class="form-group">
+																<label class="control-label mb-10" for="cityName">city:</label>
+																<select id="cityName" class="form-control required" name="country">
+																	<option value="">Banglore</option>
+																	<option value="">Pune</option>
+																</select>
+															</div>
+															<div class="form-group">
+																<label class="control-label mb-10" for="stateName">state:</label>
+																<select id="stateName" class="form-control required" name="country">
+																	<option value="">Karnataka</option>
+																	<option value="">Maharashtra</option>
+																</select>
+															</div>
+															<div class="form-group">
+																<label class="control-label mb-10" for="postalCode">zip/postal code:</label>
+																<input id="postalCode" type="text" name="zip_code"  data-mask="99999-9999" class="form-control required" value="" />
+															</div>
+															<div class="form-group">
+																<label class="control-label mb-10" for="phoneNumber">phone number:</label>
+																<input type="text" id="phoneNumber"  data-mask="+40 999 999 999" name="phone_number" class="form-control required" value="" />
+															</div>
+															<div class="form-group">
+																<label class="control-label mb-10" for="emailAddress">email address:</label>
+																<input id="emailAddress" type="text" name="email_address" class="form-control required" value="" />
+															</div>
+															<div class="form-group mb-0">
+																<div class="checkbox checkbox-success">
+																	<input id="checkbox_1" type="checkbox">
+																	<label for="checkbox_1">Billing address is same as shipping address.</label>
+																</div>
+															</div>-->
+														</div>
+													</div>
+												</div>
+											</fieldset>
+
+											<h3><span class="number"><i class="fa fa-key txt-black"></i></span><span class="head-font capitalize-font">подтверждение</span></h3>
+												<fieldset>
+												<!--CREDIT CART PAYMENT-->
+												<div class="row">
+													<div class="col-sm-12">
+														<div class="form-group">
+															<div class="row">
+																<div class="col-md-3 col-xs-12">
+																	<label class="control-label mb-10" for="phoneNumber">Введите номер телефона</label>
+																	<input type="text" id="phoneNumber"  data-mask="+7 (999)-999-999" name="phone_number" class="form-control required" value="" />
+																</div>
+																<div class="col-md-6 col-xs-12">
+
+																	<button type="button" id="sms" style="margin-top: 25px" class="btn btn-success btn-outline fancy-button btn-0">Отправить sms</button>
+																</div>
+																<div class="col-md-3 col-xs-12">
+																	<label class="control-label mb-10" for="cardNo">Введите код из смс</label>
+																	<input type="text" id="cardNo" data-mask="99-99" class="form-control required" name="car_number" value="" />
+																</div>
+															</div>
+														</div>
+														<!--<div class="form-group">
+															<label class="control-label mb-10" for="cardNo">Введите код из смс</label>
+															<input type="text" id="cardNo" data-mask="99-99" class="form-control required" name="car_number" value="" />
+														</div>
+														<div class="form-group">
+															<label class="control-label mb-10" for="CreditCardType">card type:</label>
+															<select id="CreditCardType" name="CreditCardType" class="form-control required">
+																<option value="5">Visa</option>
+																<option value="6">MasterCard</option>
+																<option value="7">American Express</option>
+																<option value="8">Discover</option>
+															</select>
+														</div>
+														<div class="form-group">
+															<label class="control-label mb-10" for="cardNo">Credit Card Number:</label>
+															<input type="text" id="cardNo" data-mask="9999-9999-9999-9999" class="form-control required" name="car_number" value="" />
+														</div>
+														<div class="form-group">
+															<label class="control-label mb-10" for="cvv">card cvv:</label>
+															<input type="text" id="cvv" class="form-control  required" data-mask="999" name="car_code" value="" />
+														</div>
+														<div class="form-group">
+															<label class="control-label mb-10">expiration date:</label>
+															<div class="row">
+																<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																	<select class="form-control required" name="month">
+																		<option value="">Month</option>
+																		<option value="1">01</option>
+																		<option value="2">02</option>
+																		<option value="3">03</option>
+																		<option value="4">04</option>
+																		<option value="5">05</option>
+																		<option value="6">06</option>
+																	</select>
+																</div>
+																<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																	<select class="form-control required" name="year">
+																		<option value="1">Year</option>
+																		<option value="2">2001</option>
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="form-group mb-0">
+															<div class="row">
+																<div class="col-md-12">
+																	<ul class="cards">
+																		<li class="visa hand"><img src="dist/img/1-s.png" alt="card"/></li>
+																		<li class="mastercard hand"><img src="dist/img/2-s.png" alt="card"/></li>
+																		<li class="amex hand"><img src="dist/img/3-s.png" alt="card"/></li>
+																		<li class="amex hand"><img src="dist/img/4-s.png" alt="card"/></li>
+																		</ul>
+																	<div class="clearfix"></div>
+																</div>
+															</div>
+														</div>-->
+
+													</div>
+												</div>
+												<!--CREDIT CART PAYMENT END-->
+											</fieldset>
+
+											<h3><span class="number"><i class="icon-basket-loaded txt-black"></i></span><span class="head-font capitalize-font">review cart</span></h3>
+
+											<fieldset>
+												<p> <h5><code>Аренда создана успешно</code></h5></p><!--
+													<table class="table display product-overview" id="datable_1">
+														<thead>
+															<tr>
+																<th>Photo</th>
+																<th>Product</th>
+																<th>Quantity</th>
+																<th>price</th>
+																<th>Actions</th>
+															</tr>
+														</thead>
+														<tfoot>
+															<tr>
+																<th colspan="3">Subtotal:</th>
+																<th></th>
+																<th></th>
+															</tr>
+														</tfoot>
+														<tbody>
+															<tr>
+																<td>
+																	<img src="dist/img/chair.jpg" alt="iMac" width="80">
+																</td>
+																<td>Rounded Chair</td>
+																<td>
+																<input class="vertical-spin" type="text" data-bts-button-down-class="btn btn-default"   data-bts-button-up-class="btn btn-default" value="20" name="vertical-spin">
+																</td>
+																<td>$400</td>
+
+																<td><a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a></td>
+															</tr>
+															<tr>
+																<td>
+																	<img src="dist/img/chair2.jpg" alt="iMac" width="80">
+																</td>
+																<td>Rounded Chair</td>
+																<td>
+																	<input class="vertical-spin" type="text" data-bts-button-down-class="btn btn-default"   data-bts-button-up-class="btn btn-default" value="10" name="vertical-spin">
+																</td>
+																<td>$450</td>
+																<td><a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a></td>
+															</tr>
+															<tr>
+																<td>
+																	<img src="dist/img/chair3.jpg" alt="iMac" width="80">
+																</td>
+																<td>Rounded Chair</td>
+																<td>
+																<input class="vertical-spin" type="text" data-bts-button-down-class="btn btn-default"   data-bts-button-up-class="btn btn-default" value="15" name="vertical-spin">
+																</td>
+																<td>$470</td>
+
+																<td><a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a></td>
+															</tr>
+														</tbody>
+													</table>-->
+											</fieldset>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Row -->
+
+				</div>
+
+			<!-- Footer -->
+			<footer class="footer container-fluid pl-30 pr-30">
+					<div class="row">
+						<div class="col-sm-12">
+							<p>2018 &copy; Pulse-Express. Pamper VLADDOS</p>
+						</div>
+					</div>
+			</footer>
+			<!-- /Footer -->
+
+			</div>
+
+			<!-- /Main Content -->
+
+		<!-- /#wrapper -->
+
+
+
+		<!-- jQuery -->
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<!-- JavaScript -->
+
+		<script src="{% static 'js/jquery.cookie.js' %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
+		<!-- Form Wizard JavaScript -->
+		<script src="{% static 'js/jquery.steps.min.js' %}"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+		<!-- Form Wizard Data JavaScript -->
+		<script src="{% static 'js/form-wizard-data.js' %}"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+			<script src="{% static 'js/form-advance-data.js' %}"></script>
+			<script src="{% static 'js/bootstrap-select.js' %}"></script>
+			 <script src="{% static 'js/FileSaver.js' %}"></script>
+		<!-- Slimscroll JavaScript -->
+		<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+
+		<!-- Init JavaScript -->
+		<script src="{% static 'js/init.js' %}"></script>
+	</body>
+</html>
