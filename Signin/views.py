@@ -6,8 +6,10 @@ from Signin import models
 from report import models as md2
 from django.views.decorators.csrf import csrf_exempt
 from django import forms
+from django.conf import settings
 from django.core import serializers
 import os
+import csv
 import mimetypes
 #from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
@@ -27,6 +29,8 @@ from django.template import Context, RequestContext
 #from wkhtmltopdf.views import PDFTemplateResponse
 #import xhtml2pdf
 from xhtml2pdf import pisa
+import requests
+from django.core.files.storage import FileSystemStorage
 
 PFA13 = [
     {"size_class": 2, "title": "A1", "id": "0"}, {"size_class": 1, "title": "A2", "id": "1"},
@@ -70,8 +74,12 @@ INFO = { "timezone": "UTC",
          "controller-driver": "engy"
          }
 
-PROD_URL = "https://internal.pulse.express/api/requests/from_xls/"
-DEV_URL = "https://dev.internal.pulse.itcanfly.org/api/requests/from_xls/"
+def send_request(token, url, payload):
+    HDRS = {'Content-type': 'application/json', 'Encoding': 'utf-8'}
+    headers = HDRS.copy()
+    headers['Authorization'] = token
+    response = requests.post(url, verify=False, data=json.dumps(payload), headers=headers)
+    return response
 
 class SearchForm(forms.Form):
     query = forms.CharField(label='Enter a keyword to search for',
@@ -85,7 +93,7 @@ def downolad_file(request):
     the_file = '/some/file/conf.json'
     response = HttpResponse(FixedFileWrapper(open(the_file, 'rb')), content_type=mimetypes.guess_type(the_file[0]))
     response['Content-Length'] = os.path.getsize(the_file)
-    response['Content-Disposition']="attachment; filename=%s" % os.path.basename(the_file)
+    response['Content-Disposition'] = "attachment; filename=%s" % os.path.basename(the_file)
     return response
 
 def login_required(func):
@@ -110,7 +118,7 @@ def login(request):
                 response = redirect('/leroy/')
                 response.set_cookie('token', info.token)
                 response.set_cookie('uid', info.uid)
-                response.set_cookie('URL', PROD_URL)
+                response.set_cookie('URL', settings.DATA['PROD_URL'] + '/requests/from_xls/')
                 response.set_cookie('type', user.stype)
                 print('success cour')
                 return response
@@ -118,7 +126,7 @@ def login(request):
                 response = redirect('/technical/')
                 response.set_cookie('token', info.token)
                 response.set_cookie('uid', info.uid)
-                response.set_cookie('URL', DEV_URL)
+                response.set_cookie('URL', settings.DATA['DEV_URL'] + '/requests/from_xls/')
                 response.set_cookie('type', user.stype)
                 print('success tech')
                 return response
@@ -285,6 +293,7 @@ def parcels_page(request):
     return response
 
 @csrf_exempt
+@login_required
 def terminal_page(request):
     if request.POST:
         #form = SearchForm(request.POST)
@@ -331,6 +340,53 @@ def cameras_more(request):
 def logout(request):
     response = redirect('/login/')
     response.set_cookie('token', '', expires=datetime(1970,1,1))
+    return response
+
+@csrf_exempt
+@login_required
+def new_users(request):
+    if request.method == 'POST':
+        response_data = {}
+        print(request.FILES['file'].name)
+        myfile = request.FILES['file']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        print(filename, uploaded_file_url)
+        #print(request.FILES)
+        data = dict.fromkeys(
+            ['logistician', 'phones', 'login', 'first_name', 'middle_name', 'last_name', 'card_number', 'email',
+                'blocked', 'password'])
+        with open('{}/{}'.format(settings.MEDIA_ROOT,filename), encoding='cp1251') as f_obj:
+            reader = csv.DictReader(f_obj, delimiter=';')
+            success, errors, count, errors_login = 0, 0, 0, []
+            for row in reader:
+                count += 1
+                if 'DPD' in row['Логин']: data['logistician'] = '81b3d261-f7e9-4a73-a080-8d7ad6bd6129'
+                elif 'Leroy' in row['Логин']: data['logistician'] = 'd0e68ee2-d34f-467f-bd4f-3c399dbb5ae0'
+                elif 'Pony' in row['Логин']: data['logistician'] = '906bbb10-e572-43f9-b1fc-904e484631f0'
+                else: errors += 1; errors_login.append(row['Логин']); continue
+                data['login'] = row['Логин']
+                data['password'] = row['Пароль']
+                data['phones'] = [row['Телефон']]
+                data['card_number'] = row['Логин']
+                data['blocked'] = False
+                if row['ФИО'] != '':
+                    data['first_name'] = data['last_name'] = data['middle_name'] = row['ФИО']
+                    if len(row['ФИО'].split()) == 3:
+                        data['first_name'], data['last_name'], data['middle_name'] = row['ФИО'].split()[1][:31], row['ФИО'].split()[0][:31], row['ФИО'].split()[2][:31]
+                resp = send_request(models.Sender.objects.get(name='Leroy').token, settings.DATA['PROD_URL'] + '/couriers/', data)
+                print(resp.json())
+                if resp.status_code == 200: success += 1
+                else: errors += 1; errors_login.append(row['Логин'])
+                response_data['count'] = count
+                response_data['errors'] = errors
+                response_data['success'] = success
+                response_data['error_login'] = errors_login
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    template = loader.get_template('Signin/new_users.html')
+    context = {}
+    response = HttpResponse(template.render(context, request))
     return response
 
 @login_required

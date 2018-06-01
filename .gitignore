@@ -8,3 +8,4 @@ venvv
 dpl/
 *.swp
 *.pyc
+*.csv

@@ -10,7 +10,7 @@ $(function(){
 			transitionEffect: "fade",
 			titleTemplate: '#title#',
 			labels: {
-				finish: "Круть",
+				finish: "На печать ->",
 				next: "Далее",
 				previous: "Назад",
 			},

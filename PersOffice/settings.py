@@ -22,11 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 config_path = os.path.join(BASE_DIR, 'conf.json')
+DATA = dict()
 with open(config_path, 'r') as f:
-    data = json.load(f)
-
+    DATA = json.load(f)
+    
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = data['SECRET_KEY']
+SECRET_KEY = DATA['SECRET_KEY']
 
 CSRF_COOKIE_SECURE = True
 
@@ -97,19 +98,19 @@ WSGI_APPLICATION = 'PersOffice.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': data['DB_NAME_DEFAULT'],
-        'USER': data['DB_USER_DEFAULT'],
-        'PASSWORD': data['DB_PASSWORD_DEFAULT'],
-        'HOST': data['HOST_DEFAULT'],
-        'PORT': data['PORT_DEFAULT'],
+        'NAME': DATA['DB_NAME_DEFAULT'],
+        'USER': DATA['DB_USER_DEFAULT'],
+        'PASSWORD': DATA['DB_PASSWORD_DEFAULT'],
+        'HOST': DATA['HOST_DEFAULT'],
+        'PORT': DATA['PORT_DEFAULT'],
     },
     'report': {
-        'NAME': data['DB_NAME_REPORT'],
+        'NAME': DATA['DB_NAME_REPORT'],
         'ENGINE': 'sql_server.pyodbc',
-        'HOST': data['HOST_REPORT'],
-        'PORT': data['PORT_REPORT'],
-        'USER': data['DB_USER_REPORT'],
-        'PASSWORD': data['DB_PASSWORD_REPORT'],
+        'HOST': DATA['HOST_REPORT'],
+        'PORT': DATA['PORT_REPORT'],
+        'USER': DATA['DB_USER_REPORT'],
+        'PASSWORD': DATA['DB_PASSWORD_REPORT'],
         'OPTIONS': {
             'host_is_server': True,
             'unicode_results': False,
