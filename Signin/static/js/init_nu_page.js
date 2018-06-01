@@ -67,6 +67,7 @@ $("#form").bind('submit', function (e) {
         return xhr;
       },
 	error: function (response) {
+  	console.log(response);
   		//$('#exampleModalLabel1').text("Ошибка загрузики");
   		swal({
 			title: "Ошибка",
