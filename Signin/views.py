@@ -376,8 +376,8 @@ def new_users(request):
                     if len(row['ФИО'].split()) == 3:
                         data['first_name'], data['last_name'], data['middle_name'] = row['ФИО'].split()[1][:31], row['ФИО'].split()[0][:31], row['ФИО'].split()[2][:31]
                 resp = send_request(models.Sender.objects.get(name='Leroy').token, settings.DATA['PROD_URL'] + '/couriers/', data)
-                print(resp.json())
-                if resp.status_code == 200: success += 1
+                #print(resp.json(), '!!--' ,resp.status_code)
+                if resp.status_code == 201: success += 1
                 else: errors += 1; errors_login.append(row['Логин'])
                 response_data['count'] = count
                 response_data['errors'] = errors
