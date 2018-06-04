@@ -138,6 +138,7 @@ def login(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+@csrf_exempt
 @login_required
 def leroy_page(request):
     template = loader.get_template('Signin/leroy.html')
