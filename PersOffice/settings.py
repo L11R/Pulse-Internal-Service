@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-
     'Signin',
     'report',
 ]
@@ -115,6 +113,7 @@ DATABASES = {
         'OPTIONS': {
             'host_is_server': True,
             'unicode_results': False,
+            'driver': 'FreeTDS',
         }
     }
 }
@@ -154,6 +153,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+
+FILES_ROOT = os.path.join(BASE_DIR, 'report', 'files', 'xlsx')
+FILES_URL = '/xslx'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Signin', 'files', 'media')
 MEDIA_URL = '/media/'
