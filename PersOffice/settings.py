@@ -113,7 +113,6 @@ DATABASES = {
         'OPTIONS': {
             'host_is_server': True,
             'unicode_results': False,
-            'driver': 'FreeTDS'
         }
     }
 }
