@@ -106,8 +106,7 @@ DATABASES = {
     'report': {
         'NAME': DATA['DB_NAME_REPORT'],
         'ENGINE': 'sql_server.pyodbc',
-        'HOST': DATA['HOST_REPORT'],
-        'PORT': DATA['PORT_REPORT'],
+        'HOST': '{},{}'.format(DATA['HOST_REPORT'], DATA['PORT_REPORT']),
         'USER': DATA['DB_USER_REPORT'],
         'PASSWORD': DATA['DB_PASSWORD_REPORT'],
         'OPTIONS': {
