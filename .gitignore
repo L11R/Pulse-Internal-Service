@@ -10,3 +10,4 @@ dpl/
 *.pyc
 *.csv
 Release.key
+Signin/files/media/*.htm
