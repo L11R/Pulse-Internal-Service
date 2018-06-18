@@ -349,6 +349,15 @@ def new_users(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+@csrf_exempt
+@login_required
+def template_views(request):
+    template = loader.get_template('Signin/template_views.html')
+    context = {}
+    response = HttpResponse(template.render(context, request))
+    return response
+
+@csrf_exempt
 @login_required
 def checked(request):
     api_type = int(request.COOKIES.get('type'))

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'Signin',
     'report',
     'ping',
+    'template_point',
 ]
 
 MIDDLEWARE = [

@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^rental', views.lease_page),
     url(r'^menu_rental', views.menu_lease),
     url(r'^add_users', views.new_users),
+    url(r'^views_point', views.template_views),
 ]

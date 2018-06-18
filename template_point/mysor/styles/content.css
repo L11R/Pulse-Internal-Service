@@ -1,0 +1,386 @@
+@import "variables.css";
+/*index page*/
+#main {
+  background: url("../images/bg-main.png") no-repeat;
+  background-size: 75%;
+  background-position: calc(50% - 136px) calc(50% + 75px);
+  padding-bottom: 9px;
+
+  h2 {
+    margin-bottom: 54px;
+    font-size: 40px;
+    line-height: 48px;
+    text-transform: uppercase;
+  }
+
+  .main__action {
+    padding-top: 25px;
+
+    &__buttons a {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 20px;
+      padding: 70px 0 70px;
+      width: 400px;
+      font-size: 42px;
+      font-weight: 500;
+      letter-spacing: 2px;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 99px;
+      left: calc(50% + 105px);
+      width: 190px;
+      height: 121px;
+      background: url("../images/bg-main-2.png") no-repeat;
+      background-position: 0 0;
+      background-size: 75%;
+    }
+  }
+}
+
+.button__orange {
+  background-color: $colorOrange;
+  border-radius: 10px;
+  color: $baseTextColor;
+}
+
+.button__large {
+    display: block;
+    width: 420px;
+    margin: 15px auto;
+    padding: 17px 0 17px;
+    font-size: 26px;
+    line-height: 40px;
+}
+.button__xlarge {
+    display: block;
+    width: 660px;
+    margin: 33px auto;
+    padding: 17px 0 17px;
+    font-size: 36px;
+    line-height: 40px;
+}
+
+.button {
+  text-align: center;
+  text-decoration: none;
+}
+
+/*signin*/
+.signin {
+  /*float: left;
+  width: calc(50% - 51px);
+  margin-bottom: 55px;
+  padding-top: 29px;
+  padding-left: 51px;*/
+
+  .error__message {
+    margin-bottom: 30px;
+    color: $colorOrange;
+  }
+
+  .form__line {
+    margin-bottom: 10px;
+    font-size: 38px;
+    line-height: 48px;
+    letter-spacing: 1px;
+
+    label {
+      display: block;
+    }
+
+    input {
+      margin-top: 10px;
+      padding: 18px 20px 16px;
+      width: 100%;
+      border: 1px solid #d6d6d6;
+      border-radius: 5px;
+    }
+  }
+
+  .button {
+    display: block;
+    width: 330px;
+    margin: 33px auto;
+    padding: 17px 0 17px;
+    font-size: 36px;
+    line-height: 40px;
+  }
+}
+
+.button__gray {
+  background-color: $colorGray;
+  color: $baseTextColor;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+}
+
+.half {
+  float: left; 
+  width: calc(50% - 5px);
+}
+
+.app {
+  margin-top: 40px;
+  font-size: 34px;
+  line-height: 40px;
+  text-align: center;
+
+  .button {
+    margin-top: 36px;
+  }
+}
+
+.keyboard {
+  margin: 10px 0;
+  ul {
+    font-size: 0
+  }
+
+  li {
+    width: 100px;
+    height: 68px;
+    padding: 33px 0 0;
+    font-size: 58px;
+    line-height: 38px;
+  }
+  .letter {
+    width: 87px;
+    height: 87px;
+    font-size: 38px;
+  }
+  li, .letter {
+    display: inline-block;
+    margin-bottom: 8px;
+    border: 1px solid #d6d6d6;
+    border-radius: 12px;
+    text-align: center;
+
+
+    &:hover {
+      background-color: #d6d6d6;
+    }
+
+    span.backspace {
+      display: block;
+      margin: 0 auto;
+      width: 82px;
+      height: 53px;
+      background-image: url("../images/icon-backspace.jpg");
+      background-repeat: no-repeat;
+    }
+    
+  }
+}
+
+/*list*/
+#list {
+  padding-bottom: 94px;
+
+  .container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-scrolling: touch;
+    height: 536px;
+  }
+
+  table {
+    width: 100%;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+  }
+  thead {
+    background-color: #d0d0d0;
+    text-transform: uppercase;
+
+    th {
+      padding: 24px 0 26px;
+    }
+
+  }
+  tr {
+    td {
+      padding: 24px 10px;
+    }
+
+    /*&:first-child td {
+      padding-top: 94px;
+    }*/
+
+    .button {
+      padding: 12px;
+      width: 160px;
+    }
+  }
+}
+
+/*payment_method*/
+.content__title {
+  padding: 4px 0 4px;
+  text-align: center;
+  font-size: 27px;
+  line-height: 36px;
+  background: #d0d0d0;
+}
+
+#payment_method {
+  padding-bottom: 76px;
+  font-size: 0;
+  text-align: center;
+
+  p {
+    font-size: 30px;
+    line-height: 36px;
+  }
+}
+
+.payment_method__actions {
+  display: inline-block;
+  margin-top: 180px;
+  margin-bottom: 140px;
+  width: 50%;
+
+  .button, .input {
+    display: block;
+    margin: 0 auto;
+    padding: 36px 0 28px;
+    width: 369px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 48px;
+  }
+}
+
+#payment_by_cash {
+  padding-top: 46px;
+  font-size: 34px;
+
+  .payment__info {
+    margin: 55px auto 0;
+    width: 500px;
+    font-size: 38px;
+    line-height: 48px;
+    font-weight: bold;
+
+    .row {
+      margin-bottom: 15px;
+      letter-spacing: 4px;
+    }
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    position: relative;
+    margin: 50px auto;
+    width: 324px;
+    height: 361px;
+    background: url("../images/payment-cash.jpg") no-repeat;
+  }
+}
+
+/*get*/
+.sign_area {
+  margin: 23px auto 14px;
+  width: 944px;
+  height: 214px;
+  border: 1px solid #d6d6d6;
+  border-radius: 12px;
+  text-align: center;
+  text-transform: uppercase;
+
+  span {
+    display: inline-block;
+    margin-top: 87px;
+  }
+}
+
+.dialog {
+  margin-bottom: 75px;
+  text-align: center;
+  font-size: 0;
+
+  &__question {
+    margin-bottom: 23px;
+    font-size: 26px;
+    line-height: 30px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+  }
+
+  &__answer {
+    display: inline-block;
+    width: 50%;
+    margin: 0 auto;
+
+    .button {
+      display: block;
+      margin: 0 auto;
+      padding: 10px 0 19px;
+      font-size: 45px;
+      line-height: 50px;
+    }
+  }
+
+  .button {
+    display: block;
+    width: 369px;
+  }
+}
+
+/*reminder*/
+#reminder {
+  text-align: center;
+  font-size: 28px;
+  line-height: 48px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.reminder__text {
+  padding-top: 26px;
+  font-size: 34px;
+  line-height: 45px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.reminder__pulse {
+  margin-bottom: 39px;
+  font-size: 80px;
+  line-height: 86px;
+  text-transform: none;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+
+.reminder__image {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.form-inline .form-control.search-input {
+  width: 500px;
+}
+.form-inline .search-input-btn {
+  font-size: 24px;
+}
+
+.timeoutPopup {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  border: 2px solid #000;
+  background: red;
+  color: white;
+  display: none;
+  top: calc(50% - 50px);
+  left: calc(50% - 150px);
+  text-align: center;
+  padding-top: 30px;
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pulse</title>
+      <link rel="stylesheet" href="../../static/styles/bootstrap.css">
+      <link rel="stylesheet" href="../../static/styles/main.css">
+  </head>
+
+  <body>
+  <header>
+        <div class="wrapper theme-1-active pimary-color-green">
+        <!-- Top Menu Items -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div id="mobile_only_nav" class="mobile-only-nav pull-right">
+				<ul class="nav navbar-right top-nav pull-right">
+                    <li>
+                        <div class="localization-toggle">
+                            <a href="#" class="box"></a>
+                        </div>
+                    </li>
+					<li>
+						<a id="open_right_sidebars" href="">почтомат</a>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="../../static/images/rfdm.png" alt="user_auth" class="user-auth-img"><span class="user-online-status"></span></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+      </div>
+  </header>
+
+    <section class="content" id="signin">
+    <div class="container">
+
+      <div class="row">
+        <div class="signin col-md-6">
+
+              <p class="error__message">
+              </p>
+
+
+          <form action="" method="POST" autocomplete="off">
+            <input type="hidden" name="action" value="check_auth" />
+            <div class="form__line">
+              <label for="login">телефон</label>
+              <input type="text" name="login" value="" id="id_login" maxlength="15" placeholder="+7 (999) 999-99-99">
+            </div>
+            <div class="form__line">
+              <label for="passwd">код</label>
+              <input type="password" name="passwd" value=""  id="id_passwd" placeholder="****">
+            </div>
+            <button type="submit" name="button" class="button button__orange">OK</button>
+            <button type="button" name="button" class="button button__beige to_idle">Отмена</button>
+          </form>
+
+        </div>
+        <div class="col-md-6 keyboard numpad">
+          <br/>
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <!--for letter in "123456789+0" %}-->
+                <input type='button' class='letter btn btn-sq-lg' value='1'/>
+                <input type='button' class='letter btn btn-sq-lg' value='2'/>
+                <input type='button' class='letter btn btn-sq-lg' value='3'/>
+                <input type='button' class='letter btn btn-sq-lg' value='4'/>
+                <input type='button' class='letter btn btn-sq-lg' value='5'/>
+                <input type='button' class='letter btn btn-sq-lg' value='6'/>
+                <input type='button' class='letter btn btn-sq-lg' value='7'/>
+                <input type='button' class='letter btn btn-sq-lg' value='8'/>
+                <input type='button' class='letter btn btn-sq-lg' value='9'/>
+                <input type='button' class='letter btn btn-sq-lg' value='+'/>
+                <input type='button' class='letter btn btn-sq-lg' value='0'/>
+                <input type='button' class='letter btn btn-sq-lg' value='<'/>
+                <!--<input type='button' class='backspace letter btn btn-sq-lg' value='&#129104;'/>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+    <footer>
+      <div class="container">
+        <!--<div class="footer__settings">
+          <a href="#"></a>
+        </div>-->
+        <!--<div class="footer__info">
+          <a href="#">ВЕРНУТЬСЯ</a>
+        </div>-->
+        <div class="footer__tel">
+          Телефон поддержки <span>8&nbsp;800&nbsp;333&nbsp;92&nbsp;63</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

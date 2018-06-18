@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pulse</title>
+    <link rel="stylesheet" href="styles/bootstrap.css">
+      <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body>
+    <header>
+        <div class="wrapper theme-1-active pimary-color-green">
+        <!-- Top Menu Items -->
+		<nav class="navbar navbar-inverse navbar-fixed-top text-center">
+				<div class="title">Режим курьера: загрузка отправлений</div>
+		</nav>
+      </div>
+  </header>
+    <section class="content" >
+<div class="container top-buffer">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 text-center">
+        <span id="cell_open_state">
+        Ячейка открыта
+      </span>
+      </div>
+    </div>
+    <div class="row" style="display: none;" {% endif %} id="actions_block">
+      <div class="col-md-4">
+        <form method="POST">
+          <h3>
+            <input type="hidden" name="action" value="cell_too_small" />
+            <input type="submit" class="button button__gray btn btn-block btn-lg" value="Ячейка маленькая" />
+          </h3>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <form method="POST">
+          <h3>
+            <input type="hidden" name="action" value="cell_is_dirty" />
+            <input type="submit" class="button button__gray btn btn-block btn-lg" value="Ячейка грязная" />
+          </h3>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <form method="POST">
+          <h3>
+            <input type="hidden" name="action" value="reopen_cell" />
+            <input type="submit" class="button button__gray btn btn-block btn-lg" value="Открыть повторно" />
+          </h3>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <form method="POST">
+          <h3>
+            <input type="hidden" name="action" value="cell_is_broken" />
+            <input type="submit" class="button button__gray button__large" value="Ячейка сломана" />
+          </h3>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <form method="POST">
+          <h3>
+            <input type="hidden" name="action" value="cancel_insert" />
+            <input type="submit" class="button button__gray button__large" value="Отменить закладку" />
+          </h3>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+      <form method="POST">
+        <h3>
+          <input type="hidden" name="action" value="confirm_insert" />
+          <input type="submit" class="button button__orange button__xlarge" value="Подтвердить закладку" />
+        </h3>
+      </form>
+    </div>
+  </div>
+        </section>
+    <footer>
+      <div class="container">
+        <!--<div class="footer__settings">
+          <a href="#"></a>
+        </div>-->
+        <!--<div class="footer__info">
+          <a href="#">ВЕРНУТЬСЯ</a>
+        </div>-->
+        <div class="footer__tel">
+          Телефон поддержки <span>8&nbsp;800&nbsp;333&nbsp;92&nbsp;63</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
