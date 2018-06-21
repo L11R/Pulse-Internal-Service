@@ -80,7 +80,7 @@ def generic():
 
     
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
-    toaddr = ['v.sazonov@pulseexpress.ru', 'sepstamp@mail.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'sepstamp@mail.ru', 'mikekoltsov@gmail.com']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
@@ -91,6 +91,7 @@ def generic():
     try:
         with open(filepath, "rb") as fil:
             part1 = MIMEApplication(fil.read(), Name=basename(filename_s))
+            part1.add_header('Content-Disposition', 'attachment; filename="%s"' % filename_s)
         #fo = open(filepath, 'rb')
         #filecontent = fo.read()
         #fo.close()
@@ -98,7 +99,7 @@ def generic():
         #'name=' + filename + '.xlsx'
         
         #part1 = MIMEApplication(filecontent, 'application/xls;')
-        part1.add_header('Content-Disposition', 'attachment; filename="%s"' % filename_s)
+        
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
 
