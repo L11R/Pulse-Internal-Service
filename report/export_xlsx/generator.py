@@ -74,7 +74,7 @@ class DefaultBookkepingGenerator(object):
 
 def generic():
     #filename = 'report'
-    filename = 'Реестр {}'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y-%m-%d'))
+    filename = 'Сatalogue {}'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate())
 
@@ -90,7 +90,7 @@ def generic():
     filename_s = filename + '.xlsx'
     try:
         with open(filepath, "rb") as fil:
-            part1 = MIMEApplication(fil.read(), Name=basename(filename))
+            part1 = MIMEApplication(fil.read(), Name=basename(filename_s))
         #fo = open(filepath, 'rb')
         #filecontent = fo.read()
         #fo.close()
