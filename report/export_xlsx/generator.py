@@ -56,7 +56,7 @@ class DefaultBookkepingGenerator(object):
                     ("dpd_point_code", ev.report.dpd_point_code),
                     ("terminal", ev.report.terminal),
                     ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
-                    ("otype", PARCEL_STATUS_CHOICES[ev.report.status]),
+                    ("otype", PARCEL_STATUS_CHOICES[ev.report.status][1]),
                     ("courier_name", ev.courier_login),
                     ("dt_date", ev.dt.strftime('%Y.%m.%d')),
                     ("dt_time", ev.dt.strftime('%H:%M')),
