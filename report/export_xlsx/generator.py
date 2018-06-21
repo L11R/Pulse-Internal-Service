@@ -5,13 +5,14 @@ from datetime import datetime, timedelta
 from report import models
 from django.conf import settings
 from collections import OrderedDict, defaultdict
-from report.choices import PARCEL_STATUS_CHOICES
+from report.choices import PARCEL_STATUS_CHOICES_MODIFIED
 from . import writers
 
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
+import random
 
 class DefaultBookkepingGenerator(object):
     
@@ -41,7 +42,7 @@ class DefaultBookkepingGenerator(object):
                 ("dt_time", "Время"),
                 ("order_id", "Номер отправки"),
                 ("barcodes", "Номер посылки"),
-                #("cell", "Номер ячейки"),
+                ("cell", "Номер ячейки"),
             ]),
             "table_data": self.do_report()
         }
@@ -51,22 +52,28 @@ class DefaultBookkepingGenerator(object):
         
     def do_report(self, dt=datetime.now().date()-timedelta(days=1)):
         for ev in self.get_events_qs(dt):
-            if int(ev.report.terminal) in range(201, 251):
+            if int(ev.report.status) in (3, 6):
+                if (not ev.courier_login):
+                    if (not ev.courier_name):
+                        courier = 'MultilogDPD'
+                    else: courier = ev.courier_name
+                else: courier = ev.courier_login
                 yield OrderedDict([
                     ("dpd_point_code", ev.report.dpd_point_code),
                     ("terminal", ev.report.terminal),
                     ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
-                    ("otype", PARCEL_STATUS_CHOICES[ev.report.status][1]),
-                    ("courier_name", ev.courier_login),
+                    ("otype", PARCEL_STATUS_CHOICES_MODIFIED[ev.report.status][1]),
+                    ("courier_name", courier),
                     ("dt_date", ev.dt.strftime('%Y.%m.%d')),
                     ("dt_time", ev.dt.strftime('%H:%M')),
                     ("order_id", ev.report.order_id),
                     ("barcodes", ev.report.barcodes),
-                    #("cell", "Номер ячейки"),
+                    ("cell", random.randint(1, 20)),
                 ])
 
 def generic():
     filename = 'report'
+    name = 'Реестр {}.xlsx'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y.%m.%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate())
 
@@ -83,7 +90,7 @@ def generic():
         fo = open(filepath, 'rb')
         filecontent = fo.read()
         fo.close()
-        part1 = MIMEApplication(filecontent, 'application/xls;name=report.xlsx')
+        part1 = MIMEApplication(filecontent, 'application/xls;name={}'.format(name))
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
 
