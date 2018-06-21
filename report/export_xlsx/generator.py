@@ -1,13 +1,9 @@
-from openpyxl import Workbook
-from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font, Side
-from django.conf import settings
 from datetime import datetime, timedelta
 from report import models
 from django.conf import settings
 from collections import OrderedDict, defaultdict
 from report.choices import PARCEL_STATUS_CHOICES_MODIFIED
 from . import writers
-
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
@@ -21,7 +17,7 @@ class DefaultBookkepingGenerator(object):
         self.top_row = 'Реестр'
     
     def get_events_qs(self, date):
-        return models.Operation.objects.using('report').filter(dt__gte = date, dt__lte = date + timedelta(days=1))
+        return models.Operation.objects.using('report').filter(dt__range= (date, date + timedelta(days=1)))
         #return models.ParcelEvent.objects.annotate(picount=Count("parcel__items")).filter(
         # #picount=0,
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
@@ -91,14 +87,6 @@ def generic():
         with open(filepath, "rb") as fil:
             part1 = MIMEApplication(fil.read(), Name=basename(filename_s))
             part1.add_header('Content-Disposition', 'attachment; filename="%s"' % filename_s)
-        #fo = open(filepath, 'rb')
-        #filecontent = fo.read()
-        #fo.close()
-        #application_last = 'application/xls;'
-        #'name=' + filename + '.xlsx'
-        
-        #part1 = MIMEApplication(filecontent, 'application/xls;')
-        
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
 
