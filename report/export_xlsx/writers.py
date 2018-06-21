@@ -14,9 +14,11 @@ class BookkepingWriter(object):
     
     def write_table_header(self, row):
         self.ws.append(list(row))
+        self.wb.save('{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(self.filename)))
+    
         
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.wb.save('{}/{}'.format(settings.FILES_ROOT,'{}.xlsx'.format(self.filename)))
+    #def __exit__(self, exc_type, exc_val, exc_tb):
+        #self.wb.save('{}/{}'.format(settings.FILES_ROOT,'{}.xlsx'.format(self.filename)))
     
 
 '''class BookkeepingWriter(object):
