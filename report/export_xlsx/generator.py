@@ -21,7 +21,7 @@ class DefaultBookkepingGenerator(object):
         self.top_row = 'Реестр'
     
     def get_events_qs(self, date):
-        return models.Operation.objects.using('report').filter(dt__gte = date)
+        return models.Operation.objects.using('report').filter(dt = date)
         #return models.ParcelEvent.objects.annotate(picount=Count("parcel__items")).filter(
         # #picount=0,
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
@@ -55,8 +55,7 @@ class DefaultBookkepingGenerator(object):
         for ev in self.get_events_qs(dt):
             if int(ev.report.status) in (3, 6):
                 if (not ev.courier_name):
-                    if (not ev.courier_login):
-                        courier = 'MultilogDPD'
+                    if (not ev.courier_login): courier = 'MultilogDPD'
                     else: courier = ev.courier_login
                 else: courier = ev.courier_name
                 yield OrderedDict([
@@ -74,7 +73,7 @@ class DefaultBookkepingGenerator(object):
 
 def generic():
     #filename = 'report'
-    filename = 'Сatalogue {}'.format((datetime.now().date()-timedelta(days=2)).strftime('%Y-%m-%d'))
+    filename = 'Catalogue {}'.format((datetime.now().date()-timedelta(days=2)).strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate())
 
@@ -103,10 +102,10 @@ def generic():
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
 
-    text_info = '\nСтатистика ->> \n'
-    part2 = MIMEText(text_info, 'plain')
+    #text_info = '\nСтатистика ->> \n'
+    #part2 = MIMEText(text_info, 'plain')
     msg.attach(part1)
-    msg.attach(part2)
+    #msg.attach(part2)
     s = smtplib.SMTP(settings.DATA['EMAIL_HOST_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
     s.ehlo()
     s.starttls()
