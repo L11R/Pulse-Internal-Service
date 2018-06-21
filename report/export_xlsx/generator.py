@@ -80,7 +80,7 @@ def generic():
 
     
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
-    toaddr = ['v.sazonov@pulseexpress.ru', 'ik@pulseexpress.ru', 'mikekoltsov@gmail.com']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'ik@pulseexpress.ru']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
