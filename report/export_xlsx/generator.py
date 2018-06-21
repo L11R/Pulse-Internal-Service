@@ -13,6 +13,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 import random
+from os.path import basename
 
 class DefaultBookkepingGenerator(object):
     
@@ -86,16 +87,18 @@ def generic():
     msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
     msg['To'] = '__PULSE__'
     msg['cc'] = '__PULSE-EXPRESS__'
+    filename_s = filename + '.xlsx'
     try:
-        fo = open(filepath, 'rb')
-        filecontent = fo.read()
-        fo.close()
+        with open(filepath, "rb") as fil:
+            part1 = MIMEApplication(fil.read(), Name=basename(filename))
+        #fo = open(filepath, 'rb')
+        #filecontent = fo.read()
+        #fo.close()
         #application_last = 'application/xls;'
         #'name=' + filename + '.xlsx'
-        filename_s = filename + '.xlsx'
-        part1 = MIMEApplication(filecontent, 'application/xls;')
-        part1.add_header('Content-Disposition',
-                'attachment; filename="%s"' % filename_s)
+        
+        #part1 = MIMEApplication(filecontent, 'application/xls;')
+        part1.add_header('Content-Disposition', 'attachment; filename="%s"' % filename_s)
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
 
