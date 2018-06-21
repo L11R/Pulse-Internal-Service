@@ -21,7 +21,7 @@ class DefaultBookkepingGenerator(object):
         self.top_row = 'Реестр'
     
     def get_events_qs(self, date):
-        return models.Operation.objects.using('report').filter(dt = date)
+        return models.Operation.objects.using('report').filter(dt__gte = date, dt__lte = date + timedelta(days=1))
         #return models.ParcelEvent.objects.annotate(picount=Count("parcel__items")).filter(
         # #picount=0,
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
