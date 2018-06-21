@@ -90,8 +90,12 @@ def generic():
         fo = open(filepath, 'rb')
         filecontent = fo.read()
         fo.close()
-        application_last = 'application/xls;name=' + filename + '.xlsx'
-        part1 = MIMEApplication(filecontent, application_last)
+        #application_last = 'application/xls;'
+        #'name=' + filename + '.xlsx'
+        filename_s = filename + '.xlsx'
+        part1 = MIMEApplication(filecontent, 'application/xls;')
+        part1.add_header('Content-Disposition',
+                'attachment; filename="%s"' % filename_s)
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
 
