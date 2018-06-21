@@ -54,11 +54,11 @@ class DefaultBookkepingGenerator(object):
     def do_report(self, dt=datetime.now().date()-timedelta(days=1)):
         for ev in self.get_events_qs(dt):
             if int(ev.report.status) in (3, 6):
-                if (not ev.courier_login):
-                    if (not ev.courier_name):
+                if (not ev.courier_name):
+                    if (not ev.courier_login):
                         courier = 'MultilogDPD'
-                    else: courier = ev.courier_name
-                else: courier = ev.courier_login
+                    else: courier = ev.courier_login
+                else: courier = ev.courier_name
                 yield OrderedDict([
                     ("dpd_point_code", ev.report.dpd_point_code),
                     ("terminal", ev.report.terminal),
@@ -80,7 +80,7 @@ def generic():
 
     
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
-    toaddr = ['v.sazonov@pulseexpress.ru', 'sepstamp@mail.ru', 'mikekoltsov@gmail.com']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'ik@pulseexpress.ru', 'mikekoltsov@gmail.com']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
