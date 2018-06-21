@@ -15,6 +15,15 @@ class BookkepingWriter(object):
         
     def dump(self, data):
         self.write_table_header(data['table_header'].values())
+        for row in data['table_data']:
+            self.write_table_row(row.values())
+    
+    
+    def write_table_row(self, row):
+        self.writerow(row)
+        
+    def writerow(self, row):
+        self.ws.append(list(row))
     
     def write_table_header(self, row):
         self.ws.append(list(row))
