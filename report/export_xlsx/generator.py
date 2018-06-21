@@ -8,6 +8,11 @@ from collections import OrderedDict, defaultdict
 from report.choices import PARCEL_STATUS_CHOICES
 from . import writers
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+
 class DefaultBookkepingGenerator(object):
     
     def __init__(self):
@@ -61,7 +66,39 @@ class DefaultBookkepingGenerator(object):
                 ])
 
 def generic():
-    writers.BookkepingWriter('report').dump(DefaultBookkepingGenerator().generate())
+    filename = 'report'
+    with writers.BookkepingWriter(filename) as writing:
+        writing.dump(DefaultBookkepingGenerator().generate())
+
+    
+    filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
+    toaddr = ['v.sazonov@pulseexpress.ru']
+    msg = MIMEMultipart('mixed')
+    msg['Subject'] = 'Report'
+    print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
+    msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
+    msg['To'] = '__PULSE__'
+    msg['cc'] = '__PULSE-EXPRESS__'
+    try:
+        fo = open(filepath, 'rb')
+        filecontent = fo.read()
+        fo.close()
+        part1 = MIMEApplication(filecontent, 'application/xls;name=report.xlsx')
+    except:
+        part1 = MIMEText('\nError creating report file', 'plain')
+
+    text_info = '\nСтатистика ->> \n'
+    part2 = MIMEText(text_info, 'plain')
+    msg.attach(part1)
+    msg.attach(part2)
+    s = smtplib.SMTP(settings.DATA['EMAIL_HOST_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
+    s.ehlo()
+    s.starttls()
+    s.ehlo()
+    s.login(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
+    s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], toaddr, msg.as_string())
+    s.quit()
+    #writers.BookkepingWriter('report').dump()
     #wb = Workbook()
     #ws = wb.active
     #ws.title = 'consignors'
