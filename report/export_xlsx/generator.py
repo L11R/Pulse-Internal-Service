@@ -51,7 +51,7 @@ class DefaultBookkepingGenerator(object):
         
         return data
         
-    def do_report(self, dt=datetime.now().date()-timedelta(days=1)):
+    def do_report(self, dt=datetime.now().date()-timedelta(days=2)):
         for ev in self.get_events_qs(dt):
             if int(ev.report.status) in (3, 6):
                 if (not ev.courier_name):
@@ -74,18 +74,18 @@ class DefaultBookkepingGenerator(object):
 
 def generic():
     #filename = 'report'
-    filename = 'Сatalogue {}'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y-%m-%d'))
+    filename = 'Сatalogue {}'.format((datetime.now().date()-timedelta(days=2)).strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate())
 
     
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
-    toaddr = ['v.sazonov@pulseexpress.ru', 'ik@pulseexpress.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
     msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
-    msg['To'] = '__PULSE__'
+    msg['To'] = '__DPD__'
     msg['cc'] = '__PULSE-EXPRESS__'
     filename_s = filename + '.xlsx'
     try:
