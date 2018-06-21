@@ -5,10 +5,14 @@ from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Fo
 class BookkepingWriter(object):
     def __init__(self, name):
         self.filename = name
+        
+    
+    def __enter__(self):
         self.wb = Workbook()
         self.ws = self.wb.active
-        self.ws.title = name
-    
+        self.ws.title = self.filename
+        return self
+        
     def dump(self, data):
         self.write_table_header(data['table_header'].values())
     
