@@ -73,13 +73,13 @@ class DefaultBookkepingGenerator(object):
 
 def generic():
     #filename = 'report'
-    filename = 'Реестр {}'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y.%m.%d'))
+    filename = 'Реестр {}'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate())
 
     
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
-    toaddr = ['v.sazonov@pulseexpress.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'sepstamp@mail.ru']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
