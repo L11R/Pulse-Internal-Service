@@ -72,8 +72,8 @@ class DefaultBookkepingGenerator(object):
                 ])
 
 def generic():
-    filename = 'report'
-    name = 'Реестр {}.xlsx'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y.%m.%d'))
+    #filename = 'report'
+    filename = 'Реестр {}'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y.%m.%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate())
 
@@ -90,7 +90,7 @@ def generic():
         fo = open(filepath, 'rb')
         filecontent = fo.read()
         fo.close()
-        application_last = 'application/xls;name=' + name
+        application_last = 'application/xls;name=' + filename + '.xlsx'
         part1 = MIMEApplication(filecontent, application_last)
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
