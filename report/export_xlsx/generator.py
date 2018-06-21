@@ -61,7 +61,7 @@ class DefaultBookkepingGenerator(object):
                     ("dt_date", ev.dt.strftime('%Y.%m.%d')),
                     ("dt_time", ev.dt.strftime('%H:%M')),
                     ("order_id", ev.report.order_id),
-                    ("barcodes", ', '.join(ev.report.barcodes)),
+                    ("barcodes", ev.report.barcodes),
                     #("cell", "Номер ячейки"),
                 ])
 
@@ -72,7 +72,7 @@ def generic():
 
     
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
-    toaddr = ['v.sazonov@pulseexpress.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'mikekoltsov@gmail.com']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
