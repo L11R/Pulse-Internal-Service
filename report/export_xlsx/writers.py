@@ -13,7 +13,7 @@ class BookkepingWriter(object):
         self.write_table_header(data['table_header'].values())
     
     def write_table_header(self, row):
-        self.ws.append(row)
+        self.ws.append(list(row))
         
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.wb.save('{}/{}'.format(settings.FILES_ROOT,'{}.xlsx'.format(self.filename)))
