@@ -6,10 +6,11 @@ from report import models
 from django.conf import settings
 from collections import OrderedDict, defaultdict
 from report.choices import PARCEL_STATUS_CHOICES
+from . import writers
 
 class DefaultBookkepingGenerator(object):
     
-    def __init__(self, name):
+    def __init__(self):
         self.top_row = 'Реестр'
     
     def get_events_qs(self, date):
@@ -59,10 +60,11 @@ class DefaultBookkepingGenerator(object):
                     #("cell", "Номер ячейки"),
                 ])
 
-def generic(filename):
-    wb = Workbook()
-    ws = wb.active
-    ws.title = 'consignors'
-    ws.append(list(DefaultBookkepingGenerator('New').generate()))
-    wb.save('{}/{}'.format(settings.FILES_ROOT,'{}.xlsx'.format(filename)))
-    print('MAIN.XLS')
+def generic():
+    writers.BookkepingWriter('report').dump(DefaultBookkepingGenerator().generate())
+    #wb = Workbook()
+    #ws = wb.active
+    #ws.title = 'consignors'
+    #ws.append(list(DefaultBookkepingGenerator('New').generate()))
+    #wb.save('{}/{}'.format(settings.FILES_ROOT,'{}.xlsx'.format(filename)))
+    #print('MAIN.XLS')
