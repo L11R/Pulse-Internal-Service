@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pulse</title>
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <style>
+      body {
+          background-color: #fefefe;
+          text-transform: uppercase;
+          width: 100%;
+      }
+      @font-face {
+          font-family: PLUMBCONDENSED-BOLD; /* Гарнитура шрифта */
+          src: url("fonts/PLUMBCONDENSED-BOLD.OTF"); /* Путь к файлу со шрифтом */
+      }
+      @font-face {
+          font-family: PLUMBCONDENSED-LIGHT; /* Гарнитура шрифта */
+          src: url("fonts/PLUMBCONDENSED-LIGHT.OTF"); /* Путь к файлу со шрифтом */
+      }
+      @font-face {
+          font-family: PLUMBCONDENSED-REGULAR; /* Гарнитура шрифта */
+          src: url("fonts/PLUMBCONDENSED-REGULAR.OTF"); /* Путь к файлу со шрифтом */
+      }
+      footer .footer__tel {
+          font-family: PLUMBCONDENSED-BOLD, 'Comic Sans MS', cursive;
+          padding: 60px;
+          font-size: 50px;
+          text-align: center;
+          color: #ffffff;
+          /*padding: 55px 90px 10px;*/
+      }
+      header {
+          background-image: url(images/navbar.png);
+          background-size: 100%;
+          background-repeat: no-repeat;
+          border-bottom: unset;
+      }
+      .localization-toggle {
+          padding-top: 10px;
+          left: 50%;
+          text-align: left;
+      }
+      footer {
+          /*background-color: unset;*/
+          background-color: #fefefe;
+          background-image: url(images/footer.png);
+          background-size: 100%;
+          background-repeat: no-repeat;
+          width: 100%;
+      }
+      .localization-toggle {
+          float: left;
+      }
+      .localization-toggle a.ru {
+          background-image: url(images/box.png);
+          background-size: 88%;
+          background-repeat: no-repeat;
+      }
+      .content__title {
+          background: #fefefe;
+      }
+      h7 {
+          font-family: PLUMBCONDENSED-BOLD;
+          padding-top: 25px;
+          font-size: 50px;
+          text-align: right;
+          color: #743a2c;
+      }
+      .title {
+          font-family: PLUMBCONDENSED-BOLD;
+          padding-top: 25px;
+          font-size: 40px;
+          text-align: right;
+          color: #743a2c;
+      }
+      .dialog__answer {
+          margin: 5px auto;
+      }
+      .button__orange{
+          background: radial-gradient(at center, #81402e, #6a3b2d);
+          /*background-color: #763c2d;*/
+          border-radius: 22px;
+          color: #ffffff;
+      }
+      .dialog .btn-inf {
+          display: block;
+          width: 385px;
+      }
+      .dialog__answer .button {
+          font-family: PLUMBCONDENSED-BOLD;
+          letter-spacing: 2px;
+          padding: 15px 0 13px;
+      }
+      .dialog__answer .btn-inf{
+          font-family: PLUMBCONDENSED-BOLD;
+          letter-spacing: 2px;
+          font-size: 35px;
+          line-height: 50px;
+          margin: 0 auto;
+          padding: 15px 10px 10px;
+      }
+      .btn-inf{
+              text-align: center;
+    text-decoration: none;
+      }
+
+      .button__beige{
+          background-color: #fbe8cd;
+          border-radius: 22px;
+          color: #2b2a28;
+
+      }
+      .sign_area {
+          border: 2px solid #d6d6d6;
+          border-radius: 14px;
+      }
+      .container {
+          font-family: PLUMBCONDENSED-BOLD;
+          color: #743a2c;
+          font-size: 36px;
+      }
+  </style>
+  <body>
+    <header>
+      <div class="container">
+        <!--<div class="pulse-logo"><a href="#"></a></div>-->
+        <div class="localization-toggle">
+          <a href="#" class="ru"></a>
+          <!--<a href="#" class="en"></a>-->
+        </div>
+        <div class="title">почтомат "ХАЛВА"</div>
+      </div>
+    </header>
+
+    <!--<section class="content" id="payment_method">
+      <div class="content__title">
+        <div class="container">
+          ПOСЫЛКА №  108844–001<br />
+          от Ozon.ru<br />
+          к оплате 2499 р.
+        </div>
+      </div>
+      <div class="container">
+        <div class="payment_method__actions">
+          <a href="" class="button button__orange">ОПЛАТА<br />КАРТОЙ</a>
+        </div>
+        <div class="payment_method__actions">
+          <a href="" class="button button__orange">ОПЛАТА<br />НАЛИЧНЫМИ</a>
+        </div>
+        <p>Сдача будет переведена на Ваш мобильный телефон</p>
+      </div>
+    </section>-->
+
+    <footer>
+      <div class="container">
+        <!--<div class="footer__settings">
+          <a href="#"></a>
+        </div>-->
+        <!--<div class="footer__info">
+          <a href="#">ВЕРНУТЬСЯ</a>
+        </div>-->
+        <div class="footer__tel">
+          Телефон поддержки <span>8&nbsp;800&nbsp;333&nbsp;92&nbsp;63</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

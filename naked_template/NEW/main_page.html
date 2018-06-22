@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pulse</title>
+    <link rel="stylesheet" href="styles/bootstrap.css">
+      <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <style>
+      #main {
+    /* height: -webkit-fill-available; */
+    /* padding-bottom: 0px; */
+    bottom: 133px;
+    /* top: 56%; */
+    top: unset;
+    background: url(images/Xabenck.png) no-repeat;
+    /* background-position: calc(50% - 136px) calc(50% + 75px); */
+    /* background-position: calc(1% - 0px) calc(50% - 0px); */
+    /* background-size: 75%; */
+    background-size: 550px;
+    /* padding-bottom: 9px; */
+    position: absolute;
+    height: 550px;
+    /* z-index: 9999; */
+}
+      #main .main__action__buttons a {
+    display: inline-block;
+    font-size: 42px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding: 70px 0;
+    position: relative;
+    width: 400px;
+}
+      .wrapper.theme-1-active .navbar.navbar-inverse {
+    background-image: url(images/navbar.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-bottom: unset;
+    color: #743a2c;
+    font-size: 33px;
+    font-family: PLUMBCONDENSED-BOLD;
+    padding-top: 15px;
+    text-align: right;
+}
+      footer {
+    /* background-color: #fefefe; */
+    background-color: transparent;
+    background-image: url(images/footer-2.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    /* background-color: #575757; */
+    bottom: 0px;
+    color: transparent;
+    /* color: #fff; */
+    height: 147px;
+    position: absolute;
+}
+      .container {
+    font-family: PLUMBCONDENSED-BOLD;
+    color: #743a2c;
+    font-size: 36px;
+    clear: both;
+    margin: 0 auto;
+    max-width: calc(100% - 100px);
+    position: relative;
+}
+
+  </style>
+  <body>
+    <header>
+        <div class="wrapper theme-1-active pimary-color-green">
+        <!-- Top Menu Items -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" style="padding-top: 15px">
+
+				<ul class="nav navbar-right top-nav pull-right">
+                    <li>
+                        <div class="localization-toggle">
+                            <a href="#" class="box"></a>
+                        </div>
+                    </li>
+					<li>
+						<a id="open_right_sidebars" href="">почтомат</a>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="images/rfdm.png" alt="user_auth" class="user-auth-img"><span class="user-online-status"></span></a>
+					</li>
+				</ul>
+
+		</nav>
+      </div>
+  </header>
+
+
+    <section class="content" id="main" >
+        <div class="row">
+      <div class="container"style="text-align: right">
+        <div class="main__action">
+          <!--<h2>Выберите действие</h2>-->
+          <div class="main__action__buttons" style="display: -webkit-flex;-webkit-align-items: flex-start;display: flex;align-items: left;height: 439px;align-items: center;justify-content: flex-end;}">
+            <a href="#" class="button button__orange">ПОЛУЧИТЬ</a>
+            <!--<a href="#" class="button button__orange">ОТПРАВИТЬ</a>-->
+          </div>
+        </div>
+      </div>
+        </div>
+    </section>
+    <!--<section class="content" id="payment_method">
+      <div class="content__title">
+        <div class="container">
+          ПOСЫЛКА №  108844–001<br />
+          от Ozon.ru<br />
+          к оплате 2499 р.
+        </div>
+      </div>
+      <div class="container">
+        <div class="payment_method__actions">
+          <a href="" class="button button__orange">ОПЛАТА<br />КАРТОЙ</a>
+        </div>
+        <div class="payment_method__actions">
+          <a href="" class="button button__orange">ОПЛАТА<br />НАЛИЧНЫМИ</a>
+        </div>
+        <p>Сдача будет переведена на Ваш мобильный телефон</p>
+      </div>
+    </section>-->
+
+    <footer>
+      <div class="container">
+        <!--<div class="footer__settings">
+          <a href="#"></a>
+        </div>-->
+        <!--<div class="footer__info">
+          <a href="#">ВЕРНУТЬСЯ</a>
+        </div>-->
+        <div class="footer__tel">
+          Телефон поддержки <span>8&nbsp;800&nbsp;333&nbsp;92&nbsp;63</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pulse</title>
+     <link rel="stylesheet" href="styles/bootstrap.css">
+      <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body>
+    <header>
+        <div class="wrapper theme-1-active pimary-color-green">
+        <!-- Top Menu Items -->
+		<nav class="navbar navbar-inverse navbar-fixed-top text-center">
+				<div class="title">Режим курьера: загрузка отправлений</div>
+		</nav>
+      </div>
+  </header>
+
+     <div class="container">
+    <!--todo: or use table-->
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center">
+            Отсканируйте штрих-код или введите номер отправлени вручную
+
+        </h2>
+      </div>
+      <hr />
+    </div>
+
+    <div class="row text-center">
+      <form method="POST" class="form-inline">
+        <div class="form-group">
+          <input type="hidden" name="action" value="insert_lookup_order" />
+          <input type="text" name="order_id" id="id_order_id" class="form-control input-lg search-input" autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default btn-primary btn-block input-lg search-input-btn btn-warning button__orange" value="Найти" />
+        </div>
+      </form>
+    </div>
+
+    <div class="keyboard">
+    <!--for row in ["~!@#$%^&*()", "1234567890+", "qwertyuiop=", "asdfghjkl_-", "zxcvbnm"] %}-->
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 text-center">
+            <!--<input type='button' class='shift letter btn btn-sq' value='&#129105;'/>-->
+            <input type='button' class='letter btn btn-sq' value='~'/>
+            <input type='button' class='letter btn btn-sq' value='!'/>
+            <input type='button' class='letter btn btn-sq' value='@'/>
+            <input type='button' class='letter btn btn-sq' value='#'/>
+            <input type='button' class='letter btn btn-sq' value='$'/>
+            <input type='button' class='letter btn btn-sq' value='%'/>
+            <input type='button' class='letter btn btn-sq' value='^'/>
+            <input type='button' class='letter btn btn-sq' value='&'/>
+            <input type='button' class='letter btn btn-sq' value='*'/>
+            <input type='button' class='letter btn btn-sq' value='('/>
+            <input type='button' class='letter btn btn-sq' value=')'/>
+            <input type='button' class='letter btn btn-sq' value='1'/>
+            <input type='button' class='letter btn btn-sq' value='2'/>
+            <input type='button' class='letter btn btn-sq' value='3'/>
+            <input type='button' class='letter btn btn-sq' value='4'/>
+            <input type='button' class='letter btn btn-sq' value='5'/>
+            <input type='button' class='letter btn btn-sq' value='6'/>
+            <input type='button' class='letter btn btn-sq' value='7'/>
+            <input type='button' class='letter btn btn-sq' value='8'/>
+            <input type='button' class='letter btn btn-sq' value='9'/>
+            <input type='button' class='letter btn btn-sq' value='0'/>
+            <input type='button' class='letter btn btn-sq' value='+'/>
+            <input type='button' class='letter btn btn-sq' value='q'/>
+            <input type='button' class='letter btn btn-sq' value='w'/>
+            <input type='button' class='letter btn btn-sq' value='e'/>
+            <input type='button' class='letter btn btn-sq' value='r'/>
+            <input type='button' class='letter btn btn-sq' value='t'/>
+            <input type='button' class='letter btn btn-sq' value='y'/>
+            <input type='button' class='letter btn btn-sq' value='u'/>
+            <input type='button' class='letter btn btn-sq' value='i'/>
+            <input type='button' class='letter btn btn-sq' value='o'/>
+            <input type='button' class='letter btn btn-sq' value='p'/>
+            <input type='button' class='letter btn btn-sq' value='='/>
+            <input type='button' class='letter btn btn-sq' value='a'/>
+            <input type='button' class='letter btn btn-sq' value='s'/>
+            <input type='button' class='letter btn btn-sq' value='d'/>
+            <input type='button' class='letter btn btn-sq' value='f'/>
+            <input type='button' class='letter btn btn-sq' value='g'/>
+            <input type='button' class='letter btn btn-sq' value='h'/>
+            <input type='button' class='letter btn btn-sq' value='j'/>
+            <input type='button' class='letter btn btn-sq' value='k'/>
+            <input type='button' class='letter btn btn-sq' value='l'/>
+            <input type='button' class='letter btn btn-sq' value='_'/>
+            <input type='button' class='letter btn btn-sq' value='-'/>
+            <input type='button' class='letter btn btn-sq' value='^'/>
+            <input type='button' class='letter btn btn-sq' value='z'/>
+            <input type='button' class='letter btn btn-sq' value='x'/>
+            <input type='button' class='letter btn btn-sq' value='c'/>
+            <input type='button' class='letter btn btn-sq' value='v'/>
+            <input type='button' class='letter btn btn-sq' value='b'/>
+            <input type='button' class='letter btn btn-sq' value='n'/>
+            <input type='button' class='letter btn btn-sq' value='m'/>
+            <input type='button' class='letter btn btn-sq' value='<'/>
+
+
+            <!--<input type='button' class='backspace letter btn btn-sq' value='&#129104;'/>-->
+
+        </div>
+      </div>
+
+  </div>
+
+    <div class="row">
+      <form method="POST">
+        <input type="hidden" name="action" value="back_action" />
+        <input type="submit" class="btn btn-default btn-primary text-right btn-block btn-lg btn-warning button__orange" value="Завершить сессию курьера" style="font-size: 28px;"/>
+      </form>
+    </div>
+  </div>
+    <!--<section class="content" id="payment_method">
+      <div class="content__title">
+        <div class="container">
+          ПOСЫЛКА №  108844–001<br />
+          от Ozon.ru<br />
+          к оплате 2499 р.
+        </div>
+      </div>
+      <div class="container">
+        <div class="payment_method__actions">
+          <a href="" class="button button__orange">ОПЛАТА<br />КАРТОЙ</a>
+        </div>
+        <div class="payment_method__actions">
+          <a href="" class="button button__orange">ОПЛАТА<br />НАЛИЧНЫМИ</a>
+        </div>
+        <p>Сдача будет переведена на Ваш мобильный телефон</p>
+      </div>
+    </section>-->
+
+    <footer>
+      <div class="container">
+        <!--<div class="footer__settings">
+          <a href="#"></a>
+        </div>-->
+        <!--<div class="footer__info">
+          <a href="#">ВЕРНУТЬСЯ</a>
+        </div>-->
+        <div class="footer__tel">
+          Телефон поддержки <span>8&nbsp;800&nbsp;333&nbsp;92&nbsp;63</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
