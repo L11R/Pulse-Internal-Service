@@ -343,6 +343,7 @@ def new_users(request):
                 response_data['errors'] = errors
                 response_data['success'] = success
                 response_data['error_login'] = errors_login
+                response_data['resp_server'] = resp
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     template = loader.get_template('Signin/new_users.html')
     context = {}
