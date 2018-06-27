@@ -306,7 +306,7 @@ def logout(request):
 @login_required
 def new_users(request):
     if request.method == 'POST':
-        response_data = {}
+        resp_server, response_data  = {}, {}
         print(request.FILES['file'].name)
         myfile = request.FILES['file']
         fs = FileSystemStorage()
@@ -339,11 +339,13 @@ def new_users(request):
                 #print(resp.json(), '!!--' ,resp.status_code)
                 if resp.status_code == 201: success += 1
                 else: errors += 1; errors_login.append(row['Логин'])
+                
+                resp_server.update([(count, resp.json())])
                 response_data['count'] = count
                 response_data['errors'] = errors
                 response_data['success'] = success
                 response_data['error_login'] = errors_login
-                response_data['resp_server'] = resp
+                response_data['resp_server'] = resp_server
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     template = loader.get_template('Signin/new_users.html')
     context = {}
