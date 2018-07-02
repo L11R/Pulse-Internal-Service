@@ -372,4 +372,4 @@ def checked(request):
             response = redirect('/menu/')
             return response
         else: redirect('/login/')
-    except: redirect('/leroy/')
+    except: return redirect('/leroy/')

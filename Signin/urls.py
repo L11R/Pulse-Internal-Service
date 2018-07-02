@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.checked, name='main_page'),
-    url(r'', views.checked),
     url(r'^cameras/', views.cameras_page),
     url(r'^cameras_more/', views.cameras_more),
     url(r'^menu/', views.menu_page),
