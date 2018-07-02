@@ -363,11 +363,13 @@ def template_views(request):
 @csrf_exempt
 @login_required
 def checked(request):
-    api_type = int(request.COOKIES.get('type'))
-    if api_type == 1:
-        response = redirect('/leroy/')
-        return response
-    elif api_type == 0:
-        response = redirect('/menu/')
-        return response
-    else: redirect('/login/')
+    try:
+        api_type = int(request.COOKIES.get('type'))
+        if api_type == 1:
+            response = redirect('/leroy/')
+            return response
+        elif api_type == 0:
+            response = redirect('/menu/')
+            return response
+        else: redirect('/login/')
+    except: redirect('/leroy/')
