@@ -335,9 +335,10 @@ def new_users(request):
                     data['first_name'] = data['last_name'] = data['middle_name'] = row['ФИО']
                     if len(row['ФИО'].split()) == 3:
                         data['first_name'], data['last_name'], data['middle_name'] = row['ФИО'].split()[1][:31], row['ФИО'].split()[0][:31], row['ФИО'].split()[2][:31]
-                resp = send_request(models.Sender.objects.get(name='Leroy').token, settings.DATA['PROD_URL'] + '/couriers/', data)
+                resp = send_request(models.Sender.objects.get(name='Leroy').token, settings.DATA['PROD_URL'] + '/users/', data)
                 #print(resp.json(), '!!--' ,resp.status_code)
-                if resp.status_code == 201: success += 1
+                #print('token',models.Sender.objects.get(name='Leroy').token, 'url: ', settings.DATA['PROD_URL'] + '/couriers/', resp, data)
+                if resp.status_code in [201, 200]: success += 1
                 else: errors += 1; errors_login.append(row['Логин'])
                 
                 resp_server.update([(count, resp.json())])
