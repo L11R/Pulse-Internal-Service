@@ -330,6 +330,7 @@ def new_users(request):
                 data['password'] = row['Пароль']
                 data['phones'] = [row['Телефон']]
                 data['card_number'] = row['Логин']
+                data['roles'] = ["курьер"]
                 data['blocked'] = False
                 if row['ФИО'] != '':
                     data['first_name'] = data['last_name'] = data['middle_name'] = row['ФИО']
