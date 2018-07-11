@@ -14,7 +14,7 @@ class Command(BaseCommand):
     help = 'Creates and sends report on consignors from Information System'
     
     def handle(self, *args, **options):
-        generator.generic()
+        generator.generic_to_DPD()
         #generator.generic()
 
 

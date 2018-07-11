@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from report import models
 from django.conf import settings
 from collections import OrderedDict, defaultdict
@@ -10,20 +10,28 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 import random
 from os.path import basename
+import calendar
+
+def deduct_months(sourcedate,months):
+    month = sourcedate.month - 1 - months
+    year = sourcedate.year - month // 12
+    month = month % 12 + 1
+    day = min(sourcedate.day,calendar.monthrange(year,month)[1])
+    return date(year,month,day)
 
 class DefaultBookkepingGenerator(object):
     
     def __init__(self):
         self.top_row = 'Реестр'
     
-    def get_events_qs(self, date):
-        return models.Operation.objects.using('report').filter(dt__range= (date, date + timedelta(days=1)))
+    def get_events_qs(self, date, date_to):
+        return models.Operation.objects.using('report').filter(dt__range= (date, date_to))
         #return models.ParcelEvent.objects.annotate(picount=Count("parcel__items")).filter(
         # #picount=0,
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
         # datetime__date=date
     
-    def generate(self):
+    def generate(self, dt=None, dt_to=None):
         data = {
             "top_header": {
                 "spread": None,
@@ -41,14 +49,15 @@ class DefaultBookkepingGenerator(object):
                 ("barcodes", "Номер посылки"),
                 ("cell", "Номер ячейки"),
             ]),
-            "table_data": self.do_report()
+            "table_data": self.do_report(dt, dt_to)
         }
         data["top_header"]["spread"] = len(data["table_header"])
         
         return data
         
-    def do_report(self, dt=datetime.now().date()-timedelta(days=1)):
-        for ev in self.get_events_qs(dt):
+    def do_report(self, dt=None, dt_to=None):
+        if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
+        for ev in self.get_events_qs(dt, dt_to):
             if int(ev.report.status) in (3, 6):
                 if (not ev.courier_name):
                     if (not ev.courier_login): courier = 'MultilogDPD'
@@ -66,16 +75,9 @@ class DefaultBookkepingGenerator(object):
                     ("barcodes", ev.report.barcodes),
                     ("cell", random.randint(1, 20)),
                 ])
-
-def generic():
-    #filename = 'report'
-    filename = 'Catalogue {}'.format((datetime.now().date()-timedelta(days=1)).strftime('%Y-%m-%d'))
-    with writers.BookkepingWriter(filename) as writing:
-        writing.dump(DefaultBookkepingGenerator().generate())
-
-    
+                
+def send_email(filename, toaddr):
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
-    toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
@@ -89,11 +91,7 @@ def generic():
             part1.add_header('Content-Disposition', 'attachment; filename="%s"' % filename_s)
     except:
         part1 = MIMEText('\nError creating report file', 'plain')
-
-    #text_info = '\nСтатистика ->> \n'
-    #part2 = MIMEText(text_info, 'plain')
     msg.attach(part1)
-    #msg.attach(part2)
     s = smtplib.SMTP(settings.DATA['EMAIL_HOST_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
     s.ehlo()
     s.starttls()
@@ -101,6 +99,49 @@ def generic():
     s.login(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
     s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], toaddr, msg.as_string())
     s.quit()
+    
+def generic_to_DPD():
+    #filename = 'report'
+    dt = datetime.now().date() - timedelta(days=1)
+    dt_to = dt + timedelta(days=1)
+    filename = 'Catalogue {}'.format(dt.strftime('%Y-%m-%d'))
+    with writers.BookkepingWriter(filename) as writing:
+        writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
+    toaddr = ['v.sazonov@pulseexpress.ru']
+    send_email(filename, toaddr)
+
+def generic_to_X5():
+    pass
+    
+    #filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
+    #toaddr = ['v.sazonov@pulseexpress.ru']
+    
+    #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
+    #msg = MIMEMultipart('mixed')
+    #msg['Subject'] = 'Report'
+    #print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
+    #msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
+    #msg['To'] = '__DPD__'
+    #msg['cc'] = '__PULSE-EXPRESS__'
+    #filename_s = filename + '.xlsx'
+    #try:
+    #    with open(filepath, "rb") as fil:
+    #        part1 = MIMEApplication(fil.read(), Name=basename(filename_s))
+    #        part1.add_header('Content-Disposition', 'attachment; filename="%s"' % filename_s)
+    #except:
+    #    part1 = MIMEText('\nError creating report file', 'plain')
+
+    #text_info = '\nСтатистика ->> \n'
+    #part2 = MIMEText(text_info, 'plain')
+    #msg.attach(part1)
+    #msg.attach(part2)
+    #s = smtplib.SMTP(settings.DATA['EMAIL_HOST_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
+    #s.ehlo()
+    #s.starttls()
+    #s.ehlo()
+    #s.login(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
+    #s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], toaddr, msg.as_string())
+    #s.quit()
     #writers.BookkepingWriter('report').dump()
     #wb = Workbook()
     #ws = wb.active
