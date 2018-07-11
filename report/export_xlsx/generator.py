@@ -38,7 +38,7 @@ class DefaultBookkepingGenerator(object):
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
         # datetime__date=date
 
-    def generate_to_X5(self, dt=None, dt_to=None):
+    def generate_to_X5(self, dt, dt_to):
         data = {
             "top_header": {
                 "spread": None,
@@ -86,9 +86,10 @@ class DefaultBookkepingGenerator(object):
         
         return data
     
-    def do_report_x5(self, dt=None, dt_to=None):
-        if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
+    def do_report_x5(self, dt, dt_to):
+        #if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
         for ev in self.get_events_qs(dt, dt_to):
+            print(int(ev.report.terminal))
             if (int(ev.report.status) in (3, 6)) and (int(ev.report.terminal) >= 250):
                 if (not ev.courier_name):
                     if (not ev.courier_login): courier = 'MultilogDPD'
