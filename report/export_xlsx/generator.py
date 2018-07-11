@@ -62,7 +62,7 @@ class DefaultBookkepingGenerator(object):
         data["top_header"]["spread"] = len(data["table_header"])
     
         return data
-    def generate(self, dt=None, dt_to=None):
+    def generate(self, dt, dt_to):
         data = {
             "top_header": {
                 "spread": None,
@@ -90,7 +90,7 @@ class DefaultBookkepingGenerator(object):
         #if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
         for ev in self.get_events_qs(dt, dt_to):
             print(int(ev.report.terminal))
-            if (int(ev.report.status) in (3, 6)) and (int(ev.report.terminal) >= 250):
+            if (int(ev.report.status) in (4, 6)) and (int(ev.report.terminal) >= 250):
                 if (not ev.courier_name):
                     if (not ev.courier_login): courier = 'MultilogDPD'
                     else: courier = ev.courier_login
@@ -169,8 +169,8 @@ def generic_to_X5():
     filename = 'For X5 {} to {}'.format(dt.strftime('%Y-%m-%d'), dt_to)
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate_to_X5(dt, dt_to))
-    toaddr = ['v.sazonov@pulseexpress.ru']
-    send_email(filename, toaddr, to_msg='TEST')
+    toaddr = ['v.sazonov@pulseexpress.ru', 'dpetrushevsky@pulse-express.ru', 'pzolotukhin@pulseexpress.ru', 'ikorchagin@pulse-express.ru', 'mikekoltsov@gmail.com']
+    send_email(filename, toaddr, to_msg='For X5 RETAIL GROUP')
     
     #filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
     #toaddr = ['v.sazonov@pulseexpress.ru']
