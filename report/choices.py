@@ -29,3 +29,16 @@ PARCEL_STATUS_CHOICES_MODIFIED = (
     (11, 'Техническая проблема'),
     (12, 'Отменена'),
     (13, 'Хранение продлено клиентом'))
+
+OTYPE_MAP = {
+    "В доставке": "on_delivery",
+    "Доставлена": "order_inserted",
+    "Выдана": "receive_result",
+    "Забрана на возврат": "order_removed"
+}
+REV_OTYPE_MAP = {
+    "on_delivery": "В доставке",
+    "order_inserted": "Доставлена",
+    "receive_result": "Выдана",
+    "order_removed": "Забрана на возврат"
+}

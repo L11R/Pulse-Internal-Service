@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, date
 from report import models
 from django.conf import settings
 from collections import OrderedDict, defaultdict
-from report.choices import PARCEL_STATUS_CHOICES_MODIFIED
+from report.choices import PARCEL_STATUS_CHOICES_MODIFIED, REV_OTYPE_MAP
 from . import writers
 import smtplib
 from email.mime.text import MIMEText
@@ -32,7 +32,7 @@ class DefaultBookkepingGenerator(object):
         self.top_row = 'Реестр'
     
     def get_events_qs(self, date, date_to):
-        return models.Operation.objects.using('report').filter(dt__range= (date, date_to))
+        return models.Operation.objects.using('report').filter(otype__in=["order_inserted","order_removed"], dt__range= (date, date_to))
         #return models.ParcelEvent.objects.annotate(picount=Count("parcel__items")).filter(
         # #picount=0,
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
@@ -111,24 +111,23 @@ class DefaultBookkepingGenerator(object):
     def do_report(self, dt=None, dt_to=None):
         if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
         for ev in self.get_events_qs(dt, dt_to):
-            if int(ev.report.status) in (3, 6):
-                if (not ev.courier_name):
-                    if (not ev.courier_login): courier = 'MultilogDPD'
-                    else: courier = ev.courier_login
-                else: courier = ev.courier_name
-                yield OrderedDict([
-                    ("dpd_point_code", ev.report.dpd_point_code),
-                    ("terminal", ev.report.terminal),
-                    ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
-                    ("otype", PARCEL_STATUS_CHOICES_MODIFIED[ev.report.status][1]),
-                    ("courier_name", courier),
-                    ("dt_date", ev.dt.strftime('%Y.%m.%d')),
-                    ("dt_time", ev.dt.strftime('%H:%M')),
-                    ("order_id", ev.report.order_id),
-                    ("barcodes", ev.report.barcodes),
-                    ("cell", random.randint(1, 20)),
-                ])
-                
+            if (not ev.courier_name):
+                if (not ev.courier_login): courier = 'MultilogDPD'
+                else: courier = ev.courier_login
+            else: courier = ev.courier_name
+            yield OrderedDict([
+                ("dpd_point_code", ev.report.dpd_point_code),
+                ("terminal", ev.report.terminal),
+                ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
+                ("otype", REV_OTYPE_MAP[ev.otype]),
+                ("courier_name", courier),
+                ("dt_date", ev.dt.strftime('%Y.%m.%d')),
+                ("dt_time", ev.dt.strftime('%H:%M')),
+                ("order_id", ev.report.order_id),
+                ("barcodes", ev.report.barcodes),
+                ("cell", random.randint(1, 20)),
+            ])
+            
 def send_email(filename, toaddr, to_msg):
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
     msg = MIMEMultipart('mixed')
