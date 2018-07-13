@@ -38,7 +38,7 @@ OTYPE_MAP = {
 }
 REV_OTYPE_MAP = {
     "on_delivery": "В доставке",
-    "order_inserted": "Доставлена",
+    "order_inserted": "Закладка",
     "receive_result": "Выдана",
-    "order_removed": "Забрана на возврат"
+    "order_removed": "Выемка"
 }
