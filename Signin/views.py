@@ -25,10 +25,7 @@ from django.template import Context, RequestContext
 #import xhtml2pdf.pisa as pisa
 #import cgi
 #from django.conf import settings
-#from wkhtmltopdf.views import PDFTemplateView
-#from wkhtmltopdf.views import PDFTemplateResponse
-#import xhtml2pdf
-from xhtml2pdf import pisa
+
 import requests
 from django.core.files.storage import FileSystemStorage
 from Signin.conf_point import *
@@ -112,127 +109,6 @@ def techn_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
-def render_to_pdf(template_src, context):
-    template_path = template_src
-    # Create a Django response object, and specify content_type as pdf
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-    # find the template and render it.
-    template = get_template(template_path)
-    html = template.render(context)
-    
-    # create a pdf
-    pisaStatus = pisa.CreatePDF(html.encode("utf-8"), dest=response, show_error_as_pdf=True, encoding='UTF-8')
-    # if error then show some funy view
-    if pisaStatus.err:
-        return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response
-    
-    #html = template.render(context_dict)
-    #result = open(filename, 'wb')  # Changed from file to filename
-    #pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), result)
-    #result.close()
-    
-    #======
-    #template = get_template(template_src)
-    #context = Context(context_dict)
-    #html  = template.render(context_dict)
-    #result = BytesIO()
-    #pdf = pisa.pisaDocument(BytesIO(html.encode('utf-8')), result, show_error_as_pdf=True, encoding='UTF-8')
-    #pdf = pisa.CreatePDF(BytesIO(html.encode("utf-8")), result, encoding='UTF-8', show_error_as_pdf=True)
-    #response = HttpResponse(pdf, content_type='application/pdf')
-    #response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
-    #return response
-    #if not pdf.err:
-    #    return result.getvalue()
-    #return False
-
-def render_to_pdf2(request, template_src, context_dict, name_file):
-    template = get_template(template_src)
-    context = {}
-    ss = template.render(context, request)
-    #template = loader.get_template('Signin/4.htm')
-    import io
-    resultFile = io.open('testirovanie.pdf', "rb")
-    #pisaStatus = pisa.CreatePDF(ss, dest=resultFile)
-   
-    #import pdfkit
-    #pdfkit.from_string(ss, 'out.pdf')
-    #import pdb; pdb.set_trace()
-    response = HttpResponse(resultFile.read(), content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
-    #response
-    #response = HttpResponse(FixedFileWrapper(open('test.pdf', 'rb')), content_type='application/pdf')
-    #resume = File.objects.get(applicant=applicant_id)
-    import codecs
-    #f = codecs.open('unicode.rst', encoding='utf-8')
-    #resultFile = codecs.open('out.pdf', "r", encoding='ascii', errors="ignore")
-    #resultFile.close()
-    #resultFile.encode('utf-8')
-    #response = HttpResponse(resultFile, content_type='application/pdf')
-    from django.http import FileResponse
-    import time
-    #try:
-    #except:
-    #time.sleep(100)
-    return response
-    #return FileResponse(open('out.pdf', 'rb'), content_type='application/pdf')
-    
-    
-    #template_srcc = 'Signin/4.htm'
-    #template = get_template(template_srcc)
-    #context = Context(context_dict)
-    #html = template.render(context_dict)
-    #result = BytesIO()
-    #result = open(template_srcc, 'wb')
-    #pdf = pisa.CreatePDF(BytesIO(html.encode("utf-8")), result, encoding='UTF-8', show_error_as_pdf=True)
-    #pdf2 = PDFTemplateView.as_view(template_name='Signin/document2.htm', filename='my_pdf.pdf')
-    #pdd = PDFTemplateView.xhtml2pdf(html)
-    #responses = PDFTemplateResponse(request=request, template=template_srcc, filename="hello.pdf",
-                                   #show_content_in_browser=False)
-    
-    #if not pdf.err:
-    #    #return http.HttpResponse(result.getvalue(), mimetype='application/pdf')
-    #    response = HttpResponse(result.getvalue(), content_type='application/pdf')
-    #    #response = HttpResponse(responses, content_type='application/pdf')
-    #    #response['Content-Disposition'] = 'attachment; filename="' + name_file + '.pdf"'
-    #    return response
-
-    #return HttpResponse(('We had some errors%s' % cgi.escape(html)))
-
-
-def write_pdf(template_src, context_dict, filename):
-    template = get_template(template_src)
-    context = Context(context_dict)
-    html  = template.render(context_dict)
-    #result = open(filename, 'wb')
-    result = BytesIO()# Changed from file to filename
-    pdf = pisa.pisaDocument(StringIO(
-        html.encode("UTF-8")), result)
-    result.close()
-    response = HttpResponse(pdf, content_type='application/pdf')
-    #return pdf
-
-@csrf_exempt
-@login_required
-def lease_page(request):
-    if request.method == 'POST':
-        #print(json.loads(request.body)['lastName'])
-        return render_to_pdf('Signin/er2.htm', json.loads(request.body))
-    import random
-    rr = random.randint(1000, 9999)
-    template = loader.get_template('Signin/lease.html')
-    context = {'r': rr}
-    response = HttpResponse(template.render(context, request))
-    return response
-
-@csrf_exempt
-@login_required
-def menu_lease(request):
-    template = loader.get_template('Signin/menu_lease.html')
-    context = {}
-    response = HttpResponse(template.render(context, request))
-    return response
 
 @csrf_exempt
 @login_required

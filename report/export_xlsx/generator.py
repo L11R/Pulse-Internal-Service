@@ -73,7 +73,7 @@ class DefaultBookkepingGenerator(object):
                 ("terminal", "Постамат №"),
                 ("point_address", "Адрес"),
                 ("otype", "Операция"),
-                ("courier_name", "Курьер"),
+                #("courier_name", "Курьер"),
                 ("dt_date", "Дата"),
                 ("dt_time", "Время"),
                 ("order_id", "Номер отправки"),
@@ -115,17 +115,19 @@ class DefaultBookkepingGenerator(object):
                 if (not ev.courier_login): courier = 'MultilogDPD'
                 else: courier = ev.courier_login
             else: courier = ev.courier_name
+            if (not ev.cell): cell = random.randint(1, 20)
+            else: cell = ev.cell
             yield OrderedDict([
                 ("dpd_point_code", ev.report.dpd_point_code),
                 ("terminal", ev.report.terminal),
                 ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
                 ("otype", REV_OTYPE_MAP[ev.otype]),
-                ("courier_name", courier),
+                #("courier_name", courier),
                 ("dt_date", ev.dt.strftime('%Y.%m.%d')),
                 ("dt_time", ev.dt.strftime('%H:%M')),
                 ("order_id", ev.report.order_id),
                 ("barcodes", ev.report.barcodes),
-                ("cell", random.randint(1, 20)),
+                ("cell", cell),
             ])
             
 def send_email(filename, toaddr, to_msg):
