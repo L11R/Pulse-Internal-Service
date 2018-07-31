@@ -32,7 +32,11 @@ class DefaultBookkepingGenerator(object):
         self.top_row = 'Реестр'
     
     def get_events_qs(self, date, date_to):
-        return models.Operation.objects.using('report').filter(otype__in=["order_inserted","order_removed"], dt__range= (date, date_to), report__sender__in=['DPD'])
+        return models.Operation.objects.using('report').filter(
+            otype__in=["order_inserted","order_removed"],
+            dt__range= (date, date_to),
+            report__sender__in=['DPD']
+        ).order_by('-report__dpd_point_code')
         #return models.ParcelEvent.objects.annotate(picount=Count("parcel__items")).filter(
         # #picount=0,
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
@@ -161,7 +165,7 @@ def generic_to_DPD():
     filename = 'Catalogue {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
-    toaddr = ['v.sazonov@pulseexpress.ru', 'yt@pulseexpress.ru', 'reestr@pulse-epxress.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'yt@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
     send_email(filename, toaddr, to_msg = '__DPD__')
 
