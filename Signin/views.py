@@ -109,6 +109,14 @@ def techn_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+@login_required
+@csrf_exempt
+def add_camera(request):
+    context = {}
+    if request.method == 'POST':
+        context['msg'] = 'success'
+    response = HttpResponse(json.dumps(context), content_type="application/json")
+    return response
 
 @csrf_exempt
 @login_required

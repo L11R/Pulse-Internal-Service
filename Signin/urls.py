@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^parcels/', views.parcels_page),
     url(r'^add_users', views.new_users),
     url(r'^views_point', views.template_views),
+    url(r'^add_camera', views.add_camera),
 ]

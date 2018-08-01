@@ -220,10 +220,12 @@
 		<script src="{% static 'js/ion.rangeSlider.min.js' %}"></script>
 		<!-- Slimscroll JavaScript -->
 		<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+			<!-- JS script for added camera -->
+			<script src="{% static 'js/add_camera.js' %}"></script>
 			<!-- Fancy Dropdown JS -->
-	<script src="{% static 'js/dropdown-bootstrap-extended.js' %}"></script>
-		<!-- Init JavaScript -->
-		<script src="{% static 'js/init.js' %}"></script>
+			<script src="{% static 'js/dropdown-bootstrap-extended.js' %}"></script>
+			<!-- Init JavaScript -->
+			<script src="{% static 'js/init.js' %}"></script>
 	</body>
 	{% for camera in cameras %}
 	<div class="modal fade" id="modal_{{ camera.number}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="top: 10%">
@@ -250,28 +252,24 @@
 				<div class="modal-dialog" style="width: 23%" role="document">
 												<div class="modal-content">
 													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-														<h5 class="modal-title" id="exampleModalLabel1">Добавить камеру</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+														<h5 class="modal-title">Добавить камеру</h5>
 													</div>
 													<div class="modal-body">
-														<h5 id="TextResponse">@!!@#</h5>
-
-														<div id="addtable"></div>
 														<form>
 															<div class="form-group">
-																<label  class="control-label mb-10">Загрузка файла: </label>
-
-																<div class="progress progress-lg">
-																	<div class="progress-bar active progress-bar-success progress-bar-striped" style="width: 50%;" id="progressbar" role="progressbar">35%</div></div>
+																<label for="recipient-name" class="control-label mb-10">URl-адрес:</label>
+																<input type="text" class="form-control" id="recipient-name" placeholder="http://localhost">
 															</div>
 															<div class="form-group">
-																<label for="message-text1" class="control-label mb-10">Message:</label>
-																<textarea class="form-control" id="message-text1"></textarea>
+																<label for="message-text" class="control-label mb-10">Номер камеры и замечание:</label>
+																<textarea class="form-control" id="message-text"></textarea>
 															</div>
 														</form>
 													</div>
 													<div class="modal-footer">
-														<button type="button" id="scsb" class="btn btn-success btn-outline fancy-button btn-0" data-dismiss="modal">Закрыть</button>
+														<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+														<button type="button" class="btn btn-danger" id="added_camera">Сохранить</button>
 													</div>
 												</div>
 											</div>
