@@ -77,6 +77,7 @@ class DefaultBookkepingGenerator(object):
                 ("order_id", "Номер отправки"),
                 ("barcodes", "Номер посылки"),
                 ("cell", "Номер ячейки"),
+                ("counterpartie", "Контрагент"),
             ]),
             "table_data": self.do_report_x5(dt, dt_to)
         }
@@ -100,7 +101,6 @@ class DefaultBookkepingGenerator(object):
                 ("order_id", "Номер отправки"),
                 ("barcodes", "Номер посылки"),
                 ("cell", "Номер ячейки"),
-                ("counterpartie", "Контрагент"),
             ]),
             "table_data": self.do_report(dt, dt_to)
         }
