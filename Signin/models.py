@@ -9,6 +9,14 @@ CAMERAS_TYPE_CHOICES = {
     (1, "172.28.2.XX"),
 }
 
+class Сounterparty(models.Model):
+    number_point = models.IntegerField(verbose_name="Номер точки")
+    address_point = models.CharField(max_length=256, verbose_name='Адрес точки')
+    entity = models.CharField(max_length=256, verbose_name="Юр лицо")
+    class Meta:
+        verbose_name = "Контрагент"
+        verbose_name_plural = "Контрагенты"
+
 class Sender(models.Model):
     name = models.CharField(max_length=64, verbose_name="Имя отправителя")
     token = models.CharField(max_length=128, verbose_name="Токен")
