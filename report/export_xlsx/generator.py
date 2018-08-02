@@ -11,6 +11,8 @@ from email.mime.multipart import MIMEMultipart
 import random
 from os.path import basename
 import calendar
+from django.db.models.functions import Cast
+from django.db.models import IntegerField
 
 def deduct_months(sourcedate,months):
     month = sourcedate.month - 1 - months
@@ -41,6 +43,14 @@ class DefaultBookkepingGenerator(object):
         # #picount=0,
         # #data__status__in=["Доставлена", "Выдана", "Забрана на возврат"],
         # datetime__date=date
+    def get_events_qs_X5(self, date, date_to):
+        return models.Operation.objects.using('report').annotate(terminaп=Cast('report__terminal', IntegerField())).filter(
+            otype__in=["order_inserted","order_removed"],
+            dt__range= (date, date_to),
+            report__status__in= [4, 6],
+            terminaп__gte = 250,
+            report__sender__in=['DPD']
+        ).order_by('-report__dpd_point_code')
 
     def generate_to_X5(self, dt, dt_to):
         data = {
@@ -93,7 +103,7 @@ class DefaultBookkepingGenerator(object):
     def do_report_x5(self, dt, dt_to):
         #if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
         for ev in self.get_events_qs(dt, dt_to):
-            print(int(ev.report.terminal))
+            #print(int(ev.report.terminal))
             if (int(ev.report.status) in (4, 6)) and (int(ev.report.terminal) >= 250):
                 if (not ev.courier_name):
                     if (not ev.courier_login): courier = 'MultilogDPD'
@@ -165,8 +175,7 @@ def generic_to_DPD():
     filename = 'Catalogue {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
-    toaddr = ['v.sazonov@pulseexpress.ru']
-    #toaddr = ['pn@dpd.ru', 'v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
+    toaddr = ['pn@dpd.ru', 'v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
     send_email(filename, toaddr, to_msg = '__DPD__')
 
@@ -176,7 +185,8 @@ def generic_to_X5():
     filename = 'For X5 {} to {}'.format(dt.strftime('%Y-%m-%d'), dt_to)
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate_to_X5(dt, dt_to))
-    toaddr = ['v.sazonov@pulseexpress.ru', 'dpetrushevsky@pulse-express.ru', 'pzolotukhin@pulseexpress.ru', 'ikorchagin@pulse-express.ru', 'mikekoltsov@gmail.com']
+    toaddr = ['v.sazonov@pulseexpress.ru']
+    #toaddr = ['v.sazonov@pulseexpress.ru', 'dpetrushevsky@pulse-express.ru', 'pzolotukhin@pulseexpress.ru', 'ikorchagin@pulse-express.ru', 'mikekoltsov@gmail.com']
     send_email(filename, toaddr, to_msg='For X5 RETAIL GROUP')
     
     #filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
