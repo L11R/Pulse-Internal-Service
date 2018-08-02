@@ -102,26 +102,24 @@ class DefaultBookkepingGenerator(object):
     
     def do_report_x5(self, dt, dt_to):
         #if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
-        for ev in self.get_events_qs(dt, dt_to):
-            #print(int(ev.report.terminal))
-            if (int(ev.report.status) in (4, 6)) and (int(ev.report.terminal) >= 250):
-                if (not ev.courier_name):
-                    if (not ev.courier_login): courier = 'MultilogDPD'
-                    else: courier = ev.courier_login
-                else: courier = ev.courier_name
-                yield OrderedDict([
-                    ("dpd_point_code", ev.report.dpd_point_code),
-                    ("terminal", ev.report.terminal),
-                    ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
-                    ("otype", PARCEL_STATUS_CHOICES_MODIFIED[ev.report.status][1]),
-                    ("courier_name", courier),
-                    ("dt_date", ev.dt.strftime('%Y.%m.%d')),
-                    ("dt_time", ev.dt.strftime('%H:%M')),
-                    ("order_id", ev.report.order_id),
-                    ("barcodes", ev.report.barcodes),
-                    ("cell", random.randint(1, 20)),
-                ])
-                
+        for ev in self.get_events_qs_X5(dt, dt_to):
+            if (not ev.courier_name):
+                if (not ev.courier_login): courier = 'MultilogDPD'
+                else: courier = ev.courier_login
+            else: courier = ev.courier_name
+            yield OrderedDict([
+                ("dpd_point_code", ev.report.dpd_point_code),
+                ("terminal", ev.report.terminal),
+                ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
+                ("otype", PARCEL_STATUS_CHOICES_MODIFIED[ev.report.status][1]),
+                ("courier_name", courier),
+                ("dt_date", ev.dt.strftime('%Y.%m.%d')),
+                ("dt_time", ev.dt.strftime('%H:%M')),
+                ("order_id", ev.report.order_id),
+                ("barcodes", ev.report.barcodes),
+                ("cell", random.randint(1, 20)),
+            ])
+            
     def do_report(self, dt=None, dt_to=None):
         if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
         for ev in self.get_events_qs(dt, dt_to):
