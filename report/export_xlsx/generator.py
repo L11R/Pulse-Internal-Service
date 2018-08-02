@@ -196,7 +196,7 @@ def generic_to_X5():
     filename = 'For X5 {} to {}'.format(dt.strftime('%Y-%m-%d'), dt_to)
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate_to_X5(dt, dt_to))
-    toaddr = ['v.sazonov@pulseexpress.ru']
+    toaddr = ['Nikonorova@pulse-express.ru', 'yt@pulseexpress.ru', 'pzolotukhin@pulseexpress.ru', 'dpetrushevsky@pulse-express.ru', 'ishaplova@pulse-express.ru', 'ikorchagin@pulseexpress.ru', 'v.sazonov@pulseexpress.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'dpetrushevsky@pulse-express.ru', 'pzolotukhin@pulseexpress.ru', 'ikorchagin@pulse-express.ru', 'mikekoltsov@gmail.com']
     send_email(filename, toaddr, to_msg='For X5 RETAIL GROUP')
     
