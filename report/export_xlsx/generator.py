@@ -17,7 +17,7 @@ from Signin import models as md
 
 def get_counterpartie(terminal):
     try:
-        return md.Сounterparty.objects.filter(number_point=int(terminal)).get()
+        return md.Сounterparty.objects.filter(number_point=int(terminal)).get().entity
     except:
         return ' '
 
