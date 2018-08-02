@@ -13,6 +13,11 @@ from os.path import basename
 import calendar
 from django.db.models.functions import Cast
 from django.db.models import IntegerField
+from Signin import models as md
+
+def get_counterpartie(terminal):
+    return md.Сounterparty.objects.filter(number_point=int(terminal)).get()
+
 
 def deduct_months(sourcedate,months):
     month = sourcedate.month - 1 - months
@@ -93,6 +98,7 @@ class DefaultBookkepingGenerator(object):
                 ("order_id", "Номер отправки"),
                 ("barcodes", "Номер посылки"),
                 ("cell", "Номер ячейки"),
+                ("counterpartie", "Контрагент"),
             ]),
             "table_data": self.do_report(dt, dt_to)
         }
@@ -103,10 +109,12 @@ class DefaultBookkepingGenerator(object):
     def do_report_x5(self, dt, dt_to):
         #if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
         for ev in self.get_events_qs_X5(dt, dt_to):
-            if (not ev.courier_name):
+            if (not ev.courier_name or ev.courier_name == ' '):
                 if (not ev.courier_login): courier = 'MultilogDPD'
                 else: courier = ev.courier_login
             else: courier = ev.courier_name
+            if (not ev.cell): cell = random.randint(1, 20)
+            else: cell = ev.cell
             yield OrderedDict([
                 ("dpd_point_code", ev.report.dpd_point_code),
                 ("terminal", ev.report.terminal),
@@ -117,7 +125,8 @@ class DefaultBookkepingGenerator(object):
                 ("dt_time", ev.dt.strftime('%H:%M')),
                 ("order_id", ev.report.order_id),
                 ("barcodes", ev.report.barcodes),
-                ("cell", random.randint(1, 20)),
+                ("cell", cell),
+                ("counterpartie", get_counterpartie(ev.report.terminal))
             ])
             
     def do_report(self, dt=None, dt_to=None):
@@ -173,14 +182,15 @@ def generic_to_DPD():
     filename = 'Catalogue {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
-    toaddr = ['v.sazonov@pulseexpress.ru']
-    #toaddr = ['pn@dpd.ru', 'v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
+    #toaddr = ['v.sazonov@pulseexpress.ru']
+    toaddr = ['pn@dpd.ru', 'v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
     send_email(filename, toaddr, to_msg = '__DPD__')
 
 def generic_to_X5():
     dt = date(int(datetime.now().date().strftime('%Y')), int(datetime.now().date().strftime('%m'))-1, 1)
-    dt_to = date(int(datetime.now().date().strftime('%Y')), int(datetime.now().date().strftime('%m')), int(datetime.now().date().strftime('%d')))
+    #dt_to = date(int(datetime.now().date().strftime('%Y')), int(datetime.now().date().strftime('%m')), int(datetime.now().date().strftime('%d')))
+    dt_to = date(int(datetime.now().date().strftime('%Y')), int(datetime.now().date().strftime('%m')), 1)
     filename = 'For X5 {} to {}'.format(dt.strftime('%Y-%m-%d'), dt_to)
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate_to_X5(dt, dt_to))
