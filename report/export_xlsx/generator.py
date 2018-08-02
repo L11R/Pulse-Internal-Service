@@ -16,8 +16,10 @@ from django.db.models import IntegerField
 from Signin import models as md
 
 def get_counterpartie(terminal):
-    return md.Сounterparty.objects.filter(number_point=int(terminal)).get()
-
+    try:
+        return md.Сounterparty.objects.filter(number_point=int(terminal)).get()
+    except:
+        return ' '
 
 def deduct_months(sourcedate,months):
     month = sourcedate.month - 1 - months
