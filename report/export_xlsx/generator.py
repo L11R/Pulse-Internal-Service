@@ -140,9 +140,8 @@ def send_email(filename, toaddr, to_msg):
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
     msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
-    msg['To'] = toaddr
-    msg['cc'] = toaddr
-        #'__PULSE-EXPRESS__'
+    msg['To'] = to_msg
+    msg['cc'] = '__PULSE-EXPRESS__'
     filename_s = filename + '.xlsx'
     try:
         with open(filepath, "rb") as fil:
@@ -156,7 +155,7 @@ def send_email(filename, toaddr, to_msg):
     s.starttls()
     s.ehlo()
     s.login(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
-    s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], msg, msg.as_string())
+    s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], toaddr, msg.as_string())
     s.quit()
     
 def generic_to_DPD():
@@ -166,7 +165,8 @@ def generic_to_DPD():
     filename = 'Catalogue {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
-    toaddr = ['pn@dpd.ru', 'v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru']
+    #toaddr = ['pn@dpd.ru', 'v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
     send_email(filename, toaddr, to_msg = '__DPD__')
 
@@ -176,8 +176,7 @@ def generic_to_X5():
     filename = 'For X5 {} to {}'.format(dt.strftime('%Y-%m-%d'), dt_to)
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate_to_X5(dt, dt_to))
-    toaddr = ['v.sazonov@pulseexpress.ru']
-    #toaddr = ['v.sazonov@pulseexpress.ru', 'dpetrushevsky@pulse-express.ru', 'pzolotukhin@pulseexpress.ru', 'ikorchagin@pulse-express.ru', 'mikekoltsov@gmail.com']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'dpetrushevsky@pulse-express.ru', 'pzolotukhin@pulseexpress.ru', 'ikorchagin@pulse-express.ru', 'mikekoltsov@gmail.com']
     send_email(filename, toaddr, to_msg='For X5 RETAIL GROUP')
     
     #filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
