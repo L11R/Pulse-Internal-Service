@@ -9,5 +9,6 @@ dpl/
 *.swp
 *.pyc
 *.csv
+*.xlsx
 Release.key
 Signin/files/media/*.htm
