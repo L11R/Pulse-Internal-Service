@@ -185,9 +185,11 @@ def generic_to_DPD():
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
     #toaddr = ['v.sazonov@pulseexpress.ru']
-    toaddr = ['pn@dpd.ru', 'v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
+    to_dpd_addr = ['pn@dpd.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
     send_email(filename, toaddr, to_msg = '__DPD__')
+    send_email(filename, to_dpd_addr, to_msg='__DPD__')
 
 def generic_to_X5():
     dt = date(int(datetime.now().date().strftime('%Y')), int(datetime.now().date().strftime('%m'))-1, 1)
