@@ -159,7 +159,7 @@ def send_email(filename, toaddr, to_msg):
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
     msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
-    msg['To'] = 'pn@dpd.ru'
+    msg['To'] = '1v1expert@gmail.com'
     #to_msg
     #msg['cc'] = '__PULSE-EXPRESS__'
     filename_s = filename + '.xlsx'
