@@ -14,6 +14,7 @@ import calendar
 from django.db.models.functions import Cast
 from django.db.models import IntegerField
 from Signin import models as md
+import time
 
 def get_counterpartie(terminal):
     try:
@@ -153,14 +154,13 @@ class DefaultBookkepingGenerator(object):
                 ("cell", cell),
             ])
             
-def send_email(filename, toaddr, to_msg):
+def send_email(filename, toaddr, to_msg, hdr):
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
     msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
-    msg['To'] = '1v1expert@gmail.com'
-    #to_msg
+    msg['To'] = to_msg
     #msg['cc'] = '__PULSE-EXPRESS__'
     filename_s = filename + '.xlsx'
     try:
@@ -186,11 +186,12 @@ def generic_to_DPD():
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
     #toaddr = ['v.sazonov@pulseexpress.ru']
-    to_dpd_addr = ['1v1expert@gmail.com']
-    #toaddr = ['v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
+    to_dpd_addr = ['pn@dpd.ru']
+    toaddr = ['v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
-    #send_email(filename, toaddr, to_msg = '__DPD__')
-    send_email(filename, to_dpd_addr, to_msg='__DPD__')
+    send_email(filename, toaddr, to_msg='__DPD__')
+    time.sleep(2)
+    send_email(filename, to_dpd_addr, to_msg='pn@dpd.ru')
 
 def generic_to_X5():
     dt = date(int(datetime.now().date().strftime('%Y')), int(datetime.now().date().strftime('%m'))-1, 1)
