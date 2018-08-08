@@ -154,7 +154,7 @@ class DefaultBookkepingGenerator(object):
                 ("cell", cell),
             ])
             
-def send_email(filename, toaddr, to_msg, hdr):
+def send_email(filename, toaddr, to_msg):
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
     msg = MIMEMultipart('mixed')
     msg['Subject'] = 'Report'
