@@ -41,6 +41,8 @@ class Report(models.Model):
     declared_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Объявленная ценность")
     phone = models.CharField(max_length=20, verbose_name="Телефон")
     sender = models.CharField(max_length=128, verbose_name="Контрагент")
+    timezone = models.CharField(max_length=32, null=True, default=None,
+                                verbose_name="Часовой пояс точки")
 
     class Meta:
         db_table = "reports"
