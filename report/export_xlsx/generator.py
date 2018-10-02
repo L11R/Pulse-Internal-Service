@@ -15,6 +15,7 @@ from django.db.models.functions import Cast
 from django.db.models import IntegerField
 from Signin import models as md
 import time
+import pytz
 
 def get_counterpartie(terminal):
     try:
@@ -147,8 +148,8 @@ class DefaultBookkepingGenerator(object):
                 ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
                 ("otype", REV_OTYPE_MAP[ev.otype]),
                 #("courier_name", courier),
-                ("dt_date", ev.dt.strftime('%Y.%m.%d')),
-                ("dt_time", ev.dt.strftime('%H:%M')),
+                ("dt_date", ev.dt.astimezone(pytz.timezone(ev.report.timezone or "UTC")).strftime('%Y.%m.%d')),
+                ("dt_time", ev.dt.astimezone(pytz.timezone(ev.report.timezone or "UTC")).strftime('%H:%M')),
                 ("order_id", ev.report.order_id),
                 ("barcodes", ev.report.barcodes),
                 ("cell", cell),
