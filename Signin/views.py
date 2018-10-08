@@ -147,7 +147,7 @@ def terminal_page(request):
         #params = dict()
         #params["search"] = form
         print(" !!!! - " ,request.body)
-        the_file = 'conf.json'
+        the_file = 'README.md'
         response = HttpResponse(FixedFileWrapper(open(the_file, 'rb')), content_type=mimetypes.guess_type(the_file[0]))
         response['Content-Length'] = os.path.getsize(the_file)
         response['Content-Disposition'] = "attachment; filename=%s" % os.path.basename(the_file)
@@ -188,6 +188,42 @@ def logout(request):
     response = redirect('/login/')
     response.set_cookie('token', '', expires=datetime(1970,1,1))
     return response
+
+@csrf_exempt
+@login_required
+def request_orders_file(request): # Should it rewrite !!
+    if request.method == 'POST':
+        print(request.FILES['file'].name)
+        myfile = request.FILES['file']
+        fs = FileSystemStorage(location=settings.REQUEST_FILES, base_url = settings.REQUEST_FILES)
+        from datetime import datetime
+        filename = fs.save(datetime.strftime(datetime.now(), "%Y_%m_%d-%H_%M_%S.xlsx")
+, myfile)
+        uploaded_file_url = fs.url(filename)
+        print(filename, uploaded_file_url)
+        HDRS = {'Encoding': 'utf-8'}
+        headers = HDRS.copy()
+        headers['Authorization'] = request.COOKIES.get('token')
+        print(headers, request.COOKIES.get('uid'))
+        multipart_form_data = {'file': (filename, open(uploaded_file_url, 'rb'), 'application/vnd.ms-excel')}
+        try:
+            resp = requests.post(
+                settings.DATA['PROD_URL'] + '/requests/from_xls/',
+                verify=True,
+                files=multipart_form_data,
+                data={"sender": request.COOKIES.get('uid')},
+                headers=headers
+            )
+            resp_text = resp.text
+            resp_status_code = resp.status_code
+        except:
+            resp_text, resp_status_code = 'error send request to IS', 5000
+        #print(resp.text, resp.content, resp.status_code)
+        resp_front = {'ERROR': True, 'RESP': resp_text, 'CODE': resp_status_code}
+        if resp_status_code in (200, 201):
+            resp_front['ERROR'] = False
+        return HttpResponse(json.dumps(resp_front), content_type="application/json")
+    return HttpResponse(json.dumps({'ERROR': True}), content_type="application/json")
 
 @csrf_exempt
 @login_required

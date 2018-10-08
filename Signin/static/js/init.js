@@ -82,10 +82,11 @@ $("#form").bind('submit', function (e) {
 	var selectedFile = document.getElementById('input-file-now').files[0];
 	form.append("sender", $.cookie('uid'));
 	form.append("file", selectedFile);
+	//"url": $.cookie('URL'),
 		var settings = {
   "async": true,
   "crossDomain": true,
-  "url": $.cookie('URL'),
+  "url": "/request_leroy/",
   "method": "POST",
   "headers": {
     "authorization": $.cookie('token'),
@@ -109,7 +110,6 @@ $("#form").bind('submit', function (e) {
         return xhr;
       },
 	error: function (response) {
-  		//$('#exampleModalLabel1').text("Ошибка загрузики");
   		console.log(response);
   		if (response.responseText){
 		var resptxt = JSON.parse(response.responseText);
@@ -149,13 +149,29 @@ $("#form").bind('submit', function (e) {
             closeOnConfirm: false
         });}
     },
-			success: function () {
-  	swal({
+			success: function (response) {
+  	console.log(JSON.parse(response).ERROR);
+  	if (JSON.parse(response).ERROR)
+	{
+		swal({
+			title: "Ошибка",
+            text: "К сожалению, произошла ошибка при загрузке файла",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonColor: "#f8b32d",
+            confirmButtonText: "Ок",
+            closeOnConfirm: false
+        });
+	}
+	else {
+  		swal({
 			title: "Хорошая работа",
              type: "success",
 			text: "Файл успешно загружен !",
 			confirmButtonColor: "#4aa23c",
         });
+	}
+
 				//$('#exampleModalLabel1').text("");
 				//$('#exampleModal').modal('show');
             }

@@ -156,6 +156,8 @@ USE_TZ = True
 FILES_ROOT = os.path.join(BASE_DIR, 'report', 'files', 'xlsx')
 FILES_URL = '/xslx'
 
+REQUEST_FILES = os.path.join(BASE_DIR, 'Signin', 'files', 'excel_files')
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Signin', 'files', 'media')
 MEDIA_URL = '/media/'
 
