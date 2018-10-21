@@ -155,44 +155,53 @@ class DefaultBookkepingGenerator(object):
                 ("cell", cell),
             ])
             
-def send_email(filename, toaddr, to_msg):
+def send_email(filename, toaddr, to_msg, cc = None):
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
     msg = MIMEMultipart('mixed')
+    msg.attach(MIMEText('Файл с отчетом в приложении', 'plain'))
     msg['Subject'] = 'Report'
     print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
     msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
     msg['To'] = to_msg
-    #msg['cc'] = '__PULSE-EXPRESS__'
+    if cc:
+        msg['cc'] = cc
     filename_s = filename + '.xlsx'
     try:
         with open(filepath, "rb") as fil:
             part1 = MIMEApplication(fil.read(), Name=basename(filename_s))
             part1.add_header('Content-Disposition', 'attachment; filename="%s"' % filename_s)
+        msg.attach(part1)
+        s = smtplib.SMTP(settings.DATA['EMAIL_HOST_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
+        s.ehlo()
+        s.starttls()
+        s.ehlo()
+        s.login(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
+        s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], toaddr, msg.as_string())
+        s.quit()
     except:
-        part1 = MIMEText('\nError creating report file', 'plain')
-    msg.attach(part1)
-    s = smtplib.SMTP(settings.DATA['EMAIL_HOST_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
-    s.ehlo()
-    s.starttls()
-    s.ehlo()
-    s.login(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
-    s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], toaddr, msg.as_string())
-    s.quit()
-    
+        print('Error send letter')
+
 def generic_to_DPD():
-    #filename = 'report'
     dt = datetime.now().date() - timedelta(days=1)
     dt_to = dt + timedelta(days=1)
     filename = 'Catalogue {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
     #toaddr = ['v.sazonov@pulseexpress.ru']
+
     to_dpd_addr = ['pn@dpd.ru']
-    toaddr = ['v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru', 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
+    cc = ['mikekoltsov@gmail.com', 'ik@pulseexpress.ru', 'v.sazonov@pulseexpress.ru']
+
+    #to_dpd_addr = ['v.sazonov@pulseexpress.ru']
+    #cc = ['v.sazonov@pulseexpress.ru']
+
+    #cc = ['mikekoltsov@gmail.com', 'dpd1286@gmail.com', 'dmitriy.polyakov@dpd.ru', 'ik@pulseexpress.ru']
+    # toaddr = ['v.sazonov@pulseexpress.ru', 'reestr@pulse-epxress.ru', 'ikorchagin@pulse-express.ru',
+    # 'Natalya.Pyatakova@dpd.ru', 'Ekaterina.Lavrinova@dpd.ru']
     #toaddr = ['v.sazonov@pulseexpress.ru', 'pn@dpd.ru', 'reestr@pulse-epxress.ru', 'yt@pulseexpress.ru']
-    send_email(filename, toaddr, to_msg='__DPD__')
-    time.sleep(2)
-    send_email(filename, to_dpd_addr, to_msg='pn@dpd.ru')
+    #send_email(filename, toaddr, to_msg='__DPD__')
+    #time.sleep(2)
+    send_email(filename, to_dpd_addr + cc, to_msg='pn@dpd.ru', cc=','.join(cc))
 
 def generic_to_X5():
     dt = date(int(datetime.now().date().strftime('%Y')), int(datetime.now().date().strftime('%m'))-1, 1)
