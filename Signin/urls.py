@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^views_point', views.template_views),
     url(r'^add_camera', views.add_camera),
     url(r'^request_leroy', views.request_orders_file),
+    url(r'^statistic_cells', views.statistic_cells)
 ]

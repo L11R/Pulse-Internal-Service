@@ -161,6 +161,12 @@ def terminal_page(request):
     response = HttpResponse(template.render(context, request))
     return response
 
+def statistic_cells(request):
+    template = loader.get_template('Signin/statistic_cells.html')
+    context = {}
+    response = HttpResponse(template.render(context, request))
+    return response
+
 @login_required
 def menu_page(request):
     template = loader.get_template('Signin/menu.html')
