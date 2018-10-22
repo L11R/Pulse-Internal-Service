@@ -72,10 +72,10 @@ def login(request):
             info = models.Sender.objects.get(name=user.username)
             if user.stype == 1:
                 response = redirect('/leroy/')
-                response.set_cookie('token', info.token)
-                response.set_cookie('uid', info.uid)
-                response.set_cookie('URL', settings.DATA['PROD_URL'] + '/requests/from_xls/')
-                response.set_cookie('type', user.stype)
+                response.set_cookie('token', info.token, max_age=86400)
+                response.set_cookie('uid', info.uid, max_age=86400)
+                response.set_cookie('URL', settings.DATA['PROD_URL'] + '/requests/from_xls/', max_age=86400)
+                response.set_cookie('type', user.stype, max_age=86400)
                 print('success cour')
                 return response
             if user.stype == 0:
