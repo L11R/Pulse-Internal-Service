@@ -193,13 +193,13 @@ class DefaultBookkepingGenerator(object):
                 ("cell", cell),
             ])
             
-def send_email(filename, toaddr, to_msg, cc = None):
+def send_email(filename, toaddr, to_msg, cc = None, agent_from = 'EMAIL_HOST_USER_PULSE'):
     filepath = '{}/{}'.format(settings.FILES_ROOT, '{}.xlsx'.format(filename))
     msg = MIMEMultipart('mixed')
     msg.attach(MIMEText('Файл с отчетом в приложении', 'plain'))
     msg['Subject'] = 'Report'
-    print(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_PORT_PULSE'])
-    msg['From'] = settings.DATA['EMAIL_HOST_USER_PULSE']
+    print(settings.DATA[agent_from], settings.DATA['EMAIL_PORT_PULSE'])
+    msg['From'] = settings.DATA[agent_from]
     msg['To'] = to_msg
     if cc:
         msg['cc'] = cc
@@ -213,8 +213,8 @@ def send_email(filename, toaddr, to_msg, cc = None):
         s.ehlo()
         s.starttls()
         s.ehlo()
-        s.login(settings.DATA['EMAIL_HOST_USER_PULSE'], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
-        s.sendmail(settings.DATA['EMAIL_HOST_USER_PULSE'], toaddr, msg.as_string())
+        s.login(settings.DATA[agent_from], settings.DATA['EMAIL_HOST_PASSWORD_PULSE'])
+        s.sendmail(settings.DATA[agent_from], toaddr, msg.as_string())
         s.quit()
     except:
         print('Error send letter')
@@ -258,6 +258,7 @@ def generic_to_Leroy():
     filename = 'Catalogue_Leroy {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate_Leroy(dt, dt_to))
-    to_addr = ['ikorchagin@pulseexpress.ru', 'ikorchagin@pochtomat.ru', 'pzolotukhin@pulseexpress.ru', 'pzolotukhin@pochtomat.ru']
+    to_addr = ['sepstamp@mail.ru']
+    #to_addr = ['ikorchagin@pulseexpress.ru', 'ikorchagin@pochtomat.ru', 'pzolotukhin@pulseexpress.ru', 'pzolotukhin@pochtomat.ru']
     cc = ['v.sazonov@pulseexpress.ru']
-    send_email(filename, to_addr + cc, to_msg=', '.join(to_addr), cc=','.join(cc))
+    send_email(filename, to_addr + cc, to_msg=', '.join(to_addr), cc=','.join(cc), agent_from='EMAIL_HOST_USER_POCHTOMAT')
