@@ -94,11 +94,25 @@ class DefaultBookkepingGenerator(object):
         return data
 
     def generate_Leroy(self, dt, dt_to):
-        data = {"top_header": {"spread": None, "row": self.top_row}, "table_header": OrderedDict(
-            [("dpd_point_code", "Код постамата ДПД"), ("terminal", "Постамат №"), ("point_address", "Адрес"),
-             ("otype", "Операция"),  # ("courier_name", "Курьер"),
-             ("dt_date", "Дата"), ("dt_time", "Время"), ("order_id", "Номер отправки"),
-             ("barcodes", "Номер посылки"), ("cell", "Номер ячейки"), ]), "table_data": self.do_report_Leroy(dt, dt_to)}
+        data = {
+            "top_header": {
+                "spread": None,
+                "row": self.top_row
+            }, "table_header": OrderedDict(
+            [
+                # ("dpd_point_code", "Код постамата ДПД"),
+                ("terminal", "Постамат №"),
+                ("point_address", "Адрес"),
+                ("otype", "Операция"),
+                # ("courier_name", "Курьер"),
+                ("dt_date", "Дата"),
+                ("dt_time", "Время"),
+                ("order_id", "Номер отправки"),
+                ("barcodes", "Номер посылки"),
+                ("cell", "Номер ячейки"),
+            ]),
+            "table_data": self.do_report_Leroy(dt, dt_to)
+        }
         data["top_header"]["spread"] = len(data["table_header"])
     
         return data
@@ -159,7 +173,7 @@ class DefaultBookkepingGenerator(object):
             if (not ev.cell): cell = random.randint(1, 20)
             else: cell = ev.cell
             yield OrderedDict([
-                ("dpd_point_code", ev.report.dpd_point_code),
+                # ("dpd_point_code", ev.report.dpd_point_code),
                 ("terminal", ev.report.terminal),
                 ("point_address", '{}, {}'.format(ev.report.point_settlement, ev.report.point_address)),
                 ("otype", REV_OTYPE_MAP[ev.otype]),
