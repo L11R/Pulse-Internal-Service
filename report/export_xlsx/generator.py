@@ -260,4 +260,4 @@ def generic_to_Leroy():
         writing.dump(DefaultBookkepingGenerator().generate_Leroy(dt, dt_to))
     to_addr = ['ikorchagin@pulseexpress.ru', 'ikorchagin@pochtomat.ru', 'pzolotukhin@pulseexpress.ru', 'pzolotukhin@pochtomat.ru']
     cc = ['v.sazonov@pulseexpress.ru']
-    send_email(filename, to_addr + cc, to_msg='sepstamp@mail.ru', cc=','.join(cc))
+    send_email(filename, to_addr + cc, to_msg=', '.join(to_addr), cc=','.join(cc))
