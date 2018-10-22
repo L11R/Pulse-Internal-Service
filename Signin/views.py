@@ -143,12 +143,12 @@ def parcels_page(request):
 def get_leroy_parcels(request):
     response_data = {}
     if request.method == 'POST':
-        token = 'Token {}'.format(request.COOKIES.get('token'))
+        token = request.COOKIES.get('token')
         print('POST request, token - ', token)
         from . import req_manager
         resp = req_manager.get_data(token,
                                     settings.DATA['PROD_URL'] + "/parcels/?offset = 0&limit=100&sender=Leroy%20Merlin")
-        #print(resp.json())
+        print(resp.json())
         try:
             response_data['content'] = resp.json()
             response_data['error'] = resp.text
