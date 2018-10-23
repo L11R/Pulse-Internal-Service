@@ -272,7 +272,5 @@ def generic_to_Leroy():
     filename = 'Catalogue_Leroy {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
         writing.dump(DefaultBookkepingGenerator().generate_Leroy(dt, dt_to))
-    to_addr = settings.DATA["mailing_list_test"]
-    #to_addr = ['ikorchagin@pulseexpress.ru', 'ikorchagin@pochtomat.ru', 'pzolotukhin@pulseexpress.ru', 'pzolotukhin@pochtomat.ru']
-    cc = ['v.sazonov@pulseexpress.ru']
+    to_addr = settings.DATA["mailing_list_leroy"]
     send_email(filename, to_addr, to_msg=', '.join(to_addr), cc=None, agent_from='EMAIL_HOST_USER_POCHTOMAT')
