@@ -267,7 +267,7 @@ def generic_to_X5():
     send_email(filename, toaddr, to_msg='For Х5 Retail Group')
     
 def generic_to_Leroy():
-    dt = datetime.now().date() - timedelta(days=2)
+    dt = datetime.now().date() - timedelta(days=1)
     dt_to = dt + timedelta(days=1)
     filename = 'Catalogue_Leroy {}'.format(dt.strftime('%Y-%m-%d'))
     with writers.BookkepingWriter(filename) as writing:
