@@ -312,6 +312,33 @@ def template_views(request):
 
 @csrf_exempt
 @login_required
+def add_apps(request):
+    context = {}
+    con_data = {}
+    urls = []
+    template = loader.get_template('Signin/add_apps.html')
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data)
+        for symb in data:
+            print(symb)
+            if symb['name'] == 'id' or symb['name'] == 'target_id':
+                con_data[symb['name']] = symb['value'].split(', ')
+            else:
+                con_data[symb['name']] = symb['value']
+        for id in con_data['id']:
+            for target_id in con_data['target_id']:
+                urls.append(con_data['host'].format(con_data['ip'], id[1:-1], target_id[1:-1]))
+        print(con_data, urls)
+        #print(data[3]['value'].split(',')[0])
+        context['msg'] = 'success'
+        context['urls'] = urls
+        response = HttpResponse(json.dumps(context), content_type="application/json")
+        return response
+    response = HttpResponse(template.render(context, request))
+    return response
+@csrf_exempt
+@login_required
 def checked(request):
     try:
         api_type = int(request.COOKIES.get('type'))

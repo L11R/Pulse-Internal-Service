@@ -187,6 +187,7 @@ class DefaultBookkepingGenerator(object):
             
     def do_report(self, dt=None, dt_to=None):
         if not dt: dt = datetime.now().date()-timedelta(days=1); dt_to = dt + timedelta(days=1)
+        print(dt, dt_to)
         for ev in self.get_events_qs(dt, dt_to):
             if (not ev.courier_name or ev.courier_name == ' '):
                 if (not ev.courier_login): courier = 'MultilogDPD'

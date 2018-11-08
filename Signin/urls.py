@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^add_camera', views.add_camera),
     url(r'^request_leroy', views.request_orders_file),
     url(r'^statistic_cells', views.statistic_cells),
-    url(r'^get_leroy_parcels', views.get_leroy_parcels)
+    url(r'^get_leroy_parcels', views.get_leroy_parcels),
+    url(r'^add_apps', views.add_apps),
 ]
