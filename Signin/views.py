@@ -323,16 +323,13 @@ def add_apps(request):
         for symb in data:
             #print(symb)
             if symb['name'] == 'id' or symb['name'] == 'target_id':
-                if symb['name'] == 'id':
-                    con_data[symb['name']] = symb['value'].split(', ')
-                else:
-                    con_data[symb['name']] = symb['value'].split(', ')
+                con_data[symb['name']] = symb['value'].split(', ')
             else:
                 con_data[symb['name']] = symb['value']
         for id in con_data['id']:
             for target_id in con_data['target_id']:
                 id.split('-')
-                urls.append(con_data['host'].format(con_data['ip'], id.split('-')[0], id.split('-')[1], target_id))
+                urls.append(con_data['host'].format(con_data['ip'], id.split('-')[0], id.split('-')[1], target_id.split('-')[1],target_id.split('-')[0]))
         print(con_data)
         #print(data[3]['value'].split(',')[0])
         context['msg'] = 'success'
