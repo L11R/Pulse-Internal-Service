@@ -319,17 +319,21 @@ def add_apps(request):
     template = loader.get_template('Signin/add_apps.html')
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data)
+        #print(data)
         for symb in data:
-            print(symb)
+            #print(symb)
             if symb['name'] == 'id' or symb['name'] == 'target_id':
-                con_data[symb['name']] = symb['value'].split(', ')
+                if symb['name'] == 'id':
+                    con_data[symb['name']] = symb['value'].split(', ')
+                else:
+                    con_data[symb['name']] = symb['value'].split(', ')
             else:
                 con_data[symb['name']] = symb['value']
         for id in con_data['id']:
             for target_id in con_data['target_id']:
-                urls.append(con_data['host'].format(con_data['ip'], id[1:-1], target_id[1:-1]))
-        print(con_data, urls)
+                id.split('-')
+                urls.append(con_data['host'].format(con_data['ip'], id.split('-')[0], id.split('-')[1], target_id))
+        print(con_data)
         #print(data[3]['value'].split(',')[0])
         context['msg'] = 'success'
         context['urls'] = urls
