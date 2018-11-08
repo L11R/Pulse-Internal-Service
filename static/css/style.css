@@ -7107,7 +7107,7 @@ ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
     margin-left: 0px; }
 
   .navbar.navbar-inverse.navbar-fixed-top .nav-header {
-    width: 44px; }
+    /*width: 44px; */}
     .navbar.navbar-inverse.navbar-fixed-top .nav-header .logo-wrap .brand-text {
       opacity: 0;
       visibility: hidden; }

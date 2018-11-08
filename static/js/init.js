@@ -47,6 +47,30 @@ $.ajax(settings)
 });
 });
 */
+$('#submit_apps').submit(function(e){
+	//console.log('SUBMIT');
+	//e.preventDefault();
+	//var data = $('#submit_apps').serializeArray();
+	var $form = $(this);
+	//var data = $('#submit_apps').serializeArray();
+	console.log(JSON.stringify($form.serializeArray()));
+        $.ajax({
+          type: $form.attr('method'),
+          url: '/add_apps/',
+          data: JSON.stringify($form.serializeArray())
+        }).done(function(response) {
+        	for (var url in response.urls){
+        		console.log(response.urls[url]);
+				window.open(response.urls[url]);
+        	}
+          //console.log(response.urls);
+        }).fail(function() {
+        	//window.open("http://ya.ru");
+          console.log('fail');
+        });
+        e.preventDefault();
+});
+
 
 $('#termin').submit(function(e){
 	$.ajaxSetup({
@@ -55,7 +79,7 @@ $('#termin').submit(function(e){
         });
 	var settings = {
   "async": true,
-  "crossDomain": true,};
+  "crossDomain": true};
     $.post('/terminals/', settings, function(data){
        ///$('.tweets').html(data);
 		console.log(data);
