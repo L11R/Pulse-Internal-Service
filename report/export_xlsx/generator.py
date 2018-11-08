@@ -243,7 +243,7 @@ def generic_to_DPD():
     #toaddr = ['v.sazonov@pulseexpress.ru']
 
     to_dpd_addr = ['pn@dpd.ru']
-    cc = ['mikekoltsov@gmail.com', 'ik@pulseexpress.ru', 'v.sazonov@pulseexpress.ru']
+    cc = ['mikekoltsov@gmail.com', 'ik@pulseexpress.ru', 'v.sazonov@pulseexpress.ru', 'report@pochtomat.ru']
 
     #to_dpd_addr = ['v.sazonov@pulseexpress.ru']
     #cc = ['v.sazonov@pulseexpress.ru']
