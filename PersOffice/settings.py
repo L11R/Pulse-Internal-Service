@@ -34,7 +34,7 @@ CSRF_COOKIE_SECURE = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'http://office.pulseexpress.ru', 'office.pulseexpress.ru']
+ALLOWED_HOSTS = ['127.0.0.1', 'http://office.pulseexpress.ru', 'office.pulseexpress.ru', 'office.pochtomat.tech', 'http://office.pochtomat.tech ']
 
 
 # Application definition

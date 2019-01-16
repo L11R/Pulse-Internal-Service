@@ -16,6 +16,11 @@ from django.db.models import IntegerField
 from Signin import models as md
 import time
 import pytz
+import logging
+
+logging.basicConfig(filename=u'Log-' + datetime.now().strftime('%Y-%M-%d') + '.log',
+                    format = u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
+                    level=logging.INFO)
 
 def get_counterpartie(terminal):
     try:
@@ -232,14 +237,17 @@ def send_email(filename, toaddr, to_msg, cc = None, agent_from = 'EMAIL_HOST_USE
         s.sendmail(settings.DATA[agent_from], toaddr, msg.as_string())
         s.quit()
     except:
-        print('Error send letter')
+        logging.error('Error send email from {0} to {1}'.format(settings.DATA[agent_from], toaddr))
 
 def generic_to_DPD():
     dt = datetime.now().date() - timedelta(days=1)
     dt_to = dt + timedelta(days=1)
     filename = 'Catalogue {}'.format(dt.strftime('%Y-%m-%d'))
-    with writers.BookkepingWriter(filename) as writing:
-        writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
+    try:
+        with writers.BookkepingWriter(filename) as writing:
+            writing.dump(DefaultBookkepingGenerator().generate(dt, dt_to))
+    except:
+        logging.error('Error generate report for {0}'.format(filename))
     #toaddr = ['v.sazonov@pulseexpress.ru']
 
     to_dpd_addr = ['pn@dpd.ru']
