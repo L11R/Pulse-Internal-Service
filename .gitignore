@@ -12,3 +12,4 @@ dpl/
 *.xlsx
 Release.key
 Signin/files/media/*.htm
+*.log

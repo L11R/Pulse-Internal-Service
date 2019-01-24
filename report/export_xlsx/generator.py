@@ -28,14 +28,14 @@ def get_counterpartie(terminal):
     except:
         return ' '
 
-def deduct_months(sourcedate,months):
+def deduct_months(sourcedate, months):
     month = sourcedate.month - 1 - months
     year = sourcedate.year - month // 12
     month = month % 12 + 1
     day = min(sourcedate.day,calendar.monthrange(year,month)[1])
     return date(year,month,day)
 
-def add_months(sourcedate,months):
+def add_months(sourcedate, months):
     month = sourcedate.month - 1 + months
     year = sourcedate.year + month // 12
     month = month % 12 + 1

@@ -36,7 +36,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'http://office.pulseexpress.ru', 'office.pulseexpress.ru', 'office.pochtomat.ru', 'http://office.pochtomat.ru ']
 
-
 # Application definition
 
 INSTALLED_APPS = [
