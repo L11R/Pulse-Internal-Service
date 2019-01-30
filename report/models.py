@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-
+from .choices import MESSAGE_STATUS_CHOICES
 
 PARCEL_STATUS_CHOICES = {
     (0, 'Создана'),
@@ -58,3 +58,13 @@ class Operation(models.Model):
     courier_name = models.CharField(max_length=256, null=True, verbose_name='Курьер, совершивший операцию')
     courier_login = models.CharField(max_length=32, null=True, verbose_name='Логин курьера, совершившего операцию')
     cell = models.CharField(max_length=3, verbose_name='Название ячейки')
+    
+class Sms(models.Model):
+    id = models.UUIDField(primary_key=True, editable=False, verbose_name='UID сообщения')
+    date_modified = models.DateTimeField(blank=True, null=True, verbose_name="Дата модификации")
+    meta = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Дополнительные данные")
+    order_id = models.CharField(max_length=64, null=True, blank=True, default="", verbose_name="Клиентский номер")
+    barcodes = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Штрихкоды")
+    order_status = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Статус отправления")
+    msg_status = models.SmallIntegerField(choices=MESSAGE_STATUS_CHOICES,  default=0,
+                                      verbose_name="Статус сообщения")

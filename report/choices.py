@@ -1,3 +1,6 @@
+def _rev_dict(choices):
+    return {v:k for k, v in choices}
+
 PARCEL_STATUS_CHOICES = (
     (0, 'Создана'),
     (1, 'Ожидает приёмки'),
@@ -42,3 +45,10 @@ REV_OTYPE_MAP = {
     "receive_result": "Выдана",
     "order_removed": "Выемка"
 }
+MESSAGE_STATUS_CHOICES = (
+    (0, 'Новое'),
+    (1, 'Отправлено'),
+    (2, 'Запланировано'),
+    (3, 'Не отправлено'),
+    (4, 'Техническая проблема'))
+MESSAGE_STATUS_REV_DICT = _rev_dict(MESSAGE_STATUS_CHOICES)
