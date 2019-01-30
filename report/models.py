@@ -43,6 +43,8 @@ class Report(models.Model):
     sender = models.CharField(max_length=128, verbose_name="Контрагент")
     timezone = models.CharField(max_length=32, null=True, default=None,
                                 verbose_name="Часовой пояс точки")
+    delivery_registry = models.CharField(max_length=15, verbose_name='Номер реестра закладки')
+    backout_registry = models.CharField(max_length=156, verbose_name='Номер реестра выемки')
 
     class Meta:
         db_table = "reports"
@@ -59,12 +61,3 @@ class Operation(models.Model):
     courier_login = models.CharField(max_length=32, null=True, verbose_name='Логин курьера, совершившего операцию')
     cell = models.CharField(max_length=3, verbose_name='Название ячейки')
     
-class Sms(models.Model):
-    id = models.UUIDField(primary_key=True, editable=False, verbose_name='UID сообщения')
-    date_modified = models.DateTimeField(blank=True, null=True, verbose_name="Дата модификации")
-    meta = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Дополнительные данные")
-    order_id = models.CharField(max_length=64, null=True, blank=True, default="", verbose_name="Клиентский номер")
-    barcodes = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Штрихкоды")
-    order_status = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Статус отправления")
-    msg_status = models.SmallIntegerField(choices=MESSAGE_STATUS_CHOICES,  default=0,
-                                      verbose_name="Статус сообщения")
