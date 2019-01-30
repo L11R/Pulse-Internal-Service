@@ -43,7 +43,7 @@ class Report(models.Model):
     sender = models.CharField(max_length=128, verbose_name="Контрагент")
     timezone = models.CharField(max_length=32, null=True, default=None,
                                 verbose_name="Часовой пояс точки")
-    delivery_registry = models.CharField(max_length=15,  null=True, blank=True, default="", verbose_name='Номер реестра закладки')
+    delivery_registry = models.CharField(max_length=15,  null=True, blank=True, default="",verbose_name='Номер реестра закладки')
     backout_registry = models.CharField(max_length=156,  null=True, blank=True, default="", verbose_name='Номер реестра выемки')
 
     class Meta:
@@ -70,3 +70,7 @@ class Sms(models.Model):
     order_status = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Статус отправления")
     msg_status = models.SmallIntegerField(choices=MESSAGE_STATUS_CHOICES,  default=0,
                                       verbose_name="Статус сообщения")
+    class Meta:
+        db_table = "sms"
+        verbose_name = 'Смс'
+        verbose_name_plural = 'Смсы'
