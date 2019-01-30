@@ -10,7 +10,7 @@ MESSAGE_STATUS_CHOICES = (
 class Sms(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, verbose_name='UID сообщения')
     date_modified = models.DateTimeField(blank=True, null=True, verbose_name="Дата модификации")
-    meta = models.CharField(max_length=350, null=True, blank=True, default="", verbose_name="Дополнительные данные")
+    meta = models.CharField(max_length=550, null=True, blank=True, default="", verbose_name="Дополнительные данные")
     order_id = models.CharField(max_length=64, null=True, blank=True, default="", verbose_name="Клиентский номер")
     barcodes = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Штрихкоды")
     order_status = models.CharField(max_length=150, null=True, blank=True, default="", verbose_name="Статус отправления")
