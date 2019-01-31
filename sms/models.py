@@ -1,4 +1,5 @@
 from django.db import models
+from uuid import uuid4
 
 MESSAGE_STATUS_CHOICES = (
     (0, 'Новое'),
@@ -20,3 +21,18 @@ class Sms(models.Model):
         db_table = "sms"
         verbose_name = 'Смс'
         verbose_name_plural = 'Смсы'
+        ordering = ("-date_modified",)
+
+class Statistics_msg(models.Model):
+    id = models.CharField(max_length=255, unique=True, primary_key=True, default=uuid4)
+    date = models.DateTimeField(blank=True, null=True, verbose_name="Дата")
+    sent_msg = models.SmallIntegerField(null=True, blank=True, default=0, verbose_name="Отправленых")
+    no_sent_msg = models.SmallIntegerField(null=True, blank=True, default=0, verbose_name="Не отправленых")
+    techn_problem = models.SmallIntegerField(null=True, blank=True, default=0, verbose_name="Техническая проблема")
+    new_msg = models.SmallIntegerField(null=True, blank=True, default=0, verbose_name="Новых сообщений")
+    planned_msg = models.SmallIntegerField(null=True, blank=True, default=0, verbose_name="Запланированных сообщений")
+    
+    class Meta:
+        db_table = "statistics_msg"
+        verbose_name = 'статистика'
+        verbose_name_plural = 'статистики'
