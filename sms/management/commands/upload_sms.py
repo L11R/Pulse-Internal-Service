@@ -30,3 +30,4 @@ class Command(BaseCommand):
             st.techn_problem = models.Sms.objects.using('report').filter(**params(dt, 4)).count()
             st.save(using='report')
             dt -= timedelta(days=1)
+            print(st.new_msg, st.sent_msg, st.planned_msg, st.no_sent_msg, st.techn_problem, dt)
