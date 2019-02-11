@@ -321,7 +321,6 @@ def add_apps(request):
         data = json.loads(request.body)
         #print(data)
         for symb in data:
-            #print(symb)
             if symb['name'] == 'id' or symb['name'] == 'target_id':
                 con_data[symb['name']] = symb['value'].split(', ')
             else:
@@ -363,12 +362,19 @@ def checked(request):
 
 from sms.models import Statistics_msg
 from django.core import serializers
-#@csrf_exempt
-@login_required
-def sms_static_page(request):
+
+def sms_static(request):
     context = serializers.serialize('json',
                                     Statistics_msg.objects.using('report').all(),
-                                    indent=2, use_natural_foreign_keys=True,
+                                    indent=2,
+                                    use_natural_foreign_keys=True,
                                     use_natural_primary_keys=True)
-    #context = {"st": Statistics_msg.objects.using('report').all()}
     return HttpResponse(json.dumps(context), content_type="application/json")
+
+@csrf_exempt
+@login_required
+def sms_static_page(request):
+    context = {}
+    template = loader.get_template('sms/sms_stat.html')
+    #context = {"st": Statistics_msg.objects.using('report').all()}
+    return HttpResponse(template.render(context, request))
