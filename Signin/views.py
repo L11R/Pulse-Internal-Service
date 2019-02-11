@@ -345,6 +345,8 @@ def add_apps(request):
         return response
     response = HttpResponse(template.render(context, request))
     return response
+
+
 @csrf_exempt
 @login_required
 def checked(request):
@@ -358,3 +360,15 @@ def checked(request):
             return response
         else: redirect('/login/')
     except: return redirect('/leroy/')
+
+from sms.models import Statistics_msg
+from django.core import serializers
+#@csrf_exempt
+@login_required
+def sms_static_page(request):
+    context = serializers.serialize('json',
+                                    Statistics_msg.objects.using('report').all(),
+                                    indent=2, use_natural_foreign_keys=True,
+                                    use_natural_primary_keys=True)
+    #context = {"st": Statistics_msg.objects.using('report').all()}
+    return HttpResponse(json.dumps(context), content_type="application/json")

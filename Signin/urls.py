@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^statistic_cells', views.statistic_cells),
     url(r'^get_leroy_parcels', views.get_leroy_parcels),
     url(r'^add_apps', views.add_apps),
+    url(r'^sms_statics', views.sms_static_page)
 ]
