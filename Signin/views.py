@@ -360,21 +360,21 @@ def checked(request):
         else: redirect('/login/')
     except: return redirect('/leroy/')
 
-from sms.models import Statistics_msg
-from django.core import serializers
-
-def sms_static(request):
-    context = serializers.serialize('json',
-                                    Statistics_msg.objects.using('report').all(),
-                                    indent=2,
-                                    use_natural_foreign_keys=True,
-                                    use_natural_primary_keys=True)
-    return HttpResponse(json.dumps(context), content_type="application/json")
-
-@csrf_exempt
-@login_required
-def sms_static_page(request):
-    context = {}
-    template = loader.get_template('sms/sms_stat.html')
-    #context = {"st": Statistics_msg.objects.using('report').all()}
-    return HttpResponse(template.render(context, request))
+# from sms.models import Statistics_msg
+# from django.core import serializers
+#
+# def sms_static(request):
+#     context = serializers.serialize('json',
+#                                     Statistics_msg.objects.using('report').all(),
+#                                     indent=2,
+#                                     use_natural_foreign_keys=True,
+#                                     use_natural_primary_keys=True)
+#     return HttpResponse(json.dumps(context), content_type="application/json")
+#
+# @csrf_exempt
+# @login_required
+# def sms_static_page(request):
+#     context = {}
+#     template = loader.get_template('sms/sms_stat.html')
+#     #context = {"st": Statistics_msg.objects.using('report').all()}
+#     return HttpResponse(template.render(context, request))
