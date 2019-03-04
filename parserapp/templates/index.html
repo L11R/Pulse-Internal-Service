@@ -1,0 +1,215 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>ParserApp</title>
+	<meta name="description" content="Personal cabinet for the client" />
+	<meta name="keywords" content="Parser" />
+	<meta name="author" content="VLADDOS"/>
+
+	<!-- Favicon Pulse -->
+	<link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" sizes="32x32">
+	<link rel="icon" type="image/png" href="{% static 'images/favicon-16x16.png' %}" sizes="16x16">
+	<!-- Bootstrap Dropify CSS -->
+	<link href="{% static 'css/dropify.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!-- Fancy-Buttons CSS -->
+	<link href="{% static 'css/fancy-buttons.css' %}" rel="stylesheet" type="text/css">
+	<!-- vector map CSS -->
+	<link href="{% static 'css/wizard.css' %}" rel="stylesheet" type="text/css"/>
+	<!-- jquery-steps css -->
+	<link rel="stylesheet" href="{% static 'css/jquery.steps.css' %}">
+	<!-- Data table CSS -->
+	<link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!-- bootstrap-touchspin CSS -->
+	<link href="{% static 'css/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!--alerts CSS -->
+	<link href="{% static 'css/sweetalert.css' %}" rel="stylesheet" type="text/css">
+	<!-- vector map CSS -->
+		<link href="{% static 'css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+		<!-- Footable CSS -->
+		<link href="{% static 'css/jsgrid.min.css' %}" rel="stylesheet" type="text/css"/>
+		<link href="{% static 'css/jsgrid-theme.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!-- Custom CSS -->
+	<link href="{% static 'css/style.css' %}"  rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<!--Preloader-->
+	<div class="preloader-it">
+		<div class="la-anim-1"></div>
+	</div>
+	<!--/Preloader-->
+    <div class="wrapper theme-1-active pimary-color-green">
+
+        <!-- Top Menu Items -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="mobile-only-brand pull-left">
+				<div class="nav-header pull-left">
+					<div class="logo-wrap">
+						<a href="">
+							<img class="brand-img" src="{% static 'images/logo-ap@2x.png' %}" width="140" alt="Parser"/>
+						</a>
+					</div>
+				</div>
+				<a id="toggle_mobile_nav" class="mobile-only-view" href="javascript:void(0);"><i class="zmdi zmdi-more"></i></a>
+			</div>
+		</nav>
+		<!-- /Top Menu Items -->
+
+		<!-- Main Content -->
+		<div class="page-wrapper">
+			<div class="container-fluid">
+
+					<!-- Title -->
+					<div class="row heading-bg">
+						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						  <h5 class="txt-dark">База MySql</h5>
+						</div>
+						<!-- Breadcrumb -->
+						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						  <ol class="breadcrumb">
+							<li><a href="#"><span>DataBase</span></a></li>
+							<li class="active"><span>View</span></li>
+						  </ol>
+						</div>
+						<!-- /Breadcrumb -->
+					</div>
+					<!-- /Title -->
+
+				<!-- Row -->
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-default card-view">
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">База</h6>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+										<div class="table-wrap">
+											<div id="jsgrid_1"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Row -->
+
+			</div>
+			<!-- End container -->
+			<!-- Modal fade windows -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="top: 10%">
+				<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<h5 class="modal-title" id="exampleModalLabel1">New message!!</h5>
+													</div>
+													<div class="modal-body">
+														<!--<h5 id="TextResponse"></h5>-->
+
+														<div id="addtable"></div><!--
+														<form>
+															<div class="form-group">
+																<label  class="control-label mb-10">Загрузка файла: </label>
+
+																<div class="progress progress-lg">
+																	<div class="progress-bar active progress-bar-success progress-bar-striped" style="width: 50%;" id="progressbar" role="progressbar">35%</div></div>
+															</div>
+															<div class="form-group">
+																<label for="message-text" class="control-label mb-10">Message:</label>
+																<textarea class="form-control" id="message-text1"></textarea>
+															</div>
+														</form>-->
+													</div>
+													<div class="modal-footer">
+														<button type="button" id="scsb" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+													</div>
+												</div>
+											</div>
+			</div>
+			<!--  End Modal fade windows -->
+			<!-- Footer -->
+			<footer class="footer container-fluid pl-30 pr-30">
+					<div class="row">
+						<div class="col-sm-12">
+							<p>2018 &copy; Pulse-Express. Pamper VLADDOS</p>
+						</div>
+					</div>
+				</footer>
+			<!-- /Footer -->
+		</div>
+
+        <!-- /Main Content -->
+
+    </div>
+	<!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/jquery.cookie.js' %}"></script>
+    <!-- /#wrapper -->
+	<!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/modal-data.js' %}"></script>
+	<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
+
+	<!-- Bootstrap Daterangepicker JavaScript -->
+	<script src="{% static 'js/dropify.min.js' %}"></script>
+
+	<!-- Form Flie Upload Data JavaScript -->
+	<script src="{% static 'js/form-file-upload-data.js' %}"></script>
+
+	<!-- Form Wizard JavaScript -->
+	<script src="{% static 'js/jquery.steps.min.js' %}"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+	<!-- JavaScript -->
+	<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
+
+	<!-- JSgrid table JavaScript -->
+	<script src="{% static 'js/db.js' %}"></script>
+	<script src="{% static 'js/jsgrid.min.js' %}"></script>
+	<script src="{% static 'js/jsgrid-data.js' %}"></script>
+
+	<!-- Data table JavaScript -->
+		<script src="{% static 'js/moment.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/moment-with-locales.min.js' %}"></script>
+		<script src="{% static 'js/footable.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/footable-data.js' %}"></script>
+
+	<!-- Starrr JavaScript -->
+	<script src="{% static 'js/starrr.js' %}"></script>
+
+	<!-- Form Wizard Data JavaScript -->
+	<script src="{% static 'js/form-wizard-data.js' %}"></script>
+
+	<!-- Fancy Dropdown JS -->
+	<script src="{% static 'js/dropdown-bootstrap-extended.js' %}"></script>
+	<!-- Data table JavaScript -->
+	<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'js/dataTables-data.js' %}"></script>
+
+	<!-- Slimscroll JavaScript -->
+	<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+
+	<!-- Owl JavaScript -->
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+	<!-- Switchery JavaScript -->
+	<script src="{% static 'js/switchery.min.js' %}"></script>
+	<!-- Sweet-Alert  -->
+	<script src="{% static 'js/sweetalert.min.js' %}"></script>
+	<script src="{% static 'js/sweetalert-data.js' %}"></script>
+
+
+	<!-- Init JavaScript -->
+	<script src="{% static 'js/init_main.js' %}"></script>
+
+
+</body>
+</html>

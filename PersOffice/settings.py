@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Signin',
     'report',
-    'ping'
+    'ping',
+    'parserapp'
 ]
 
 MIDDLEWARE = [
