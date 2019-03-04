@@ -1,0 +1,12 @@
+area_list = [{'areaId': 45, 'city': 'Жуковский'}, {'areaId': 69920, 'city': 'Климовск'},
+             {'areaId': 120, 'city': 'Озеры'}, {'areaId': 170, 'city': 'Мытищи'}, {'areaId': 708, 'city': 'Опалиха'},
+             {'areaId': 60, 'city': 'Егорьевск'}, {'areaId': 188, 'city': 'Королев'}, {'areaId': 617, 'city': 'Руза'},
+             {'areaId': 543, 'city': 'Кашира'}, {'areaId': 463, 'city': 'Павловский Посад'},
+             {'areaId': 642, 'city': 'Звенигород'}, {'areaId': 147, 'city': 'Шатура'},
+             {'areaId': 44, 'city': 'Бронницы'}, {'areaId': 427, 'city': 'Протвино'},
+             {'areaId': 615, 'city': 'Краснознаменск'}, {'areaId': 517, 'city': 'Ступино'},
+             {'areaId': 449, 'city': 'Черноголовка'}, {'areaId': 698, 'city': 'Красногорск'},
+             {'areaId': 79, 'city': 'Коломна'}, {'areaId': 2, 'city': 'Москва'}, {'areaId': 787, 'city': ''},
+             {'areaId': 263, 'city': ''}, {'areaId': 317, 'city': ''}, {'areaId': 230, 'city': ''},
+             {'areaId': 4, 'city': ''}, {'areaId': 232, 'city': ''}, {'areaId': 190, 'city': ''},
+             {'areaId': 367, 'city': ''}, {'areaId': 15, 'city': ''}, {'areaId': 5911, 'city': 'Санкт-Петербург'}]
