@@ -1,7 +1,8 @@
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
-from parserapp.models import OzonPoints, AreaList
+from django.core.cache import cache
 
+from parserapp.models import OzonPoints, AreaList
 from parserapp.management.commands.get_ozon_points import get_ozon_points
 
 
@@ -28,7 +29,7 @@ def render_page_points(request):
 
 def update_list_points(request):
 	import transliterate
-	
+	cache.clear()
 	update_list, response = [], {}
 	areaId, city = request.GET.get('areaId', None), request.GET.get('city', None)
 	if request.method == 'GET' and areaId and city:
