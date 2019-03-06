@@ -5,6 +5,10 @@ from parserapp.models import OzonPoints, AreaList
 from parserapp.management.commands.get_ozon_points import get_ozon_points
 
 
+def hascyr(s):
+	lower = set('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
+	return lower.intersection(s.lower()) != set()
+
 
 def render_page_points(request):
 	params = {}
@@ -39,7 +43,7 @@ def update_list_points(request):
 		data = get_ozon_points(area.idd)
 		if isinstance(data, list):
 			stat_data = OzonPoints.update_points(data)
-			stat_data.update({'city': transliterate.translit(area.city, reversed=True) if area.city != '' else ''})
+			stat_data.update({'city': transliterate.translit(area.city, reversed=True) if area.city != '' and not hascyr(area.city) else ''})
 			stat_data.update({'areaId': area.idd})
 			update_list.append(stat_data)
 		else:
