@@ -44,11 +44,11 @@ def update_list_points(request):
 		data = get_ozon_points(area.idd)
 		if isinstance(data, list):
 			stat_data = OzonPoints.update_points(data)
-			try:
-				city_n = transliterate.translit(area.city, reversed=True) if area.city != '' else ''
-			except:
-				city_n = area.city
-			stat_data.update({'city': city_n})
+			# try:
+			# 	city_n = transliterate.translit(area.city, reversed=True) if area.city != '' else ''
+			# except:
+			# 	city_n =
+			stat_data.update({'city': area.city})
 			stat_data.update({'areaId': area.idd})
 			update_list.append(stat_data)
 		else:
