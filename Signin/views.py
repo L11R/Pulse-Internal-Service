@@ -52,12 +52,14 @@ def downolad_file(request):
     response['Content-Disposition'] = "attachment; filename=%s" % os.path.basename(the_file)
     return response
 
+
 def login_required(func):
     def login_required_handler(request):
         if not request.COOKIES.get('token'):
             return redirect('/login/')
         return func(request)
     return login_required_handler
+
 
 @csrf_exempt
 def login(request):

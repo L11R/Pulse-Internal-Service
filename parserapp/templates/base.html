@@ -1,8 +1,8 @@
 {% load staticfiles %}
-{% load timetags %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    {% block head %}
     <meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>ParserApp</title>
@@ -11,14 +11,17 @@
 	<meta name="author" content="VLADDOS"/>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
-	<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+	<link rel="shortcut icon" href="{% static 'parser/images/favicon.ico' %}">
+	<link rel="icon" href="{% static 'parser/images/favicon.ico' %}" type="image/x-icon">
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+    {% block main_css %}
 	<!-- Data table CSS -->
-	<link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css"/>
+	<link href="{% static 'parser/css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css"/>
 
 	<!-- Custom CSS -->
-	<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'parser/css/style.css' %}" rel="stylesheet" type="text/css">
+    {% endblock main_css %}
+    {% endblock head %}
 </head>
 
 <body>
@@ -75,6 +78,7 @@
 				<!-- /Title -->
 
 				<!-- Row -->
+                {% block rows %}
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="panel panel-default card-view">
@@ -85,54 +89,24 @@
 											<table id="example" class="table table-hover display  pb-30" >
 												<thead>
 													<tr>
-
-
-														<th>Категория</th>
-														<th>Бита</th>
-														<th>Цена авто</th>
-														<th>Заголовок</th>
-														<th>Создана</th>
-														<th>Изменена</th>
-														<th>Переоткрыта</th>
-														<th>Особенности</th>
-														<th>Детали</th>
-														<th>Аттрибуты автомобиля</th>
-														<th>Ссыль</th>
+														<th>name</th>
+														<th>address</th>
+														<th>metro</th>
 													</tr>
 												</thead>
 												<tfoot>
 													<tr>
-														<th>Категория</th>
-														<th>Бита</th>
-														<th>Цена</th>
-														<th>Заголовок</th>
-														<th>Создана</th>
-														<th>Изменена</th>
-														<th>Переоткрыта</th>
-														<th>Особенности</th>
-														<th>Детали</th>
-														<th>Аттрибуты автомобиля</th>
-														<th>Ссыль</th>
+														<th>name</th>
+														<th>address</th>
+														<th>metro</th>
 													</tr>
 												</tfoot>
 												<tbody>
-												{% for car in Cars %}
+												{% for point in Points %}
 													<tr>
-														<td>{{ car.category }}</td>
-														{% if car.hasDamage %}
-														<td>Да</td>
-														{% else %}
-														<td>Нет</td>
-														{% endif %}
-														<td>{{ car.price }}</td>
-														<td>{{ car.title }}</td>
-														<td>{{ car.created|print_timestamp }}</td>
-														<td>{{ car.modified|print_timestamp }}</td>
-														<td>{{ car.renewed|print_timestamp }}</td>
-														<td>{{ car.features }}</td>
-														<td>{{ car.details }}</td>
-														<td>{{ car.attr }}</td>
-														<td><a href="{{ car.url }}">Ccылка на авто</a></td>
+														<td>{{ point.name }}</td>
+														<td>{{ point.address }}</td>
+														<td>{{ point.metro }}</td>
 													</tr>
 												{% endfor %}
 												</tbody>
@@ -144,14 +118,15 @@
 						</div>
 					</div>
 				</div>
-				<!-- /Row -->
+                {% endblock rows %}
+                <!-- /Row -->
 			</div>
 
 			<!-- Footer -->
 			<footer class="footer container-fluid pl-30 pr-30">
 				<div class="row">
 					<div class="col-sm-12">
-						<p>2017 &copy; Jetson. Pampered by Hencework</p>
+						<p>2019 &copy; VLADDOS.</p>
 					</div>
 				</div>
 			</footer>
@@ -164,41 +139,41 @@
     <!-- /#wrapper -->
 
 	<!-- JavaScript -->
-
+    {% block js %}
     <!-- jQuery -->
-    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'parser/js/jquery.min.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'parser/js/bootstrap.min.js' %}"></script>
 
 	<!-- Data table JavaScript -->
-	<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-	<script src="{% static 'js/dist/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-	<script src="{% static 'js/dist/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
-	<script src="{% static 'js/dist/jszip/dist/jszip.min.js' %}"></script>
-	<script src="{% static 'js/dist/pdfmake/build/pdfmake.min.js' %}"></script>
-	<script src="{% static 'js/dist/pdfmake/build/vfs_fonts.js' %}"></script>
+	<script src="{% static 'parser/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'parser/js/dist/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+	<script src="{% static 'parser/js/dist/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+	<script src="{% static 'parser/js/dist/jszip/dist/jszip.min.js' %}"></script>
+	<script src="{% static 'parser/js/dist/pdfmake/build/pdfmake.min.js' %}"></script>
+	<script src="{% static 'parser/js/dist/pdfmake/build/vfs_fonts.js' %}"></script>
 
-	<script src="{% static 'js/dist/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-	<script src="{% static 'js/dist/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-	<script src="{% static 'js/dist/export-table-data.js' %}"></script>
+	<script src="{% static 'parser/js/dist/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+	<script src="{% static 'parser/js/dist/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+	<script src="{% static 'parser/js/dist/export-table-data.js' %}"></script>
 
 	<!-- Slimscroll JavaScript -->
-	<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+	<script src="{% static 'parser/js/jquery.slimscroll.js' %}"></script>
 
 	<!-- Owl JavaScript -->
-	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'parser/js/owl.carousel.min.js' %}"></script>
 
 	<!-- Switchery JavaScript -->
-	<script src="{% static 'js/switchery.min.js' %}"></script>
+	<script src="{% static 'parser/js/switchery.min.js' %}"></script>
 
 
 	<!-- Fancy Dropdown JS -->
-	<script src="{% static 'js/dropdown-bootstrap-extended.js' %}"></script>
+	<script src="{% static 'parser/js/dropdown-bootstrap-extended.js' %}"></script>
 
 	<!-- Init JavaScript -->
-	<script src="{% static 'js/dist/init.js' %}"></script>
-
+	<script src="{% static 'parser/js/dist/init.js' %}"></script>
+    {% endblock js %}
 </body>
 
 </html>

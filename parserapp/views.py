@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core.cache import cache
 
 from parserapp.models import OzonPoints, AreaList
+from Signin.views import login_required
 from parserapp.management.commands.get_ozon_points import get_ozon_points
 
 
@@ -11,11 +12,20 @@ def hascyr(s):
 	return lower.intersection(s.lower()) != set()
 
 
+@login_required
+def render_page_ozon_areas(request):
+	cache.clear()
+	template = loader.get_template('ozon_areas.html')
+	areas = AreaList.objects.all()
+	return HttpResponse(template.render({'Areas': areas}, request))
+
+
+@login_required
 def render_page_points(request):
 	params = {}
 	if request.method == 'GET' and len(request.GET):
 		params = {'{}__icontains'.format(k): v for k, v in request.GET.items()}
-	template = loader.get_template('points.html')
+	template = loader.get_template('ozon_points.html')
 	points = OzonPoints.objects.filter(**params)
 	
 	# part1 = OzonPoints.objects.all()[0:999]
@@ -28,30 +38,29 @@ def render_page_points(request):
 
 
 def update_list_points(request):
-	import transliterate
+	#import transliterate
 	cache.clear()
-	update_list, response = [], {}
-	areaId, city = request.GET.get('areaId', None), request.GET.get('city', None)
-	if request.method == 'GET' and areaId and city:
-		obj, created = AreaList.objects.update_or_create(idd=areaId, defaults={"city": city})
-		if created:
-			response.update({"Successfully added point number: ": areaId})
+	#update_list, response = [], {}
+	areaId = request.GET.get('areaId', None)
+	if request.method == 'GET':
+		if areaId:
+			try:
+				area = AreaList.objects.get(idd=areaId)
+				area.need_update = True
+				area.save()
+				return JsonResponse({'Successfully scheduled city update': area.city if area.city != '' else area.idd}, safe=False)
+			except:
+				return JsonResponse({'Not found area for update, sorry'}, safe=False)
 		else:
-			response.update({"Successfully update point number: ": areaId})
-	area_list = AreaList.objects.all()
-	OzonPoints.objects.all().delete()
-	for area in area_list:
-		data = get_ozon_points(area.idd)
-		if isinstance(data, list):
-			stat_data = OzonPoints.update_points(data)
-			# try:
-			# 	city_n = transliterate.translit(area.city, reversed=True) if area.city != '' else ''
-			# except:
-			# 	city_n =
-			stat_data.update({'city': area.city})
-			stat_data.update({'areaId': area.idd})
-			update_list.append(stat_data)
-		else:
-			update_list.append(data)
-	response.update({'Successfully update points': update_list})
-	return JsonResponse(response, safe=False)
+			area_list = AreaList.objects.all()
+			for area in area_list:
+				area.need_update = True
+				area.save()
+			return JsonResponse({'Successfully scheduled points': 'All'}, safe=False)
+	return JsonResponse({'Error': "request method {} not allowed".format(request.method)}, safe=False)
+
+# obj, created = AreaList.objects.update_or_create(idd=areaId, defaults={"city": city})
+# if created:
+# 	response.update({"Successfully added point number: ": areaId})
+# else:
+# 	response.update({"Successfully update point number: ": areaId})

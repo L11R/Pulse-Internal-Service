@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<!-- Row -->
+                {% block rows %}
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-default card-view">
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<div class="table-wrap">
+										<div class="table-responsive">
+											<table id="example" class="table table-hover display  pb-30" >
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>City</th>
+														<th>Update at</th>
+                                                        <th>Points_count</th>
+                                                        <th>Last points count</th>
+                                                        <th>Waiting for update</th>
+                                                        <th>UPDATE ref</th>
+													</tr>
+												</thead>
+												<tfoot>
+													<tr>
+														<th>ID</th>
+														<th>City</th>
+														<th>Update at</th>
+                                                        <th>Points_count</th>
+                                                        <th>Last points count</th>
+                                                        <th>Waiting for update</th>
+                                                        <th>UPDATE ref</th>
+													</tr>
+                                                <tr>
+                                                    <th colspan="7"><a href="/points/update/">Full update</a></th>
+                                                </tr>
+												</tfoot>
+												<tbody>
+												{% for area in Areas %}
+													<tr>
+														<td>{{ area.idd }}</td>
+														<td>{{ area.city }}</td>
+														<td>{{ area.update_at }}</td>
+                                                        <td>{{ area.points_count }}</td>
+														<td>{{ area.last_points_count }}</td>
+                                                        <td>{{ area.need_update }}</td>
+                                                        <td><a href="/points/update/?areaId={{area.idd}}">Обновить</a></td>
+													</tr>
+												{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                {% endblock rows %}
+                <!-- /Row -->
+
