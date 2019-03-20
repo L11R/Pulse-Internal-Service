@@ -25,6 +25,7 @@ def render_page_points(request):
 	params = {}
 	if request.method == 'GET' and len(request.GET):
 		params = {'{}__icontains'.format(k): v for k, v in request.GET.items()}
+	params['name__icontains'] = 'PonyExpress'
 	template = loader.get_template('ozon_points.html')
 	points = OzonPoints.objects.filter(**params)
 	
