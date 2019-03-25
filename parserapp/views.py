@@ -38,6 +38,21 @@ def render_page_points(request):
 	return HttpResponse(template.render({'Points': points}, request))
 
 
+def adding_city(request):
+	response = {}
+	areaId = request.GET.get('areaId', None)
+	city = request.GET.get('city', None)
+	if request.method == 'GET' and city and areaId:
+		obj, created = AreaList.objects.update_or_create(idd=areaId, defaults={"city": city, "need_update": True})
+		if created:
+			response.update({"Successfully added point number: {}, city: {}".format(areaId, city): 201})
+			return JsonResponse(response, safe=False)
+		else:
+			return JsonResponse({"Error": "already exists areaId with num {}".format(areaId)}, safe=False)
+	else:
+		return JsonResponse({"Error in {}, {}".format(city, areaId): "Error"}, safe=False)
+
+
 def update_list_points(request):
 	#import transliterate
 	cache.clear()
