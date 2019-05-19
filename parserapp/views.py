@@ -12,6 +12,10 @@ def hascyr(s):
 	return lower.intersection(s.lower()) != set()
 
 
+def get_points():
+	pass
+
+
 @login_required
 def render_page_ozon_areas(request):
 	cache.clear()

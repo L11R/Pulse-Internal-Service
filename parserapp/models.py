@@ -43,3 +43,9 @@ class AreaList(models.Model):
 	last_points_count = models.IntegerField(default=0, verbose_name='last_points_count')
 	points_count = models.IntegerField(default=0, verbose_name='points_count')
 	need_update = models.BooleanField(default=False, verbose_name='need_update')
+	
+
+class HalvaPoint(models.Model):
+	uid = models.CharField(max_length=250, verbose_name='uid')
+	name = models.CharField(max_length=250, verbose_name='name')
+	number = models.CharField(max_length=250, verbose_name='number')

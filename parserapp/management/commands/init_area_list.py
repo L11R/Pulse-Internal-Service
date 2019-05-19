@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from parserapp.models import AreaList
 from parserapp.data import area_list
 
+
 class Command(BaseCommand):
 	help = 'Generates Fake data'
 	

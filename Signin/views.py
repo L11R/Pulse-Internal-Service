@@ -234,8 +234,16 @@ def request_orders_file(request): # Should it rewrite !!
         print(headers, request.COOKIES.get('uid'))
         multipart_form_data = {'file': (filename, open(uploaded_file_url, 'rb'), 'application/vnd.ms-excel')}
         try:
+            if int(request.COOKIES.get('type')):
+                url = settings.DATA['PROD_URL'] + '/requests/from_xls/'
+            else:
+                url = request.COOKIES.get('URL')
+        except:
+            url = settings.DATA['PROD_URL'] + '/requests/from_xls/'
+        print(type(request.COOKIES.get('type')), request.COOKIES.get('type'), url)
+        try:
             resp = requests.post(
-                settings.DATA['PROD_URL'] + '/requests/from_xls/',
+                url,#settings.DATA['PROD_URL'] + '/requests/from_xls/',
                 verify=True,
                 files=multipart_form_data,
                 data={"sender": request.COOKIES.get('uid')},
