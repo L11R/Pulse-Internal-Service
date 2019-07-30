@@ -246,7 +246,7 @@ def request_orders_file(request): # Should it rewrite !!
                 url,#settings.DATA['PROD_URL'] + '/requests/from_xls/',
                 verify=True,
                 files=multipart_form_data,
-                data={"sender": request.COOKIES.get('uid')},
+                data={"sender": "202315b5-8585-490d-b906-55f94bf358e3"},#request.COOKIES.get('uid')},
                 headers=headers
             )
             resp_text = resp.text

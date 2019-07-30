@@ -35,8 +35,8 @@ class OzonPoints(models.Model):
 		area.save()
 		
 
-
 class AreaList(models.Model):
+	visibility = models.BooleanField(default=True, verbose_name='visibility')
 	idd = models.IntegerField(verbose_name='idd')
 	city = models.CharField(max_length=250, verbose_name='city')
 	update_at = models.DateTimeField(auto_now=True)
@@ -46,6 +46,7 @@ class AreaList(models.Model):
 	
 
 class HalvaPoint(models.Model):
+	visibility = models.BooleanField(default=True, verbose_name='visibility')
 	uid = models.CharField(max_length=250, verbose_name='uid')
 	name = models.CharField(max_length=250, verbose_name='name')
 	number = models.CharField(max_length=250, verbose_name='number')

@@ -20,7 +20,7 @@ def get_points():
 def render_page_ozon_areas(request):
 	cache.clear()
 	template = loader.get_template('ozon_areas.html')
-	areas = AreaList.objects.all()
+	areas = AreaList.objects.filter(visibility=True)
 	return HttpResponse(template.render({'Areas': areas}, request))
 
 
@@ -30,6 +30,7 @@ def render_page_points(request):
 	if request.method == 'GET' and len(request.GET):
 		params = {'{}__icontains'.format(k): v for k, v in request.GET.items()}
 	#params['name__icontains'] = 'PonyExpress'
+	params['visibility'] = True
 	template = loader.get_template('ozon_points.html')
 	points = OzonPoints.objects.filter(**params)
 	
