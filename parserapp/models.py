@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class OzonPoints(models.Model):
+	visibility = models.BooleanField(default=True, verbose_name='visibility')
 	idd = models.IntegerField(null=True, verbose_name='Id')
 	name = models.CharField(max_length=250, verbose_name='name')
 	address = models.CharField(max_length=250, verbose_name='address')
