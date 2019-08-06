@@ -32,7 +32,7 @@ def render_page_points(request):
 	#params['name__icontains'] = 'PonyExpress'
 	params['visibility'] = True
 	template = loader.get_template('ozon_points.html')
-	points = OzonPoints.objects.filter(**params)
+	points = OzonPoints.objects.filter(**params).exclude(name__icontains='Почты')
 	
 	# part1 = OzonPoints.objects.all()[0:999]
 	# part2 = OzonPoints.objects.all()[999:1998]
