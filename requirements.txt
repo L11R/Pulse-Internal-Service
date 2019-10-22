@@ -21,7 +21,7 @@ parso==0.2.1
 pdfkit==0.6.1
 pexpect==4.6.0
 pickleshare==0.7.4
-Pillow==5.1.0
+Pillow==6.2.0
 pisa==3.0.33
 prompt-toolkit==1.0.15
 psycopg2==2.7.4
@@ -64,7 +64,7 @@ parso==0.2.1
 pdfkit==0.6.1
 pexpect==4.6.0
 pickleshare==0.7.4
-Pillow==5.1.0
+Pillow==6.2.0
 pisa==3.0.33
 pkg-resources==0.0.0
 prompt-toolkit==1.0.15
