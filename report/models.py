@@ -93,7 +93,7 @@ class Report(models.Model):
 
 class Operation(models.Model):
     idd = models.UUIDField(primary_key=True, editable=False, verbose_name='UID события')
-    report = models.ForeignKey(Report, verbose_name="Запись о посылке")
+    report = models.ForeignKey(Report, verbose_name="Запись о посылке", on_delete=models.CASCADE)
     otype = models.CharField(max_length=32, verbose_name='Тип операции')
     dt = models.DateTimeField(verbose_name='Дата и время операции UTC')
     courier_name = models.CharField(max_length=256, null=True, verbose_name='Курьер, совершивший операцию')
