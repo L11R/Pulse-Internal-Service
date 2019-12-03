@@ -52,12 +52,14 @@ def downolad_file(request):
     response['Content-Disposition'] = "attachment; filename=%s" % os.path.basename(the_file)
     return response
 
+
 def login_required(func):
     def login_required_handler(request):
         if not request.COOKIES.get('token'):
             return redirect('/login/')
         return func(request)
     return login_required_handler
+
 
 @csrf_exempt
 def login(request):
@@ -232,11 +234,19 @@ def request_orders_file(request): # Should it rewrite !!
         print(headers, request.COOKIES.get('uid'))
         multipart_form_data = {'file': (filename, open(uploaded_file_url, 'rb'), 'application/vnd.ms-excel')}
         try:
+            if int(request.COOKIES.get('type')):
+                url = settings.DATA['PROD_URL'] + '/requests/from_xls/'
+            else:
+                url = request.COOKIES.get('URL')
+        except:
+            url = settings.DATA['PROD_URL'] + '/requests/from_xls/'
+        print(type(request.COOKIES.get('type')), request.COOKIES.get('type'), url)
+        try:
             resp = requests.post(
-                settings.DATA['PROD_URL'] + '/requests/from_xls/',
+                url,#settings.DATA['PROD_URL'] + '/requests/from_xls/',
                 verify=True,
                 files=multipart_form_data,
-                data={"sender": request.COOKIES.get('uid')},
+                data={"sender": "202315b5-8585-490d-b906-55f94bf358e3"},#request.COOKIES.get('uid')},
                 headers=headers
             )
             resp_text = resp.text
@@ -360,21 +370,21 @@ def checked(request):
         else: redirect('/login/')
     except: return redirect('/leroy/')
 
-from sms.models import Statistics_msg
-from django.core import serializers
-
-def sms_static(request):
-    context = serializers.serialize('json',
-                                    Statistics_msg.objects.using('report').all(),
-                                    indent=2,
-                                    use_natural_foreign_keys=True,
-                                    use_natural_primary_keys=True)
-    return HttpResponse(json.dumps(context), content_type="application/json")
-
-@csrf_exempt
-@login_required
-def sms_static_page(request):
-    context = {}
-    template = loader.get_template('sms/sms_stat.html')
-    #context = {"st": Statistics_msg.objects.using('report').all()}
-    return HttpResponse(template.render(context, request))
+# from sms.models import Statistics_msg
+# from django.core import serializers
+#
+# def sms_static(request):
+#     context = serializers.serialize('json',
+#                                     Statistics_msg.objects.using('report').all(),
+#                                     indent=2,
+#                                     use_natural_foreign_keys=True,
+#                                     use_natural_primary_keys=True)
+#     return HttpResponse(json.dumps(context), content_type="application/json")
+#
+# @csrf_exempt
+# @login_required
+# def sms_static_page(request):
+#     context = {}
+#     template = loader.get_template('sms/sms_stat.html')
+#     #context = {"st": Statistics_msg.objects.using('report').all()}
+#     return HttpResponse(template.render(context, request))

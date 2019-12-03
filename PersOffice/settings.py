@@ -32,7 +32,7 @@ SECRET_KEY = DATA['SECRET_KEY']
 CSRF_COOKIE_SECURE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'office.pulseexpress.ru', 'office.pochtomat.ru', 'office.pochtomat.tech']
 
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'Signin',
     'report',
     'ping',
-    'sms'
+    'parserapp'
 ]
 
 MIDDLEWARE = [

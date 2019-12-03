@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ping/', include('ping.urls')),
     url(r'', include('Signin.urls')),
+    url(r'^points/', include('parserapp.urls'))
 ]
